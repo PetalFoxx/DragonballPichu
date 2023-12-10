@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\tModLoader.targets" />
+  <PropertyGroup>
+    <AssemblyName>DragonballPichu</AssemblyName>
+    <TargetFramework>net6.0</TargetFramework>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Content\Buffs\BeastBuff.png" />
+    <None Remove="Content\Buffs\BerserkBuff.png" />
+    <None Remove="Content\Buffs\DivineBuff.png" />
+    <None Remove="Content\Buffs\DRBuff.png" />
+    <None Remove="Content\Buffs\EvilBuff.png" />
+    <None Remove="Content\Buffs\FLSSJBuff.png" />
+    <None Remove="Content\Buffs\FSSJBBuff.png" />
+    <None Remove="Content\Buffs\FSSJBuff.png" />
+    <None Remove="Content\Buffs\IkariBuff.png" />
+    <None Remove="Content\Buffs\LSSJ1Buff.png" />
+    <None Remove="Content\Buffs\LSSJ2Buff.png" />
+    <None Remove="Content\Buffs\LSSJ3Buff.png" />
+    <None Remove="Content\Buffs\LSSJ4Buff.png" />
+    <None Remove="Content\Buffs\LSSJ4LBBuff.png" />
+    <None Remove="Content\Buffs\LSSJ5Buff.png" />
+    <None Remove="Content\Buffs\LSSJ6Buff.png" />
+    <None Remove="Content\Buffs\LSSJ7Buff.png" />
+    <None Remove="Content\Buffs\LSSJBBuff.png" />
+    <None Remove="Content\Buffs\PUBuff.png" />
+    <None Remove="Content\Buffs\RampagingBuff.png" />
+    <None Remove="Content\Buffs\SSJ1G2Buff.png" />
+    <None Remove="Content\Buffs\SSJ1G3Buff.png" />
+    <None Remove="Content\Buffs\SSJ1G4Buff.png" />
+    <None Remove="Content\Buffs\SSJ2Buff.png" />
+    <None Remove="Content\Buffs\SSJ3Buff.png" />
+    <None Remove="Content\Buffs\SSJ4Buff.png" />
+    <None Remove="Content\Buffs\SSJ4LBBuff.png" />
+    <None Remove="Content\Buffs\SSJ5Buff.png" />
+    <None Remove="Content\Buffs\SSJ5G2Buff.png" />
+    <None Remove="Content\Buffs\SSJ5G3Buff.png" />
+    <None Remove="Content\Buffs\SSJ5G4Buff.png" />
+    <None Remove="Content\Buffs\SSJ6Buff.png" />
+    <None Remove="Content\Buffs\SSJ7Buff.png" />
+    <None Remove="Content\Buffs\SSJB1Buff.png" />
+    <None Remove="Content\Buffs\SSJB1G2Buff.png" />
+    <None Remove="Content\Buffs\SSJB1G3Buff.png" />
+    <None Remove="Content\Buffs\SSJB1G4Buff.png" />
+    <None Remove="Content\Buffs\SSJB2Buff.png" />
+    <None Remove="Content\Buffs\SSJB3Buff.png" />
+    <None Remove="Content\Buffs\SSJBEBuff.png" />
+    <None Remove="Content\Buffs\SSJGBuff.png" />
+    <None Remove="Content\Buffs\SSJR1Buff.png" />
+    <None Remove="Content\Buffs\SSJR1G2Buff.png" />
+    <None Remove="Content\Buffs\SSJR1G3Buff.png" />
+    <None Remove="Content\Buffs\SSJR1G4Buff.png" />
+    <None Remove="Content\Buffs\SSJR2Buff.png" />
+    <None Remove="Content\Buffs\SSJR3Buff.png" />
+    <None Remove="Content\Buffs\SSJRageBuff.png" />
+    <None Remove="Content\Buffs\TransformationBuff.png" />
+    <None Remove="Content\Buffs\TUIBuff.png" />
+    <None Remove="Content\Buffs\UEBuff.png" />
+    <None Remove="Content\Buffs\UIBuff.png" />
+    <None Remove="Content\Buffs\UILBBuff.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
+  </ItemGroup>
+</Project>

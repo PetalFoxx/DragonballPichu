@@ -1,0 +1,282 @@
+UI.KiBar: Ki: {0} / {1}
+
+Keybinds: {
+	Charge.DisplayName: Charge
+	RevertForm.DisplayName: Untransform
+	Transform.DisplayName: Transform
+	AltForm.DisplayName: Ascend/Descend
+	ShowMenu.DisplayName: Show Menu
+	AdminGiveFormPoint.DisplayName: Admin Give Form Point
+}
+
+Buffs: {
+	SSJ1Buff: {
+		DisplayName: Super Saiyan!
+		Description: Mods.DragonballPichu.Buffs.TransformationBuff.Description
+	}
+
+	FSSJBuff: {
+		DisplayName: False Super Saiyan
+		Description: Mods.DragonballPichu.Buffs.TransformationBuff.Description
+	}
+
+	FSSJBBuff: {
+		DisplayName: False Super Saiyan Blue
+		Description: Mods.DragonballPichu.Buffs.TransformationBuff.Description
+	}
+
+	TransformationBuff: {
+		DisplayName: Transformation Buff
+		Description: Mods.DragonballPichu.Buffs.TransformationBuff.Description
+	}
+
+	BeastBuff: {
+		DisplayName: Beast Form
+		Description: Mods.DragonballPichu.Buffs.BeastBuff.Description
+	}
+
+	BerserkBuff: {
+		DisplayName: Berserk Rage!
+		Description: Mods.DragonballPichu.Buffs.BerserkBuff.Description
+	}
+
+	DivineBuff: {
+		DisplayName: Divine
+		Description: Mods.DragonballPichu.Buffs.DivineBuff.Description
+	}
+
+	DRBuff: {
+		DisplayName: Divine Rose
+		Description: Mods.DragonballPichu.Buffs.DRBuff.Description
+	}
+
+	EvilBuff: {
+		DisplayName: Evil Power
+		Description: Mods.DragonballPichu.Buffs.EvilBuff.Description
+	}
+
+	FLSSJBuff: {
+		DisplayName: False Legendary Super Saiyan
+		Description: Mods.DragonballPichu.Buffs.FLSSJBuff.Description
+	}
+
+	IkariBuff: {
+		DisplayName: Ikari
+		Description: Mods.DragonballPichu.Buffs.IkariBuff.Description
+	}
+
+	LSSJ1Buff: {
+		DisplayName: Legendary Super Saiyan
+		Description: Mods.DragonballPichu.Buffs.LSSJ1Buff.Description
+	}
+
+	LSSJ2Buff: {
+		DisplayName: Legendary Super Saiyan 2
+		Description: Mods.DragonballPichu.Buffs.LSSJ2Buff.Description
+	}
+
+	LSSJ3Buff: {
+		DisplayName: Legendary Super Saiyan 3
+		Description: Mods.DragonballPichu.Buffs.LSSJ3Buff.Description
+	}
+
+	LSSJ4Buff: {
+		DisplayName: Legendary Super Saiyan 4
+		Description: Mods.DragonballPichu.Buffs.LSSJ4Buff.Description
+	}
+
+	LSSJ4LBBuff: {
+		DisplayName: Legendary Super Saiyan 4 Limit Breaker
+		Description: Mods.DragonballPichu.Buffs.LSSJ4LBBuff.Description
+	}
+
+	LSSJ5Buff: {
+		DisplayName: Legendary Super Saiyan 5
+		Description: Mods.DragonballPichu.Buffs.LSSJ5Buff.Description
+	}
+
+	LSSJ6Buff: {
+		DisplayName: Legendary Super Saiyan 6
+		Description: Mods.DragonballPichu.Buffs.LSSJ6Buff.Description
+	}
+
+	LSSJ7Buff: {
+		DisplayName: Legendary Super Saiyan 7
+		Description: Mods.DragonballPichu.Buffs.LSSJ7Buff.Description
+	}
+
+	LSSJBBuff: {
+		DisplayName: Legendary Super Saiyan Blue
+		Description: Mods.DragonballPichu.Buffs.LSSJBBuff.Description
+	}
+
+	PUBuff: {
+		DisplayName: Potential Unleashed
+		Description: Mods.DragonballPichu.Buffs.PUBuff.Description
+	}
+
+	RampagingBuff: {
+		DisplayName: Rampaging Power
+		Description: Mods.DragonballPichu.Buffs.RampagingBuff.Description
+	}
+
+	SSJ1G2Buff: {
+		DisplayName: Super Saiyan Grade 2
+		Description: Mods.DragonballPichu.Buffs.SSJ1G2Buff.Description
+	}
+
+	SSJ1G3Buff: {
+		DisplayName: Super Saiyan Grade 3
+		Description: Mods.DragonballPichu.Buffs.SSJ1G3Buff.Description
+	}
+
+	SSJ1G4Buff: {
+		DisplayName: Super Saiyan Grade 4
+		Description: Mods.DragonballPichu.Buffs.SSJ1G4Buff.Description
+	}
+
+	SSJ2Buff: {
+		DisplayName: Super Saiyan 2
+		Description: Mods.DragonballPichu.Buffs.SSJ2Buff.Description
+	}
+
+	SSJ3Buff: {
+		DisplayName: Super Saiyan 3
+		Description: Mods.DragonballPichu.Buffs.SSJ3Buff.Description
+	}
+
+	SSJ4Buff: {
+		DisplayName: Super Saiyan 4
+		Description: Mods.DragonballPichu.Buffs.SSJ4Buff.Description
+	}
+
+	SSJ4LBBuff: {
+		DisplayName: Super Saiyan 4 Limit Breaker
+		Description: Mods.DragonballPichu.Buffs.SSJ4LBBuff.Description
+	}
+
+	SSJ5Buff: {
+		DisplayName: Super Saiyan 5
+		Description: Mods.DragonballPichu.Buffs.SSJ5Buff.Description
+	}
+
+	SSJ5G2Buff: {
+		DisplayName: Super Saiyan 5 Grade 2
+		Description: Mods.DragonballPichu.Buffs.SSJ5G2Buff.Description
+	}
+
+	SSJ5G3Buff: {
+		DisplayName: Super Saiyan 5 Grade 3
+		Description: Mods.DragonballPichu.Buffs.SSJ5G3Buff.Description
+	}
+
+	SSJ5G4Buff: {
+		DisplayName: Super Saiyan 5 Grade 4
+		Description: Mods.DragonballPichu.Buffs.SSJ5G4Buff.Description
+	}
+
+	SSJ6Buff: {
+		DisplayName: Super Saiyan 6
+		Description: Mods.DragonballPichu.Buffs.SSJ6Buff.Description
+	}
+
+	SSJ7Buff: {
+		DisplayName: Super Saiyan 7
+		Description: Mods.DragonballPichu.Buffs.SSJ7Buff.Description
+	}
+
+	SSJB1Buff: {
+		DisplayName: Super Saiyan Blue
+		Description: Mods.DragonballPichu.Buffs.SSJB1Buff.Description
+	}
+
+	SSJB1G2Buff: {
+		DisplayName: Super Saiyan Blue Grade 2
+		Description: Mods.DragonballPichu.Buffs.SSJB1G2Buff.Description
+	}
+
+	SSJB1G3Buff: {
+		DisplayName: Super Saiyan Blue Grade 3
+		Description: Mods.DragonballPichu.Buffs.SSJB1G3Buff.Description
+	}
+
+	SSJB1G4Buff: {
+		DisplayName: Super Saiyan Blue Grade 4
+		Description: Mods.DragonballPichu.Buffs.SSJB1G4Buff.Description
+	}
+
+	SSJB2Buff: {
+		DisplayName: Super Saiyan Blue 2
+		Description: Mods.DragonballPichu.Buffs.SSJB2Buff.Description
+	}
+
+	SSJB3Buff: {
+		DisplayName: Super Saiyan Blue 3
+		Description: Mods.DragonballPichu.Buffs.SSJB3Buff.Description
+	}
+
+	SSJBEBuff: {
+		DisplayName: Super Saiyan Blue Evolution
+		Description: Mods.DragonballPichu.Buffs.SSJBEBuff.Description
+	}
+
+	SSJGBuff: {
+		DisplayName: Super Saiyan God
+		Description: Mods.DragonballPichu.Buffs.SSJGBuff.Description
+	}
+
+	SSJR1Buff: {
+		DisplayName: Super Saiyan Rose
+		Description: Mods.DragonballPichu.Buffs.SSJR1Buff.Description
+	}
+
+	SSJR1G2Buff: {
+		DisplayName: Super Saiyan Rose Grade 2
+		Description: Mods.DragonballPichu.Buffs.SSJR1G2Buff.Description
+	}
+
+	SSJR1G3Buff: {
+		DisplayName: Super Saiyan Rose Grade 3
+		Description: Mods.DragonballPichu.Buffs.SSJR1G3Buff.Description
+	}
+
+	SSJR1G4Buff: {
+		DisplayName: Super Saiyan Rose Grade 4
+		Description: Mods.DragonballPichu.Buffs.SSJR1G4Buff.Description
+	}
+
+	SSJR2Buff: {
+		DisplayName: Super Saiyan Rose 2
+		Description: Mods.DragonballPichu.Buffs.SSJR2Buff.Description
+	}
+
+	SSJR3Buff: {
+		DisplayName: Super Saiyan Rose 3
+		Description: Mods.DragonballPichu.Buffs.SSJR3Buff.Description
+	}
+
+	SSJRageBuff: {
+		DisplayName: Super Saiyan Rage
+		Description: Mods.DragonballPichu.Buffs.SSJRageBuff.Description
+	}
+
+	TUIBuff: {
+		DisplayName: True Ultra Instinct
+		Description: Mods.DragonballPichu.Buffs.TUIBuff.Description
+	}
+
+	UEBuff: {
+		DisplayName: Ultra Ego
+		Description: Mods.DragonballPichu.Buffs.UEBuff.Description
+	}
+
+	UIBuff: {
+		DisplayName: Ultra Instinct
+		Description: Mods.DragonballPichu.Buffs.UIBuff.Description
+	}
+
+	UILBBuff: {
+		DisplayName: Ultra Instinct Limit Breaker
+		Description: Mods.DragonballPichu.Buffs.UILBBuff.Description
+	}
+}

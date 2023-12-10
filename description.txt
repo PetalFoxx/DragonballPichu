@@ -1,0 +1,65 @@
+Very WIP Mod
+So far:
+Hold {Charge} to charge your ki, when it is over 95% full the bar disappears, and this makes you slow
+Press {Transform} to power up into your selected form, this drains your ki, but increases your damage & speed, and gives defense
+Press {Untransform} to go back to base form, this happens automatically when your ki runs out completely.
+Press {Ascend/Descend} with {Transform} or {Untransform} to Ascend or Descend forms, descending SSJ becomes FSSJ(False Super Saiyan), and descending that becomes base form. Ascending either of those will become SSJ.
+Press {Show Menu} to toggle the menu, which is where the progression happens. First box you should notice is the stats window, you can click on a form you have unlocked, or your base form:
+It will change the stats to show what you can upgrade for that form(or your base) You can click these once you have points, and respec your points anytime with the button. I will detail how you earn experience/levels in a second!
+
+The second thing you should notice is at the top. It says "Unlock Forms Below!" and it is indeed telling the truth. There should be all the forms below. Currently they cost 1 form point each to unlock, which you earn for killing unique bosses. 
+Later, there will be some kind of popup text or something that will tell you the name and the future requirements.
+
+
+The last place is the form choosing grid. This contains all of your currently accessible forms & your base. This allows you to upgrade the forms(or your base), or select one for use.
+
+To gain experience: kill enemies; the higher the max hp, the better the experience gain. Also, the first time you gain xp this way from an enemy, you get 10x as much! :D
+
+You can use a stackable form along with a normal form, or other stackable forms. The stackable forms are:
+		Evil
+		Rampaging
+		Berserk
+		Potential Unleashed
+		Divine
+		Ultra Instinct(Omen)
+
+here are all of the current forms:
+		False Super Saiyan
+		Super Saiyan 1-7, including SSJ4LB
+		Super Saiyan Grade 2-4
+		Super Saiyan 5 Grade 2-4
+		Super Saiyan Rage
+
+		Potential Unleashed/Beast Form
+
+		Evil/Rampaging/Berserk
+
+		Ikari
+		False Legendary Super Saiyan
+		Legendary Super Saiyan 1-7, including LSSJ4LB
+		Legendary Super Saiyan Blue
+
+		Super Saiyan God
+		False Super Saiyan Blue
+		Super Saiyan Blue 1-3
+		Super Saiyan Blue Grade 2-4(PSSJB is SSJBG4)
+		Super Saiyan Blue Evolution(or Royal Blue)
+
+		Super Saiyan Rose 1-3
+		Super Saiyan Rose Grade 2-4(PSSJR is SSJRG4)
+		Divine/Divine Rose
+
+		Ultra Instinct(Omen) / True Ultra Instinct(MUI) / Ultra Instinct Limit Breaker (UI with emotions)
+
+		Ultra Ego
+
+Currently no prerequesites, yet I will base progression around Calamity. I have taken some feedback into consideration and thus I won't require it if I can avoid it!
+
+There will be many forms, based on all of Dragon Ball, and other neighboring works. However, I will take some "artistic liberties" for balance purpose. Namely, the boosts forms give.
+
+This will be distinctly different from other, similar mods. It will diverge from the traits that DBT and upcoming mods all will share. 
+
+I appreciate feedback greatly! Please comment below, or join my discord! ( https://discord.gg/nqE5efx4Ag ) Even if you hate me and my mod, I will be thankful for the comment / joining >:3
+
+Also, currently the progress doesn't completely save, but I do infact plan on fixing that, at some point. It just isn't needed right now. It is one of the last things I will do before 1.0, because I will have to add many things to saving and loading if I add them now. Plus, I'd have to reset my stuff for testing purposes anyways, so I think this is fine. Hope you enjoy!
+(Currently it respecs your stats in base and form points)

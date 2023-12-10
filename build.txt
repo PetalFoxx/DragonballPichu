@@ -1,0 +1,3 @@
+displayName = Dragonball Pichu
+author = Pichu Rose
+version = 0.7.5

@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "F0yyquGkFU7JqiWye2ERsIRQCYjD3oDQES4d6tQIAz3EDw+gBh+7r2bGz+EY/MRK/bJOB7B6i7fV9iX47GICyQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\ghols\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\DragonballPichu\\DragonballPichu.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ghols\\.nuget\\packages\\tmodloader.codeassist\\0.1.5\\tmodloader.codeassist.0.1.5.nupkg.sha512"
+  ],
+  "logs": []
+}
