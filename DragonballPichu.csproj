@@ -8,6 +8,12 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <AdditionalFiles Remove=".vs\**" />
+    <Compile Remove=".vs\**" />
+    <EmbeddedResource Remove=".vs\**" />
+    <None Remove=".vs\**" />
+  </ItemGroup>
+  <ItemGroup>
     <None Remove="Content\Buffs\BeastBuff.png" />
     <None Remove="Content\Buffs\BerserkBuff.png" />
     <None Remove="Content\Buffs\DivineBuff.png" />

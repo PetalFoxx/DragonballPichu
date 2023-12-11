@@ -11,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace DragonballPichu.Common.Systems
 {
-    internal class FormTree
+    public class FormTree
     {
         public static Dictionary<string, Dictionary<string, string>> formAdvRevs = new Dictionary<string, Dictionary<string, string>>()
         {

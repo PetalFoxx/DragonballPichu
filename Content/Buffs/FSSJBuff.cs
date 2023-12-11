@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace DragonballPichu.Content.Buffs
 {
-    internal class FSSJBuff : TransformationBuff
+    public class FSSJBuff : TransformationBuff
     {
         public static new readonly int DefenseBonus = 3;
         public static new readonly float KiDrain = 5f;

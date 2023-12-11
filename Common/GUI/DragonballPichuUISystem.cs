@@ -12,9 +12,9 @@ namespace DragonballPichu.Common.GUI
 {
     class DragonballPichuUISystem : ModSystem 
     {
-        internal UserInterface MyInterface;
+        public UserInterface MyInterface;
         public FormsStatsUI MyFormsStatsUI;
-        private GameTime _lastUpdateUiGameTime;
+        public GameTime _lastUpdateUiGameTime;
 
         public override void Load()
         {
@@ -65,17 +65,17 @@ namespace DragonballPichu.Common.GUI
             }
         }
 
-        internal void ShowMyUI()
+        public void ShowMyUI()
         {
             MyInterface?.SetState(MyFormsStatsUI);
         }
 
-        internal void HideMyUI()
+        public void HideMyUI()
         {
             MyInterface?.SetState(null);
         }
 
-        internal void switchVisibility()
+        public void switchVisibility()
         {
             if (MyInterface.CurrentState == MyFormsStatsUI)
             {

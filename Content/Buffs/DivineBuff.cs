@@ -9,12 +9,12 @@ using Terraria.ModLoader;
 
 namespace DragonballPichu.Content.Buffs
 {
-    internal class DivineBuff : TransformationBuff
+    public class DivineBuff : TransformationBuff
     {
-        public static new readonly int DefenseBonus = 13;
+        public static new readonly int DefenseBonus = 0;
         public static new readonly float KiDrain = 10;
         public static new readonly float SpeedBonus = 1.25f;
-        public static new readonly float DamageBonus = 1.15f;
+        public static new readonly float DamageBonus = 1f;
         public static new readonly string name = "Divine";
         public static new readonly Boolean isStackable = true;
 

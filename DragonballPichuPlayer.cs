@@ -15,7 +15,7 @@ using Terraria.ModLoader.IO;
 
 namespace DragonballPichu
 {
-    internal class DragonballPichuPlayer : ModPlayer
+    public class DragonballPichuPlayer : ModPlayer
     {
         public Boolean FSSJUnlockCondition = true;
         public Boolean SSJ1UnlockCondition = true;
@@ -87,6 +87,7 @@ namespace DragonballPichu
         int levelInAll = 0;
         int formPoints = 0;
         int spendFormPoints = 0;
+        Boolean firstTimeOpenMenu = true;
 
         public string currentBuff = "";
         public int currentBuffID = -1;
@@ -167,8 +168,8 @@ namespace DragonballPichu
         bool isHoldingRevertKey = false;
         public bool isTransformed = false;
 
-        int selectedFormID = ModContent.BuffType<SSJ1Buff>();
-        String selectedForm = "SSJ1";
+        int selectedFormID = -1;//ModContent.BuffType<SSJ1Buff>();
+        String selectedForm = "baseForm";
 
         public Stat getStat(string statName)
         {
@@ -602,6 +603,12 @@ namespace DragonballPichu
             if (KeybindSystem.ShowMenuKeybind.JustPressed)
             {
                 ModContent.GetInstance<DragonballPichuUISystem>().switchVisibility();
+                if (firstTimeOpenMenu)
+                {
+                    firstTimeOpenMenu = false;
+                    modSystem.MyFormsStatsUI.removeFormStatButtons();
+                }
+                
             }
             if (KeybindSystem.AdminGiveFormPoint.JustPressed)
             {

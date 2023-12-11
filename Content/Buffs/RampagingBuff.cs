@@ -9,12 +9,12 @@ using Terraria.ModLoader;
 
 namespace DragonballPichu.Content.Buffs
 {
-    internal class RampagingBuff : TransformationBuff
+    public class RampagingBuff : TransformationBuff
     {
-        public static new readonly int DefenseBonus = 20;
-        public static new readonly float KiDrain = 20;
-        public static new readonly float SpeedBonus = 1.35f;
-        public static new readonly float DamageBonus = 1.4f;
+        public static new readonly int DefenseBonus = 15;
+        public static new readonly float KiDrain = 15;
+        public static new readonly float SpeedBonus = 1.05f;
+        public static new readonly float DamageBonus = 1.3f;
         public static new readonly string name = "Rampaging";
         public static new readonly Boolean isStackable = true;
 

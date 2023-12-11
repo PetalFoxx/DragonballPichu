@@ -16,7 +16,7 @@ using static Humanizer.On;
 
 namespace DragonballPichu.Common.GUI
 {
-    internal class FormsStatsUI : UIState
+    public class FormsStatsUI : UIState
     {
         public string formHoverText = "None!";
         UIGrid formsPanel;
@@ -202,11 +202,18 @@ namespace DragonballPichu.Common.GUI
             formSpecial.VAlign = .6f;
             statsPanel.Append(formSpecial);
 
-            addFormStatButtons("SSJ1");
+            //addFormStatButtons("SSJ1");
+            
             addBaseStatButtons();
+            addFormStatButtons("SSJ1");
+            //removeFormStatButtons();
+
             //removeBaseStatButtons();
             //addFormStatButtons("SSJ1");
+            //modPlayer.setSelectedForm(this.name);
+            //modSystem.MyFormsStatsUI.addStatButtons(modPlayer.getSelectedFormID());
         }
+        
 
         public void createFormButtons(string form)
         {
@@ -305,7 +312,7 @@ namespace DragonballPichu.Common.GUI
             }
         }
 
-        private void OnRespecButtonClick(UIMouseEvent evt, UIElement listeningElement)
+        public void OnRespecButtonClick(UIMouseEvent evt, UIElement listeningElement)
         {
             var modPlayer = Main.LocalPlayer.GetModPlayer<DragonballPichuPlayer>();
             if (isFormButtons)

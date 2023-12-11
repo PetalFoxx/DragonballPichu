@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DragonballPichu.Common.Systems
 {
-    internal class FormStats
+    public class FormStats
     {
         public Stat MultKi = new Stat("MultKi", 1);
         public Stat DivideDrain = new Stat("DivideDrain", 1);

@@ -9,12 +9,12 @@ using Terraria.ModLoader;
 
 namespace DragonballPichu.Content.Buffs
 {
-    internal class SSJ1G4Buff : TransformationBuff
+    public class SSJ1G4Buff : TransformationBuff
     {
-        public static new readonly int DefenseBonus = 20;
-        public static new readonly float KiDrain = 15;
-        public static new readonly float SpeedBonus = 1.3f;
-        public static new readonly float DamageBonus = 1.25f;
+        public static new readonly int DefenseBonus = 15;
+        public static new readonly float KiDrain = 1;
+        public static new readonly float SpeedBonus = 1.25f;
+        public static new readonly float DamageBonus = 1.2f;
         public static new readonly string name = "SSJ1G4";
         public static new readonly Boolean isStackable = false;
 

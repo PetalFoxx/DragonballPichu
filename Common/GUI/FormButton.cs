@@ -13,7 +13,7 @@ using Terraria.UI;
 
 namespace DragonballPichu.Common.GUI
 {
-    internal class FormButton : UIPanel
+    public class FormButton : UIPanel
     {
         string name;
         Asset<Texture2D> texture;
@@ -59,7 +59,7 @@ namespace DragonballPichu.Common.GUI
             deactivated = false;
         }
 
-        private void OnHover(UIMouseEvent evt, UIElement listeningElement)
+        public void OnHover(UIMouseEvent evt, UIElement listeningElement)
         {
             if (deactivated)
             {
@@ -69,7 +69,7 @@ namespace DragonballPichu.Common.GUI
             modSystem.MyFormsStatsUI.formHoverText = name;
         }
 
-        private void OnButtonClick(UIMouseEvent evt, UIElement listeningElement)
+        public void OnButtonClick(UIMouseEvent evt, UIElement listeningElement)
         {
             if (deactivated)
             {

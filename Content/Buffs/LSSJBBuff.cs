@@ -9,10 +9,10 @@ using Terraria.ModLoader;
 
 namespace DragonballPichu.Content.Buffs
 {
-    internal class LSSJBBuff : TransformationBuff
+    public class LSSJBBuff : TransformationBuff
     {
-        public static new readonly int DefenseBonus = 75;
-        public static new readonly float KiDrain = 60;
+        public static new readonly int DefenseBonus = 60;
+        public static new readonly float KiDrain = 75;
         public static new readonly float SpeedBonus = 1.5f;
         public static new readonly float DamageBonus = 2.4f;
         public static new readonly string name = "LSSJB";

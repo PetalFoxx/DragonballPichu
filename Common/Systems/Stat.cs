@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DragonballPichu.Common.Systems
 {
-    internal class Stat
+    public class Stat
     {
         public string name;
         public float value;
@@ -27,7 +27,7 @@ namespace DragonballPichu.Common.Systems
         public void decreaseValue(float value) { this.value -= value; roundValue(); }
 
         //this would lose precision after the hundredths place, so I must keep it in mind
-        private void roundValue()
+        public void roundValue()
         {
             this.value = (float)((Math.Round(value * 100)) / 100f);
         }

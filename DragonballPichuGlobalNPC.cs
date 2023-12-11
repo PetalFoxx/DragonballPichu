@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace DragonballPichu
 {
-    internal class DragonballPichuGlobalNPC : GlobalNPC
+    public class DragonballPichuGlobalNPC : GlobalNPC
     {
         public override void OnKill(NPC npc)
         {

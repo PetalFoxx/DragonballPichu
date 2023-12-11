@@ -13,7 +13,7 @@ using Terraria.UI;
 
 namespace DragonballPichu.Common.GUI
 {
-    internal class StatButton : UIPanel
+    public class StatButton : UIPanel
     {
         public string text;
         public string statName;
@@ -117,7 +117,7 @@ namespace DragonballPichu.Common.GUI
             }*/
         }
 
-        private void OnButtonClick(UIMouseEvent evt, UIElement listeningElement)
+        public void OnButtonClick(UIMouseEvent evt, UIElement listeningElement)
         {
             var modPlayer = Main.LocalPlayer.GetModPlayer<DragonballPichuPlayer>();
             Stat stat = modPlayer.getStat(statName);
