@@ -61,5 +61,4 @@ This will be distinctly different from other, similar mods. It will diverge from
 
 I appreciate feedback greatly! Please comment below, or join my discord! ( https://discord.gg/nqE5efx4Ag ) Even if you hate me and my mod, I will be thankful for the comment / joining >:3
 
-Also, currently the progress doesn't completely save, but I do infact plan on fixing that, at some point. It just isn't needed right now. It is one of the last things I will do before 1.0, because I will have to add many things to saving and loading if I add them now. Plus, I'd have to reset my stuff for testing purposes anyways, so I think this is fine. Hope you enjoy!
-(Currently it respecs your stats in base and form points)
+Unsure how to fix it, but there is an issue, atleast for me, that updating the mod resets my unlocked forms! I don't know how to fix this, but saving should be perfect besides that. If you know how to fix this, tell pls! :D

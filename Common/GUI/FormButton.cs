@@ -17,7 +17,7 @@ namespace DragonballPichu.Common.GUI
     {
         string name;
         Asset<Texture2D> texture;
-        UIImage icon;
+        public UIImage icon;
         Boolean unlock;
         public Boolean deactivated;
         public FormButton(string name, Asset<Texture2D> texture, Boolean unlock)

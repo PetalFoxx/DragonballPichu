@@ -780,11 +780,11 @@ namespace DragonballPichu
             }
             if (tag.ContainsKey("formPoints"))
             {
-                //formPoints = tag.GetInt("formPoints");
+                formPoints = tag.GetInt("formPoints");
             }
             if (tag.ContainsKey("spendFormPoints"))
             {
-                formPoints = tag.GetInt("spendFormPoints");
+                spendFormPoints = tag.GetInt("spendFormPoints");
             }
             List<string> forms = new List<string>() { "FSSJ","SSJ1","SSJ1G2","SSJ1G3","SSJ1G4","SSJ2","SSJ3","SSJRage","SSJ4","SSJ4LB","SSJ5","SSJ5G2","SSJ5G3","SSJ5G4","SSJ6","SSJ7","FLSSJ","Ikari","LSSJ1","LSSJ2","LSSJ3","LSSJ4","LSSJ4LB","LSSJ5","LSSJ6","LSSJ7","SSJG","LSSJB","FSSJB","SSJB1","SSJB1G2","SSJB1G3","SSJB1G4","SSJB2","SSJB3","SSJBE","SSJR1","SSJR1G2","SSJR1G3","SSJR1G4","SSJR2","SSJR3","Divine","DR","Evil","Rampaging","Berserk","PU","Beast","UE","UI","UILB","TUI"
 };
