@@ -20,9 +20,9 @@ namespace DragonballPichu.Common.GUI
     public class FormsStatsUI : UIState
     {
         public string formHoverText = "None!";
-        UIPanel formsPanel;
-        UIPanel statsPanel;
-        UIGrid formChooserPanel;
+        public UIPanel formsPanel;
+        public UIPanel statsPanel;
+        public UIGrid formChooserPanel;
 
         StatButton kiMaxStatButton;
         StatButton kiGainStatButton;
@@ -53,74 +53,74 @@ namespace DragonballPichu.Common.GUI
 
         Dictionary<string, Dictionary<string, object>> nameToUnlockTreeInfo = new Dictionary<string, Dictionary<string, object>>()
         {
-            { "FSSJ",       new Dictionary<string, object>(){ { "vAlign", 0.0625f * 1  }, { "hAlign", 0.0714f * 0 }, { "arrows", new List<GUIArrow>() { new GUIArrow(false, Color.Red, false, "FSSJ", "SSJ1") } } } },//
-            { "UI",         new Dictionary<string, object>(){ { "vAlign", 0.0625f * 1  }, { "hAlign", 0.0714f * 9 }, { "arrows", new List<GUIArrow>() { } } } },//
-            { "Ikari",      new Dictionary<string, object>(){ { "vAlign", 0.0625f * 1  }, { "hAlign", 0.0714f * 10 }, { "arrows", new List<GUIArrow>() { } } } },//
+            {"FSSJ",new Dictionary<string,object>(){{"vAlign",0.0625f*1},{"hAlign",0.0714f*0},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.Coral,false,null,"FSSJ"),new GUIArrow(false,Color.Yellow,false,"FSSJ","SSJ1")}}}},//
+            {"UI",new Dictionary<string,object>(){{"vAlign",0.0625f*1},{"hAlign",0.0714f*9},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.Black,false,null,"UI"),new GUIArrow(false,Color.LightGray,false,"UI","TUI")}}}},//
+            {"Ikari",new Dictionary<string,object>(){{"vAlign",0.0625f*1},{"hAlign",0.0714f*10},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.Maroon,false,null,"Ikari"),new GUIArrow(false,Color.SpringGreen,false,"Ikari","FLSSJ")}}}},//
 
-            { "Divine",     new Dictionary<string, object>(){ { "vAlign", 0.0625f * 2  }, { "hAlign", 0.0714f * 7 }, { "arrows", new List<GUIArrow>() { } } } },//
-            { "PU",         new Dictionary<string, object>(){ { "vAlign", 0.0625f * 2  }, { "hAlign", 0.0714f * 12 }, { "arrows", new List<GUIArrow>() { } } } },//
+            {"Divine",new Dictionary<string,object>(){{"vAlign",0.0625f*2},{"hAlign",0.0714f*7},{"arrows",new List<GUIArrow>(){}}}},//down one then right to DR
+            {"PU",new Dictionary<string,object>(){{"vAlign",0.0625f*2},{"hAlign",0.0714f*12},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.Black,false,null,"PU"),new GUIArrow(false,Color.LightSlateGray,false,"PU","Beast")}}}},//
 
-            { "SSJ1",       new Dictionary<string, object>(){ { "vAlign", 0.0625f * 3  }, { "hAlign", 0.0714f * 0 }, { "arrows", new List<GUIArrow>() { } } } },//
-            { "SSJ1G4",     new Dictionary<string, object>(){ { "vAlign", 0.0625f * 3  }, { "hAlign", 0.0714f * 1 }, { "arrows", new List<GUIArrow>() { } } } },//
-            { "FLSSJ",      new Dictionary<string, object>(){ { "vAlign", 0.0625f * 3  }, { "hAlign", 0.0714f * 10 }, { "arrows", new List<GUIArrow>() { } } } },//
-            { "Evil",       new Dictionary<string, object>(){ { "vAlign", 0.0625f * 3  }, { "hAlign", 0.0714f * 11 }, { "arrows", new List<GUIArrow>() { } } } },//
+            {"SSJ1",new Dictionary<string,object>(){{"vAlign",0.0625f*3},{"hAlign",0.0714f*0},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.Yellow,false,"SSJ1","SSJ1G2"),new GUIArrow(true,Color.Yellow,false,"SSJ1","SSJ1G4")}}}},//
+            {"SSJ1G4",new Dictionary<string,object>(){{"vAlign",0.0625f*3},{"hAlign",0.0714f*1},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.Yellow,false,"SSJ1G4","SSJ2")}}}},//
+            {"FLSSJ",new Dictionary<string,object>(){{"vAlign",0.0625f*3},{"hAlign",0.0714f*10},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.LimeGreen,false,"FLSSJ","LSSJ1")}}}},//
+            {"Evil",new Dictionary<string,object>(){{"vAlign",0.0625f*3},{"hAlign",0.0714f*11},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.BlueViolet,false,null,"Evil"),new GUIArrow(false,Color.BlueViolet,false,"Evil","Rampaging")}}}},//
 
-            { "SSJ1G2",     new Dictionary<string, object>(){ { "vAlign", 0.0625f * 4  }, { "hAlign", 0.0714f * 0 }, { "arrows", new List<GUIArrow>() { } } } },//
-            { "SSJ2",       new Dictionary<string, object>(){ { "vAlign", 0.0625f * 4  }, { "hAlign", 0.0714f * 1 }, { "arrows", new List<GUIArrow>() { } } } },//
-            { "LSSJ1",      new Dictionary<string, object>(){ { "vAlign", 0.0625f * 4  }, { "hAlign", 0.0714f * 10 }, { "arrows", new List<GUIArrow>() { } } } },//
-            { "Rampaging",  new Dictionary<string, object>(){ { "vAlign", 0.0625f * 4  }, { "hAlign", 0.0714f * 11 }, { "arrows", new List<GUIArrow>() { } } } },//
+            {"SSJ1G2",new Dictionary<string,object>(){{"vAlign",0.0625f*4},{"hAlign",0.0714f*0},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.Yellow,false,"SSJ1G2","SSJ1G3")}}}},//
+            {"SSJ2",new Dictionary<string,object>(){{"vAlign",0.0625f*4},{"hAlign",0.0714f*1},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.Yellow,false,"SSJ2","SSJ3")}}}},//
+            {"LSSJ1",new Dictionary<string,object>(){{"vAlign",0.0625f*4},{"hAlign",0.0714f*10},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.LimeGreen,false,"LSSJ1","LSSJ2")}}}},//
+            {"Rampaging",new Dictionary<string,object>(){{"vAlign",0.0625f*4},{"hAlign",0.0714f*11},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.BlueViolet,false,"Rampaging","Berserk")}}}},//
 
-            { "SSJ1G3",     new Dictionary<string, object>(){ { "vAlign", 0.0625f * 5  }, { "hAlign", 0.0714f * 0 }, { "arrows", new List<GUIArrow>() { } } } },//
-            { "SSJ3",       new Dictionary<string, object>(){ { "vAlign", 0.0625f * 5  }, { "hAlign", 0.0714f * 1 }, { "arrows", new List<GUIArrow>() { } } } },//
-            { "LSSJ2",      new Dictionary<string, object>(){ { "vAlign", 0.0625f * 5  }, { "hAlign", 0.0714f * 10 }, { "arrows", new List<GUIArrow>() { } } } },//
-            { "Berserk",    new Dictionary<string, object>(){ { "vAlign", 0.0625f * 5  }, { "hAlign", 0.0714f * 11 }, { "arrows", new List<GUIArrow>() { } } } },//
+            {"SSJ1G3",new Dictionary<string,object>(){{"vAlign",0.0625f*5},{"hAlign",0.0714f*0},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.SkyBlue,false,"SSJ1G3","SSJRage")}}}},//
+            {"SSJ3",new Dictionary<string,object>(){{"vAlign",0.0625f*5},{"hAlign",0.0714f*1},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.Maroon,false,"SSJ3","SSJ4")}}}},//
+            {"LSSJ2",new Dictionary<string,object>(){{"vAlign",0.0625f*5},{"hAlign",0.0714f*10},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.LimeGreen,false,"LSSJ2","LSSJ3")}}}},//
+            {"Berserk",new Dictionary<string,object>(){{"vAlign",0.0625f*5},{"hAlign",0.0714f*11},{"arrows",new List<GUIArrow>(){}}}},//no more
 
-            { "SSJ4",       new Dictionary<string, object>(){ { "vAlign", 0.0625f * 6  }, { "hAlign", 0.0714f * 1 }, { "arrows", new List<GUIArrow>() { } } } },//
-            { "LSSJ3",      new Dictionary<string, object>(){ { "vAlign", 0.0625f * 6  }, { "hAlign", 0.0714f * 10 }, { "arrows", new List<GUIArrow>() { } } } },//
+            {"SSJ4",new Dictionary<string,object>(){{"vAlign",0.0625f*6},{"hAlign",0.0714f*1},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.DarkRed,false,"SSJ4","SSJ4LB")}}}},//
+            {"LSSJ3",new Dictionary<string,object>(){{"vAlign",0.0625f*6},{"hAlign",0.0714f*10},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.LimeGreen,false,"LSSJ3","LSSJ4")}}}},//
 
-            { "SSJ4LB",     new Dictionary<string, object>(){ { "vAlign", 0.0625f * 7  }, { "hAlign", 0.0714f * 1 }, { "arrows", new List<GUIArrow>() { } } } },//
-            { "SSJG",       new Dictionary<string, object>(){ { "vAlign", 0.0625f * 7  }, { "hAlign", 0.0714f * 3 }, { "arrows", new List<GUIArrow>() { } } } },//
-            { "LSSJ4",      new Dictionary<string, object>(){ { "vAlign", 0.0625f * 7  }, { "hAlign", 0.0714f * 10 }, { "arrows", new List<GUIArrow>() { } } } },//
+            {"SSJ4LB",new Dictionary<string,object>(){{"vAlign",0.0625f*7},{"hAlign",0.0714f*1},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.LightGray,false,"SSJ4LB","SSJ5")}}}},//
+            {"SSJG",new Dictionary<string,object>(){{"vAlign",0.0625f*7},{"hAlign",0.0714f*3},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.Red,false,null,"SSJG"),new GUIArrow(false,Color.Yellow,false,"SSJG","FSSJB")}}}},//
+            {"LSSJ4",new Dictionary<string,object>(){{"vAlign",0.0625f*7},{"hAlign",0.0714f*10},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.LimeGreen,false,"LSSJ4","LSSJ4LB")}}}},//
 
-            { "SSJ5",       new Dictionary<string, object>(){ { "vAlign", 0.0625f * 8  }, { "hAlign", 0.0714f * 1 }, { "arrows", new List<GUIArrow>() { } } } },//
-            { "SSJ5G4",     new Dictionary<string, object>(){ { "vAlign", 0.0625f * 8  }, { "hAlign", 0.0714f * 2 }, { "arrows", new List<GUIArrow>() { } } } },//
-            { "FSSJB",      new Dictionary<string, object>(){ { "vAlign", 0.0625f * 8  }, { "hAlign", 0.0714f * 3 }, { "arrows", new List<GUIArrow>() { } } } },//
-            { "LSSJ4LB",    new Dictionary<string, object>(){ { "vAlign", 0.0625f * 8  }, { "hAlign", 0.0714f * 10 }, { "arrows", new List<GUIArrow>() { } } } },//
+            {"SSJ5",new Dictionary<string,object>(){{"vAlign",0.0625f*8},{"hAlign",0.0714f*1},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.LightGray,false,"SSJ5","SSJ5G2"),new GUIArrow(true,Color.LightGray,false,"SSJ5","SSJ5G4")}}}},//
+            {"SSJ5G4",new Dictionary<string,object>(){{"vAlign",0.0625f*8},{"hAlign",0.0714f*2},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.LightGray,false,"SSJ5G4","SSJ6")}}}},//
+            {"FSSJB",new Dictionary<string,object>(){{"vAlign",0.0625f*8},{"hAlign",0.0714f*3},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.DeepSkyBlue,false,"FSSJB","SSJB1")}}}},//
+            {"LSSJ4LB",new Dictionary<string,object>(){{"vAlign",0.0625f*8},{"hAlign",0.0714f*10},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.LimeGreen,false,"LSSJ4LB","LSSJ5")}}}},//
 
-            { "SSJRage",    new Dictionary<string, object>(){ { "vAlign", 0.0625f * 9  }, { "hAlign", 0.0714f * 0 }, { "arrows", new List<GUIArrow>() { } } } },//
-            { "SSJB1",      new Dictionary<string, object>(){ { "vAlign", 0.0625f * 9  }, { "hAlign", 0.0714f * 3 }, { "arrows", new List<GUIArrow>() { } } } },//
-            { "SSJB1G4",    new Dictionary<string, object>(){ { "vAlign", 0.0625f * 9  }, { "hAlign", 0.0714f * 4 }, { "arrows", new List<GUIArrow>() { } } } },//
-            { "SSJR1",      new Dictionary<string, object>(){ { "vAlign", 0.0625f * 9  }, { "hAlign", 0.0714f * 6 }, { "arrows", new List<GUIArrow>() { } } } },//
-            { "SSJR1G4",    new Dictionary<string, object>(){ { "vAlign", 0.0625f * 9  }, { "hAlign", 0.0714f * 7 }, { "arrows", new List<GUIArrow>() { } } } },//
+            {"SSJRage",new Dictionary<string,object>(){{"vAlign",0.0625f*9},{"hAlign",0.0714f*0},{"arrows",new List<GUIArrow>(){}}}},//no more
+            {"SSJB1",new Dictionary<string,object>(){{"vAlign",0.0625f*9},{"hAlign",0.0714f*3},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.DeepSkyBlue,false,"SSJB1","SSJB1G2"),new GUIArrow(true,Color.DeepSkyBlue,false,"SSJB1","SSJB1G4")}}}},//
+            {"SSJB1G4",new Dictionary<string,object>(){{"vAlign",0.0625f*9},{"hAlign",0.0714f*4},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.DeepSkyBlue,false,"SSJB1G4","SSJB2")}}}},//
+            {"SSJR1",new Dictionary<string,object>(){{"vAlign",0.0625f*9},{"hAlign",0.0714f*6},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.Fuchsia,false,"SSJR1","SSJR1G2"),new GUIArrow(true,Color.Fuchsia,false,"SSJR1","SSJR1G4")}}}},//
+            {"SSJR1G4",new Dictionary<string,object>(){{"vAlign",0.0625f*9},{"hAlign",0.0714f*7},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.Fuchsia,false,"SSJR1G4","SSJR2")}}}},//
 
-            { "SSJ5G2",     new Dictionary<string, object>(){ { "vAlign", 0.0625f * 10 }, { "hAlign", 0.0714f * 1 }, { "arrows", new List<GUIArrow>() { } } } },//
+            {"SSJ5G2",new Dictionary<string,object>(){{"vAlign",0.0625f*10},{"hAlign", 0.0714f * 1},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.LightGray, false,"SSJ5G2","SSJ5G3")}}}},//
             
-            { "SSJ6",       new Dictionary<string, object>(){ { "vAlign", 0.0625f * 11  }, { "hAlign", 0.0714f * 2 }, { "arrows", new List<GUIArrow>() { } } } },//
-            { "SSJB1G2",    new Dictionary<string, object>(){ { "vAlign", 0.0625f * 11  }, { "hAlign", 0.0714f * 3 }, { "arrows", new List<GUIArrow>() { } } } },//
-            { "LSSJB",      new Dictionary<string, object>(){ { "vAlign", 0.0625f * 11  }, { "hAlign", 0.0714f * 5 }, { "arrows", new List<GUIArrow>() { } } } },//
-            { "SSJR1G2",    new Dictionary<string, object>(){ { "vAlign", 0.0625f * 11  }, { "hAlign", 0.0714f * 6 }, { "arrows", new List<GUIArrow>() { } } } },//
-            { "LSSJ5",      new Dictionary<string, object>(){ { "vAlign", 0.0625f * 11  }, { "hAlign", 0.0714f * 10 }, { "arrows", new List<GUIArrow>() { } } } },//
+            {"SSJ6",new Dictionary<string,object>(){{"vAlign",0.0625f*11},{"hAlign",0.0714f*2},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.LightGray,false,"SSJ6","SSJ7")}}}},//
+            {"SSJB1G2",new Dictionary<string,object>(){{"vAlign",0.0625f*11},{"hAlign",0.0714f*3},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.DeepSkyBlue,false,"SSJB1G2","SSJB1G3")}}}},//
+            {"LSSJB",new Dictionary<string,object>(){{"vAlign",0.0625f*11},{"hAlign",0.0714f*5},{"arrows",new List<GUIArrow>(){}}}},//no more
+            {"SSJR1G2",new Dictionary<string,object>(){{"vAlign",0.0625f*11},{"hAlign",0.0714f*6},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.Fuchsia,false,"SSJR1G2","SSJR1G3")}}}},//
+            {"LSSJ5",new Dictionary<string,object>(){{"vAlign",0.0625f*11},{"hAlign",0.0714f*10},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.LimeGreen,false,"LSSJ5","LSSJ6")}}}},//
 
-            { "SSJB1G3",    new Dictionary<string, object>(){ { "vAlign", 0.0625f * 12  }, { "hAlign", 0.0714f * 3 }, { "arrows", new List<GUIArrow>() { } } } },//
-            { "SSJB2",      new Dictionary<string, object>(){ { "vAlign", 0.0625f * 12  }, { "hAlign", 0.0714f * 4 }, { "arrows", new List<GUIArrow>() { } } } },//
-            { "SSJR1G3",    new Dictionary<string, object>(){ { "vAlign", 0.0625f * 12  }, { "hAlign", 0.0714f * 6 }, { "arrows", new List<GUIArrow>() { } } } },//
-            { "SSJR2",      new Dictionary<string, object>(){ { "vAlign", 0.0625f * 12  }, { "hAlign", 0.0714f * 7 }, { "arrows", new List<GUIArrow>() { } } } },//
+            {"SSJB1G3",new Dictionary<string,object>(){{"vAlign",0.0625f*12},{"hAlign",0.0714f*3},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.Blue,false,"SSJB1G3","SSJBE")}}}},//
+            {"SSJB2",new Dictionary<string,object>(){{"vAlign",0.0625f*12},{"hAlign",0.0714f*4},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.DeepSkyBlue,false,"SSJB2","SSJB3")}}}},//
+            {"SSJR1G3",new Dictionary<string,object>(){{"vAlign",0.0625f*12},{"hAlign",0.0714f*6},{"arrows",new List<GUIArrow>(){}}}},//no more
+            {"SSJR2",new Dictionary<string,object>(){{"vAlign",0.0625f*12},{"hAlign",0.0714f*7},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.Fuchsia,false,"SSJR2","SSJR3")}}}},//
             
-            { "SSJ5G3",     new Dictionary<string, object>(){ { "vAlign", 0.0625f * 13  }, { "hAlign", 0.0714f * 1 }, { "arrows", new List<GUIArrow>() { } } } },//
+            {"SSJ5G3",new Dictionary<string,object>(){{"vAlign",0.0625f*13},{"hAlign",0.0714f*1},{"arrows",new List<GUIArrow>(){}}}},//no more
 
-            { "SSJ7",       new Dictionary<string, object>(){ { "vAlign", 0.0625f * 14  }, { "hAlign", 0.0714f * 2 }, { "arrows", new List<GUIArrow>() { } } } },//
-            { "SSJBE",      new Dictionary<string, object>(){ { "vAlign", 0.0625f * 14  }, { "hAlign", 0.0714f * 3 }, { "arrows", new List<GUIArrow>() { } } } },//
-            { "SSJB3",      new Dictionary<string, object>(){ { "vAlign", 0.0625f * 14  }, { "hAlign", 0.0714f * 4 }, { "arrows", new List<GUIArrow>() { } } } },//
-            { "SSJR3",      new Dictionary<string, object>(){ { "vAlign", 0.0625f * 14  }, { "hAlign", 0.0714f * 7 }, { "arrows", new List<GUIArrow>() { } } } },//
-            { "DR",         new Dictionary<string, object>(){ { "vAlign", 0.0625f * 14  }, { "hAlign", 0.0714f * 8 }, { "arrows", new List<GUIArrow>() { } } } },//
-            { "TUI",        new Dictionary<string, object>(){ { "vAlign", 0.0625f * 14  }, { "hAlign", 0.0714f * 9 }, { "arrows", new List<GUIArrow>() { } } } },//
-            { "LSSJ6",      new Dictionary<string, object>(){ { "vAlign", 0.0625f * 14  }, { "hAlign", 0.0714f * 10 }, { "arrows", new List<GUIArrow>() { } } } },//
+            {"SSJ7",new Dictionary<string,object>(){{"vAlign",0.0625f*14},{"hAlign",0.0714f*2},{"arrows",new List<GUIArrow>(){}}}},//no more
+            {"SSJBE",new Dictionary<string,object>(){{"vAlign",0.0625f*14},{"hAlign",0.0714f*3},{"arrows",new List<GUIArrow>(){}}}},//no more
+            {"SSJB3",new Dictionary<string,object>(){{"vAlign",0.0625f*14},{"hAlign",0.0714f*4},{"arrows",new List<GUIArrow>(){}}}},//no more
+            {"SSJR3",new Dictionary<string,object>(){{"vAlign",0.0625f*14},{"hAlign",0.0714f*7},{"arrows",new List<GUIArrow>(){}}}},//no more
+            {"DR",new Dictionary<string,object>(){{"vAlign",0.0625f*14},{"hAlign",0.0714f*8},{"arrows",new List<GUIArrow>(){}}}},//no more
+            {"TUI",new Dictionary<string,object>(){{"vAlign",0.0625f*14},{"hAlign",0.0714f*9},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.LightGray,false,"TUI","UILB")}}}},//
+            {"LSSJ6",new Dictionary<string,object>(){{"vAlign",0.0625f*14},{"hAlign",0.0714f*10},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.LimeGreen,false,"LSSJ6","LSSJ7")}}}},//
 
-            { "Beast",      new Dictionary<string, object>(){ { "vAlign", 0.0625f * 15  }, { "hAlign", 0.0714f * 12 }, { "arrows", new List<GUIArrow>() { } } } },//
-            { "UE",         new Dictionary<string, object>(){ { "vAlign", 0.0625f * 15  }, { "hAlign", 0.0714f * 13 }, { "arrows", new List<GUIArrow>() { } } } },//
+            {"Beast",new Dictionary<string,object>(){{"vAlign",0.0625f*15},{"hAlign",0.0714f*12},{"arrows",new List<GUIArrow>(){}}}},//no more
+            {"UE",new Dictionary<string,object>(){{"vAlign",0.0625f*15},{"hAlign",0.0714f*13},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.Purple,false,null,"UE")}}}},//no more
 
-            { "UILB",       new Dictionary<string, object>(){ { "vAlign", 0.0625f * 16  }, { "hAlign", 0.0714f * 9 }, { "arrows", new List<GUIArrow>() { } } } },//
-            { "LSSJ7",      new Dictionary<string, object>(){ { "vAlign", 0.0625f * 16  }, { "hAlign", 0.0714f * 10 }, { "arrows", new List<GUIArrow>() { } } } },//
+            {"UILB",new Dictionary<string,object>(){{"vAlign",0.0625f*16},{"hAlign",0.0714f*9},{"arrows",new List<GUIArrow>(){}}}},//no more
+            {"LSSJ7",new Dictionary<string,object>(){{"vAlign",0.0625f*16},{"hAlign",0.0714f*10},{"arrows",new List<GUIArrow>(){}}}},//no more
         };
 
 

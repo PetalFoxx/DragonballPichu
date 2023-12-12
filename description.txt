@@ -7,8 +7,7 @@ Press {Ascend/Descend} with {Transform} or {Untransform} to Ascend or Descend fo
 Press {Show Menu} to toggle the menu, which is where the progression happens. First box you should notice is the stats window, you can click on a form you have unlocked, or your base form:
 It will change the stats to show what you can upgrade for that form(or your base) You can click these once you have points, and respec your points anytime with the button. I will detail how you earn experience/levels in a second!
 
-The second thing you should notice is at the top. It says "Unlock Forms Below!" and it is indeed telling the truth. There should be all the forms below. Currently they cost 1 form point each to unlock, which you earn for killing unique bosses. 
-Later, there will be some kind of popup text or something that will tell you the name and the future requirements.
+The second thing you should notice is at the top. There should be all the forms below. Currently they cost 1 form point each to unlock, which you earn for killing unique bosses. Hovering on a form button says the name, and it is also on the tree.
 
 
 The last place is the form choosing grid. This contains all of your currently accessible forms & your base. This allows you to upgrade the forms(or your base), or select one for use.
