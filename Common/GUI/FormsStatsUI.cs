@@ -53,58 +53,58 @@ namespace DragonballPichu.Common.GUI
 
         Dictionary<string, Dictionary<string, object>> nameToUnlockTreeInfo = new Dictionary<string, Dictionary<string, object>>()
         {
-            {"FSSJ",new Dictionary<string,object>(){{"vAlign",0.0625f*1},{"hAlign",0.0714f*0},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.Coral,false,null,"FSSJ"),new GUIArrow(false,Color.Yellow,false,"FSSJ","SSJ1")}}}},//
-            {"UI",new Dictionary<string,object>(){{"vAlign",0.0625f*1},{"hAlign",0.0714f*9},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.Black,false,null,"UI"),new GUIArrow(false,Color.LightGray,false,"UI","TUI")}}}},//
-            {"Ikari",new Dictionary<string,object>(){{"vAlign",0.0625f*1},{"hAlign",0.0714f*10},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.Maroon,false,null,"Ikari"),new GUIArrow(false,Color.SpringGreen,false,"Ikari","FLSSJ")}}}},//
+            {"FSSJ",new Dictionary<string,object>(){{"vAlign",0.0625f*1},{"hAlign",0.0714f*0},{"arrows",new List<GUIArrow>(){new GUIArrow(Color.Coral,"FSSJ"),new GUIArrow(Color.Yellow,"FSSJ","SSJ1")}}}},//
+            {"UI",new Dictionary<string,object>(){{"vAlign",0.0625f*1},{"hAlign",0.0714f*9},{"arrows",new List<GUIArrow>(){new GUIArrow(Color.Black,"UI"),new GUIArrow(Color.LightGray,"UI","TUI")}}}},//
+            {"Ikari",new Dictionary<string,object>(){{"vAlign",0.0625f*1},{"hAlign",0.0714f*10},{"arrows",new List<GUIArrow>(){new GUIArrow(Color.Maroon,"Ikari"),new GUIArrow(Color.SpringGreen,"Ikari","FLSSJ")}}}},//
 
-            {"Divine",new Dictionary<string,object>(){{"vAlign",0.0625f*2},{"hAlign",0.0714f*7},{"arrows",new List<GUIArrow>(){}}}},//down one then right to DR
-            {"PU",new Dictionary<string,object>(){{"vAlign",0.0625f*2},{"hAlign",0.0714f*12},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.Black,false,null,"PU"),new GUIArrow(false,Color.LightSlateGray,false,"PU","Beast")}}}},//
+            {"Divine",new Dictionary<string,object>(){{"vAlign",0.0625f*2},{"hAlign",0.0714f*7},{"arrows",new List<GUIArrow>(){new GUIArrow(Color.LightPink, "Divine", "DR")}}}},//
+            {"PU",new Dictionary<string,object>(){{"vAlign",0.0625f*2},{"hAlign",0.0714f*12},{"arrows",new List<GUIArrow>(){new GUIArrow(Color.Black,"PU"),new GUIArrow(Color.LightSlateGray,"PU","Beast")}}}},//
 
-            {"SSJ1",new Dictionary<string,object>(){{"vAlign",0.0625f*3},{"hAlign",0.0714f*0},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.Yellow,false,"SSJ1","SSJ1G2"),new GUIArrow(true,Color.Yellow,false,"SSJ1","SSJ1G4")}}}},//
-            {"SSJ1G4",new Dictionary<string,object>(){{"vAlign",0.0625f*3},{"hAlign",0.0714f*1},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.Yellow,false,"SSJ1G4","SSJ2")}}}},//
-            {"FLSSJ",new Dictionary<string,object>(){{"vAlign",0.0625f*3},{"hAlign",0.0714f*10},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.LimeGreen,false,"FLSSJ","LSSJ1")}}}},//
-            {"Evil",new Dictionary<string,object>(){{"vAlign",0.0625f*3},{"hAlign",0.0714f*11},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.BlueViolet,false,null,"Evil"),new GUIArrow(false,Color.BlueViolet,false,"Evil","Rampaging")}}}},//
+            {"SSJ1",new Dictionary<string,object>(){{"vAlign",0.0625f*3},{"hAlign",0.0714f*0},{"arrows",new List<GUIArrow>(){new GUIArrow(Color.Yellow,"SSJ1","SSJ1G2"),new GUIArrow(Color.Yellow,"SSJ1","SSJ1G4")}}}},//
+            {"SSJ1G4",new Dictionary<string,object>(){{"vAlign",0.0625f*3},{"hAlign",0.0714f*1},{"arrows",new List<GUIArrow>(){new GUIArrow(Color.Yellow    ,"SSJ1G4","SSJ2")}}}},//
+            {"FLSSJ",new Dictionary<string,object>(){{"vAlign",0.0625f*3},{"hAlign",0.0714f*10},{"arrows",new List<GUIArrow>(){new GUIArrow(Color.LimeGreen,"FLSSJ","LSSJ1")}}}},//
+            {"Evil",new Dictionary<string,object>(){{"vAlign",0.0625f*3},{"hAlign",0.0714f*11},{"arrows",new List<GUIArrow>(){new GUIArrow(Color.BlueViolet,"Evil"),new GUIArrow(Color.BlueViolet,"Evil","Rampaging")}}}},//
 
-            {"SSJ1G2",new Dictionary<string,object>(){{"vAlign",0.0625f*4},{"hAlign",0.0714f*0},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.Yellow,false,"SSJ1G2","SSJ1G3")}}}},//
-            {"SSJ2",new Dictionary<string,object>(){{"vAlign",0.0625f*4},{"hAlign",0.0714f*1},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.Yellow,false,"SSJ2","SSJ3")}}}},//
-            {"LSSJ1",new Dictionary<string,object>(){{"vAlign",0.0625f*4},{"hAlign",0.0714f*10},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.LimeGreen,false,"LSSJ1","LSSJ2")}}}},//
-            {"Rampaging",new Dictionary<string,object>(){{"vAlign",0.0625f*4},{"hAlign",0.0714f*11},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.BlueViolet,false,"Rampaging","Berserk")}}}},//
+            {"SSJ1G2",new Dictionary<string,object>(){{"vAlign",0.0625f*4},{"hAlign",0.0714f*0},{"arrows",new List<GUIArrow>(){new GUIArrow(Color.Yellow,"SSJ1G2","SSJ1G3")}}}},//
+            {"SSJ2",new Dictionary<string,object>(){{"vAlign",0.0625f*4},{"hAlign",0.0714f*1},{"arrows",new List<GUIArrow>(){new GUIArrow(Color.Yellow,"SSJ2","SSJ3")}}}},//
+            {"LSSJ1",new Dictionary<string,object>(){{"vAlign",0.0625f*4},{"hAlign",0.0714f*10},{"arrows",new List<GUIArrow>(){new GUIArrow(Color.LimeGreen,"LSSJ1","LSSJ2")}}}},//
+            {"Rampaging",new Dictionary<string,object>(){{"vAlign",0.0625f*4},{"hAlign",0.0714f*11},{"arrows",new List<GUIArrow>(){new GUIArrow(Color.BlueViolet    ,"Rampaging","Berserk")}}}},//
 
-            {"SSJ1G3",new Dictionary<string,object>(){{"vAlign",0.0625f*5},{"hAlign",0.0714f*0},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.SkyBlue,false,"SSJ1G3","SSJRage")}}}},//
-            {"SSJ3",new Dictionary<string,object>(){{"vAlign",0.0625f*5},{"hAlign",0.0714f*1},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.Maroon,false,"SSJ3","SSJ4")}}}},//
-            {"LSSJ2",new Dictionary<string,object>(){{"vAlign",0.0625f*5},{"hAlign",0.0714f*10},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.LimeGreen,false,"LSSJ2","LSSJ3")}}}},//
+            {"SSJ1G3",new Dictionary<string,object>(){{"vAlign",0.0625f*5},{"hAlign",0.0714f*0},{"arrows",new List<GUIArrow>(){new GUIArrow(Color.SkyBlue,"SSJ1G3","SSJRage")}}}},//
+            {"SSJ3",new Dictionary<string,object>(){{"vAlign",0.0625f*5},{"hAlign",0.0714f*1},{"arrows",new List<GUIArrow>(){new GUIArrow(Color.Maroon,"SSJ3","SSJ4")}}}},//
+            {"LSSJ2",new Dictionary<string,object>(){{"vAlign",0.0625f*5},{"hAlign",0.0714f*10},{"arrows",new List<GUIArrow>(){new GUIArrow(Color.LimeGreen,"LSSJ2","LSSJ3")}}}},//
             {"Berserk",new Dictionary<string,object>(){{"vAlign",0.0625f*5},{"hAlign",0.0714f*11},{"arrows",new List<GUIArrow>(){}}}},//no more
 
-            {"SSJ4",new Dictionary<string,object>(){{"vAlign",0.0625f*6},{"hAlign",0.0714f*1},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.DarkRed,false,"SSJ4","SSJ4LB")}}}},//
-            {"LSSJ3",new Dictionary<string,object>(){{"vAlign",0.0625f*6},{"hAlign",0.0714f*10},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.LimeGreen,false,"LSSJ3","LSSJ4")}}}},//
+            {"SSJ4",new Dictionary<string,object>(){{"vAlign",0.0625f*6},{"hAlign",0.0714f*1},{"arrows",new List<GUIArrow>(){new GUIArrow(Color.DarkRed,"SSJ4","SSJ4LB")}}}},//
+            {"LSSJ3",new Dictionary<string,object>(){{"vAlign",0.0625f*6},{"hAlign",0.0714f*10},{"arrows",new List<GUIArrow>(){new GUIArrow(Color.LimeGreen,"LSSJ3","LSSJ4"),new GUIArrow(Color.DarkCyan,"LSSJ3","LSSJB")}}}},//
 
-            {"SSJ4LB",new Dictionary<string,object>(){{"vAlign",0.0625f*7},{"hAlign",0.0714f*1},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.LightGray,false,"SSJ4LB","SSJ5")}}}},//
-            {"SSJG",new Dictionary<string,object>(){{"vAlign",0.0625f*7},{"hAlign",0.0714f*3},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.Red,false,null,"SSJG"),new GUIArrow(false,Color.Yellow,false,"SSJG","FSSJB")}}}},//
-            {"LSSJ4",new Dictionary<string,object>(){{"vAlign",0.0625f*7},{"hAlign",0.0714f*10},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.LimeGreen,false,"LSSJ4","LSSJ4LB")}}}},//
+            {"SSJ4LB",new Dictionary<string,object>(){{"vAlign",0.0625f*7},{"hAlign",0.0714f*1},{"arrows",new List<GUIArrow>(){new GUIArrow(Color.LightGray ,"SSJ4LB","SSJ5")}}}},//
+            {"SSJG",new Dictionary<string,object>(){{"vAlign",0.0625f*7},{"hAlign",0.0714f*3},{"arrows",new List<GUIArrow>(){new GUIArrow(Color.Red,"SSJG"),new GUIArrow(Color.Yellow,"SSJG","FSSJB"),new GUIArrow(Color.DarkCyan,"SSJG","LSSJB")}}}},//
+            {"LSSJ4",new Dictionary<string,object>(){{"vAlign",0.0625f*7},{"hAlign",0.0714f*10},{"arrows",new List<GUIArrow>(){new GUIArrow(Color.LimeGreen,"LSSJ4","LSSJ4LB")}}}},//
 
-            {"SSJ5",new Dictionary<string,object>(){{"vAlign",0.0625f*8},{"hAlign",0.0714f*1},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.LightGray,false,"SSJ5","SSJ5G2"),new GUIArrow(true,Color.LightGray,false,"SSJ5","SSJ5G4")}}}},//
-            {"SSJ5G4",new Dictionary<string,object>(){{"vAlign",0.0625f*8},{"hAlign",0.0714f*2},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.LightGray,false,"SSJ5G4","SSJ6")}}}},//
-            {"FSSJB",new Dictionary<string,object>(){{"vAlign",0.0625f*8},{"hAlign",0.0714f*3},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.DeepSkyBlue,false,"FSSJB","SSJB1")}}}},//
-            {"LSSJ4LB",new Dictionary<string,object>(){{"vAlign",0.0625f*8},{"hAlign",0.0714f*10},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.LimeGreen,false,"LSSJ4LB","LSSJ5")}}}},//
+            {"SSJ5",new Dictionary<string,object>(){{"vAlign",0.0625f*8},{"hAlign",0.0714f*1},{"arrows",new List<GUIArrow>(){new GUIArrow(Color.LightGray,"SSJ5","SSJ5G2"),new GUIArrow(Color.LightGray,"SSJ5","SSJ5G4")}}}},//
+            {"SSJ5G4",new Dictionary<string,object>(){{"vAlign",0.0625f*8},{"hAlign",0.0714f*2},{"arrows",new List<GUIArrow>(){new GUIArrow(Color.LightGray,"SSJ5G4","SSJ6")}}}},//
+            {"FSSJB",new Dictionary<string,object>(){{"vAlign",0.0625f*8},{"hAlign",0.0714f*3},{"arrows",new List<GUIArrow>(){new GUIArrow(Color.DeepSkyBlue,"FSSJB","SSJB1")}}}},//
+            {"LSSJ4LB",new Dictionary<string,object>(){{"vAlign",0.0625f*8},{"hAlign",0.0714f*10},{"arrows",new List<GUIArrow>(){new GUIArrow(Color.LimeGreen,"LSSJ4LB","LSSJ5")}}}},//
 
             {"SSJRage",new Dictionary<string,object>(){{"vAlign",0.0625f*9},{"hAlign",0.0714f*0},{"arrows",new List<GUIArrow>(){}}}},//no more
-            {"SSJB1",new Dictionary<string,object>(){{"vAlign",0.0625f*9},{"hAlign",0.0714f*3},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.DeepSkyBlue,false,"SSJB1","SSJB1G2"),new GUIArrow(true,Color.DeepSkyBlue,false,"SSJB1","SSJB1G4")}}}},//
-            {"SSJB1G4",new Dictionary<string,object>(){{"vAlign",0.0625f*9},{"hAlign",0.0714f*4},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.DeepSkyBlue,false,"SSJB1G4","SSJB2")}}}},//
-            {"SSJR1",new Dictionary<string,object>(){{"vAlign",0.0625f*9},{"hAlign",0.0714f*6},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.Fuchsia,false,"SSJR1","SSJR1G2"),new GUIArrow(true,Color.Fuchsia,false,"SSJR1","SSJR1G4")}}}},//
-            {"SSJR1G4",new Dictionary<string,object>(){{"vAlign",0.0625f*9},{"hAlign",0.0714f*7},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.Fuchsia,false,"SSJR1G4","SSJR2")}}}},//
+            {"SSJB1",new Dictionary<string,object>(){{"vAlign",0.0625f*9},{"hAlign",0.0714f*3},{"arrows",new List<GUIArrow>(){new GUIArrow(Color.DeepSkyBlue,"SSJB1","SSJB1G2"),new GUIArrow(Color.DeepSkyBlue,"SSJB1","SSJB1G4")}}}},//
+            {"SSJB1G4",new Dictionary<string,object>(){{"vAlign",0.0625f*9},{"hAlign",0.0714f*4},{"arrows",new List<GUIArrow>(){new GUIArrow(Color.DeepSkyBlue,"SSJB1G4","SSJB2")}}}},//
+            {"SSJR1",new Dictionary<string,object>(){{"vAlign",0.0625f*9},{"hAlign",0.0714f*6},{"arrows",new List<GUIArrow>(){new GUIArrow(Color.Fuchsia,"SSJR1","SSJR1G2"),new GUIArrow(Color.Fuchsia,"SSJR1","SSJR1G4") } }}},//
+            {"SSJR1G4",new Dictionary<string,object>(){{"vAlign",0.0625f*9},{"hAlign",0.0714f*7},{"arrows",new List<GUIArrow>(){new GUIArrow(Color.Fuchsia,"SSJR1G4","SSJR2"), new GUIArrow(Color.HotPink, "SSJR1G4", "Divine") } }}},//
 
-            {"SSJ5G2",new Dictionary<string,object>(){{"vAlign",0.0625f*10},{"hAlign", 0.0714f * 1},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.LightGray, false,"SSJ5G2","SSJ5G3")}}}},//
+            {"SSJ5G2",new Dictionary<string,object>(){{"vAlign",0.0625f*10},{"hAlign", 0.0714f * 1},{"arrows",new List<GUIArrow>(){new GUIArrow(Color.LightGray,"SSJ5G2","SSJ5G3")}}}},//
             
-            {"SSJ6",new Dictionary<string,object>(){{"vAlign",0.0625f*11},{"hAlign",0.0714f*2},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.LightGray,false,"SSJ6","SSJ7")}}}},//
-            {"SSJB1G2",new Dictionary<string,object>(){{"vAlign",0.0625f*11},{"hAlign",0.0714f*3},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.DeepSkyBlue,false,"SSJB1G2","SSJB1G3")}}}},//
+            {"SSJ6",new Dictionary<string,object>(){{"vAlign",0.0625f*11},{"hAlign",0.0714f*2},{"arrows",new List<GUIArrow>(){new GUIArrow(Color.LightGray,"SSJ6","SSJ7")}}}},//
+            {"SSJB1G2",new Dictionary<string,object>(){{"vAlign",0.0625f*11},{"hAlign",0.0714f*3},{"arrows",new List<GUIArrow>(){new GUIArrow(Color.DeepSkyBlue ,"SSJB1G2","SSJB1G3")}}}},//
             {"LSSJB",new Dictionary<string,object>(){{"vAlign",0.0625f*11},{"hAlign",0.0714f*5},{"arrows",new List<GUIArrow>(){}}}},//no more
-            {"SSJR1G2",new Dictionary<string,object>(){{"vAlign",0.0625f*11},{"hAlign",0.0714f*6},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.Fuchsia,false,"SSJR1G2","SSJR1G3")}}}},//
-            {"LSSJ5",new Dictionary<string,object>(){{"vAlign",0.0625f*11},{"hAlign",0.0714f*10},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.LimeGreen,false,"LSSJ5","LSSJ6")}}}},//
+            {"SSJR1G2",new Dictionary<string,object>(){{"vAlign",0.0625f*11},{"hAlign",0.0714f*6},{"arrows",new List<GUIArrow>(){new GUIArrow(Color.Fuchsia,"SSJR1G2","SSJR1G3")}}}},//
+            {"LSSJ5",new Dictionary<string,object>(){{"vAlign",0.0625f*11},{"hAlign",0.0714f*10},{"arrows",new List<GUIArrow>(){new GUIArrow(Color.LimeGreen,"LSSJ5","LSSJ6")}}}},//
 
-            {"SSJB1G3",new Dictionary<string,object>(){{"vAlign",0.0625f*12},{"hAlign",0.0714f*3},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.Blue,false,"SSJB1G3","SSJBE")}}}},//
-            {"SSJB2",new Dictionary<string,object>(){{"vAlign",0.0625f*12},{"hAlign",0.0714f*4},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.DeepSkyBlue,false,"SSJB2","SSJB3")}}}},//
+            {"SSJB1G3",new Dictionary<string,object>(){{"vAlign",0.0625f*12},{"hAlign",0.0714f*3},{"arrows",new List<GUIArrow>(){new GUIArrow(Color.Blue,"SSJB1G3","SSJBE")}}}},//
+            {"SSJB2",new Dictionary<string,object>(){{"vAlign",0.0625f*12},{"hAlign",0.0714f*4},{"arrows",new List<GUIArrow>(){new GUIArrow(Color.DeepSkyBlue,"SSJB2","SSJB3")}}}},//
             {"SSJR1G3",new Dictionary<string,object>(){{"vAlign",0.0625f*12},{"hAlign",0.0714f*6},{"arrows",new List<GUIArrow>(){}}}},//no more
-            {"SSJR2",new Dictionary<string,object>(){{"vAlign",0.0625f*12},{"hAlign",0.0714f*7},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.Fuchsia,false,"SSJR2","SSJR3")}}}},//
+            {"SSJR2",new Dictionary<string,object>(){{"vAlign",0.0625f*12},{"hAlign",0.0714f*7},{"arrows",new List<GUIArrow>(){new GUIArrow(Color.Fuchsia,"SSJR2","SSJR3")}}}},//
             
             {"SSJ5G3",new Dictionary<string,object>(){{"vAlign",0.0625f*13},{"hAlign",0.0714f*1},{"arrows",new List<GUIArrow>(){}}}},//no more
 
@@ -113,11 +113,11 @@ namespace DragonballPichu.Common.GUI
             {"SSJB3",new Dictionary<string,object>(){{"vAlign",0.0625f*14},{"hAlign",0.0714f*4},{"arrows",new List<GUIArrow>(){}}}},//no more
             {"SSJR3",new Dictionary<string,object>(){{"vAlign",0.0625f*14},{"hAlign",0.0714f*7},{"arrows",new List<GUIArrow>(){}}}},//no more
             {"DR",new Dictionary<string,object>(){{"vAlign",0.0625f*14},{"hAlign",0.0714f*8},{"arrows",new List<GUIArrow>(){}}}},//no more
-            {"TUI",new Dictionary<string,object>(){{"vAlign",0.0625f*14},{"hAlign",0.0714f*9},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.LightGray,false,"TUI","UILB")}}}},//
-            {"LSSJ6",new Dictionary<string,object>(){{"vAlign",0.0625f*14},{"hAlign",0.0714f*10},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.LimeGreen,false,"LSSJ6","LSSJ7")}}}},//
+            {"TUI",new Dictionary<string,object>(){{"vAlign",0.0625f*14},{"hAlign",0.0714f*9},{"arrows",new List<GUIArrow>(){new GUIArrow(Color.LightGray,"TUI","UILB")}}}},//
+            {"LSSJ6",new Dictionary<string,object>(){{"vAlign",0.0625f*14},{"hAlign",0.0714f*10},{"arrows",new List<GUIArrow>(){new GUIArrow(Color.LimeGreen,"LSSJ6","LSSJ7")}}}},//
 
             {"Beast",new Dictionary<string,object>(){{"vAlign",0.0625f*15},{"hAlign",0.0714f*12},{"arrows",new List<GUIArrow>(){}}}},//no more
-            {"UE",new Dictionary<string,object>(){{"vAlign",0.0625f*15},{"hAlign",0.0714f*13},{"arrows",new List<GUIArrow>(){new GUIArrow(false,Color.Purple,false,null,"UE")}}}},//no more
+            {"UE",new Dictionary<string,object>(){{"vAlign",0.0625f*15},{"hAlign",0.0714f*13},{"arrows",new List<GUIArrow>(){new GUIArrow(Color.Purple,"UE")}}}},//no more
 
             {"UILB",new Dictionary<string,object>(){{"vAlign",0.0625f*16},{"hAlign",0.0714f*9},{"arrows",new List<GUIArrow>(){}}}},//no more
             {"LSSJ7",new Dictionary<string,object>(){{"vAlign",0.0625f*16},{"hAlign",0.0714f*10},{"arrows",new List<GUIArrow>(){}}}},//no more

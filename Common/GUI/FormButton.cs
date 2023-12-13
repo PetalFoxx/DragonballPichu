@@ -16,14 +16,14 @@ namespace DragonballPichu.Common.GUI
     public class FormButton : UIPanel
     {
         string name;
-        Asset<Texture2D> texture;
+        //Asset<Texture2D> texture;
         public UIImage icon;
         Boolean unlock;
         public Boolean deactivated;
         public FormButton(string name, Asset<Texture2D> texture, Boolean unlock)
         {
             this.name = name;
-            this.texture = texture;
+           // this.texture = texture;
             this.icon = new UIImage(texture);
             this.unlock = unlock;
             this.deactivated = !unlock;
@@ -36,8 +36,8 @@ namespace DragonballPichu.Common.GUI
         public override void OnInitialize()
         {
             OnLeftClick += this.OnButtonClick;
-            Width.Set(50, 0);
-            Height.Set(50, 0);
+            Width.Set(55, 0);
+            Height.Set(55, 0);
             //HAlign = 0.5f;
             Top.Set(0, 0);
             Left.Set(0, 0);
