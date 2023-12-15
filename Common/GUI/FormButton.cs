@@ -16,26 +16,20 @@ namespace DragonballPichu.Common.GUI
     public class FormButton : UIPanel
     {
         string name;
-        //Asset<Texture2D> texture;
-        public UIImage icon;
+        private FormButtonIcon icon;
         Boolean unlock;
-        public Boolean deactivated;
+
         public FormButton(string name, Asset<Texture2D> texture, Boolean unlock)
         {
             this.name = name;
            // this.texture = texture;
-            this.icon = new UIImage(texture);
+            this.icon = new FormButtonIcon(texture);
             this.unlock = unlock;
-            this.deactivated = !unlock;
-            if(name == "baseForm")
-            {
-                deactivated = false;
-            }
         }
 
         public override void OnInitialize()
         {
-            OnLeftClick += this.OnButtonClick;
+            //OnLeftClick += this.OnButtonClick;
             Width.Set(55, 0);
             Height.Set(55, 0);
             //HAlign = 0.5f;
@@ -49,81 +43,66 @@ namespace DragonballPichu.Common.GUI
             Append(icon);
         }
 
-        public override void OnDeactivate()
+        public FormButtonIcon getIcon()
         {
-            deactivated = true;
+            return icon;
         }
 
-        public override void OnActivate()
-        {
-            deactivated = false;
-        }
 
         public void OnHover(UIMouseEvent evt, UIElement listeningElement)
         {
-            if (deactivated)
+            if (isVisible())
             {
-                return;
+                DragonballPichuUISystem modSystem = ModContent.GetInstance<DragonballPichuUISystem>();
+                modSystem.MyFormsStatsUI.formHoverText = name;
             }
-            DragonballPichuUISystem modSystem = ModContent.GetInstance<DragonballPichuUISystem>();
-            modSystem.MyFormsStatsUI.formHoverText = name;
+           
         }
 
         public void OnButtonClick(UIMouseEvent evt, UIElement listeningElement)
         {
-            if (deactivated)
+            if (isVisible())
             {
-                return;
-            }
-            var modPlayer = Main.LocalPlayer.GetModPlayer<DragonballPichuPlayer>();
-            DragonballPichuUISystem modSystem = ModContent.GetInstance<DragonballPichuUISystem>();
-            if (unlock)
-            {
-                if (modPlayer.useFormPoints(name))
+                var modPlayer = Main.LocalPlayer.GetModPlayer<DragonballPichuPlayer>();
+                DragonballPichuUISystem modSystem = ModContent.GetInstance<DragonballPichuUISystem>();
+                if (unlock)
                 {
-                    modSystem.MyFormsStatsUI.unlockForm(name);
-                }   
+                    if (modPlayer.useFormPoints(name))
+                    {
+                        modSystem.MyFormsStatsUI.unlockForm(name);
+                        //BorderColor = Colors.Green;
+                    }
+                }
+                else
+                {
+                    modPlayer.setSelectedForm(this.name);
+                    modSystem.MyFormsStatsUI.addStatButtons(modPlayer.getSelectedFormID());
+                }
             }
-            else
-            {
-                modPlayer.setSelectedForm(this.name);
-                modSystem.MyFormsStatsUI.addStatButtons(modPlayer.getSelectedFormID());
-            }
+            
             //modSystem.MyFormsStatsUI.removeStatButtons(modPlayer.getSelectedFormID());
             
         }
 
+        public Boolean isVisible()
+        {
+            if(name == "baseForm") { return true; }
+            var modPlayer = Main.LocalPlayer.GetModPlayer<DragonballPichuPlayer>();
+            DragonballPichuUISystem modSystem = ModContent.GetInstance<DragonballPichuUISystem>();
+            if (unlock)
+            {
+                return modSystem.MyFormsStatsUI.visibleUnlocks.Contains(name);
+            }
+            return modPlayer.unlockedForms.Contains(name);
+        }
+
         public override void Draw(SpriteBatch spriteBatch)
         {
-            /*bool overflowHidden = OverflowHidden;
-            bool useImmediateMode = UseImmediateMode;
-            RasterizerState rasterizerState = spriteBatch.GraphicsDevice.RasterizerState;
-            Rectangle scissorRectangle = spriteBatch.GraphicsDevice.ScissorRectangle;
-            SamplerState anisotropicClamp = SamplerState.AnisotropicClamp;
-            if (useImmediateMode || OverrideSamplerState != null)
+            if (isVisible())
             {
-                spriteBatch.End();
-                spriteBatch.Begin(useImmediateMode ? SpriteSortMode.Immediate : SpriteSortMode.Deferred, BlendState.AlphaBlend, (OverrideSamplerState != null) ? OverrideSamplerState : anisotropicClamp, DepthStencilState.None, OverflowHiddenRasterizerState, null, Main.UIScaleMatrix);
-                DrawSelf(spriteBatch);
-                spriteBatch.End();
-                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, anisotropicClamp, DepthStencilState.None, OverflowHiddenRasterizerState, null, Main.UIScaleMatrix);
+                DrawChildren(spriteBatch);
             }
-            else
-            {
-                DrawSelf(spriteBatch);
-            }*/
-
-
-            /*if (overflowHidden)
-            {
-                spriteBatch.End();
-                Rectangle scissorRectangle2 = Rectangle.Intersect(GetClippingRectangle(spriteBatch), spriteBatch.GraphicsDevice.ScissorRectangle);
-                spriteBatch.GraphicsDevice.ScissorRectangle = scissorRectangle2;
-                spriteBatch.GraphicsDevice.RasterizerState = OverflowHiddenRasterizerState;
-                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, anisotropicClamp, DepthStencilState.None, OverflowHiddenRasterizerState, null, Main.UIScaleMatrix);
-            }*/
-            //DrawSelf(spriteBatch);
-            DrawChildren(spriteBatch);
+            
             /*if (overflowHidden)
             {
                 rasterizerState = spriteBatch.GraphicsDevice.RasterizerState;
@@ -136,19 +115,15 @@ namespace DragonballPichu.Common.GUI
 
         protected override void DrawSelf(SpriteBatch spriteBatch)
         {
-            if (deactivated)
+            if (isVisible())
             {
-                return;
+                base.DrawSelf(spriteBatch);
             }
-            base.DrawSelf(spriteBatch);
+            
         }
 
         protected override void DrawChildren(SpriteBatch spriteBatch)
         {
-            if (deactivated)
-            {
-                return;
-            }
             base.DrawChildren(spriteBatch);
         }
 

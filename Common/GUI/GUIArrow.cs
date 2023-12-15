@@ -20,9 +20,8 @@ namespace DragonballPichu.Common.GUI
     {
         const int ARROWWIDTH = 4;
         Color color;
-        Boolean deactivated;
-        string destinationForm;
-        string originForm;
+        public string destinationForm;
+        public string originForm;
         bool horizontalFirst;
 
 
@@ -54,35 +53,17 @@ namespace DragonballPichu.Common.GUI
             this.horizontalFirst = horizontalFirst;
         }
 
-        public override void OnDeactivate()
+        public Boolean isVisible()
         {
-            deactivated = true;
-        }
-
-        public override void OnActivate()
-        {
-            deactivated = false;
-        }
-
-        private void DrawArrowFromLeft(SpriteBatch spriteBatch)
-        {
+            if (destinationForm == null) { return false; }
+            if (originForm == "baseForm" || originForm == null) { return true; }
+            
             DragonballPichuUISystem modSystem = ModContent.GetInstance<DragonballPichuUISystem>();
-            if (modSystem == null) { return; }
-            //if (!modSystem.MyFormsStatsUI.nameToFormUnlockButton.ContainsKey(originForm)) { return; }
-            if (!modSystem.MyFormsStatsUI.nameToFormUnlockButton.ContainsKey(destinationForm)) { return; }
-            //FormButton originFormUnlockButton = modSystem.MyFormsStatsUI.nameToFormUnlockButton[originForm];
-            FormButton destinationUnlockFormButton = modSystem.MyFormsStatsUI.nameToFormUnlockButton[destinationForm];
-            CalculatedStyle dimensions = GetDimensions();
-            CalculatedStyle destination = destinationUnlockFormButton.icon.GetDimensions();
-            int centerLine = (int)(dimensions.Y + destinationUnlockFormButton.icon.Height.Pixels / 3);
-            Point point = new Point((int)(modSystem.MyFormsStatsUI.formsPanel.GetDimensions().X+3), centerLine - 2);
-            Point point2 = new Point((int)destination.X - 2, centerLine + 2);
-            //Point point2 = new Point(point.X + 100, point.Y + 20);
-            int width = point2.X - point.X;
-            int height = point2.Y - point.Y;
-            //spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(0, 100, 100, 4), this.color);
-            //spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(point.X, point.Y, width, height), this.color);
-            drawBox(spriteBatch, point, point2);
+            if (modSystem.MyFormsStatsUI.visibleUnlocks.Contains(destinationForm))
+            {
+                return true;
+            }
+            return false;
         }
 
 
@@ -90,8 +71,8 @@ namespace DragonballPichu.Common.GUI
 
         private void drawBox(SpriteBatch spriteBatch, Point topLeft, Point bottomRight)
         {
-            int width = Math.Abs(bottomRight.X - topLeft.X);
-            int height = Math.Abs(bottomRight.Y - topLeft.Y);
+            int width = bottomRight.X - topLeft.X;
+            int height = bottomRight.Y - topLeft.Y;
 
 
             spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(topLeft.X, topLeft.Y, width, height), this.color);
@@ -127,7 +108,7 @@ namespace DragonballPichu.Common.GUI
             {
                 if (!modSystem.MyFormsStatsUI.nameToFormUnlockButton.ContainsKey(destinationForm)) { return; }
                 destinationButton = modSystem.MyFormsStatsUI.nameToFormUnlockButton[destinationForm];
-                destinationIcon = destinationButton.icon;
+                destinationIcon = destinationButton.getIcon();
                 destinationDimension = destinationIcon.GetDimensions();
                 destinationTop = (int)destinationDimension.Y;
                 destinationBottom = (int)destinationDimension.Y + (int)destinationDimension.Height;
@@ -144,8 +125,8 @@ namespace DragonballPichu.Common.GUI
             if (!modSystem.MyFormsStatsUI.nameToFormUnlockButton.ContainsKey(destinationForm)) { return; }
             originButton = modSystem.MyFormsStatsUI.nameToFormUnlockButton[originForm];
             destinationButton = modSystem.MyFormsStatsUI.nameToFormUnlockButton[destinationForm];
-            originIcon = originButton.icon;
-            destinationIcon = destinationButton.icon;
+            originIcon = originButton.getIcon();
+            destinationIcon = destinationButton.getIcon();
             originDimensions = originIcon.GetDimensions();
             destinationDimension = destinationIcon.GetDimensions();
             originTop = (int)originDimensions.Y;
@@ -293,7 +274,7 @@ namespace DragonballPichu.Common.GUI
 
         protected override void DrawSelf(SpriteBatch spriteBatch)
         {
-            if (deactivated || destinationForm == null)
+            if (!isVisible())
             {
                 return;
             }
@@ -303,10 +284,6 @@ namespace DragonballPichu.Common.GUI
 
         protected override void DrawChildren(SpriteBatch spriteBatch)
         {
-            if (deactivated)
-            {
-                return;
-            }
             base.DrawChildren(spriteBatch);
         }
     }

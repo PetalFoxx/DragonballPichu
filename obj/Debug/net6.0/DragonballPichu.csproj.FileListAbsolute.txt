@@ -178,3 +178,4 @@ C:\Users\ghols\Documents\My Games\Terraria\tModLoader\ModSources\DragonballPichu
 C:\Users\ghols\Documents\My Games\Terraria\tModLoader\ModSources\DragonballPichu\obj\Debug\net6.0\refint\DragonballPichu.dll
 C:\Users\ghols\Documents\My Games\Terraria\tModLoader\ModSources\DragonballPichu\obj\Debug\net6.0\DragonballPichu.pdb
 C:\Users\ghols\Documents\My Games\Terraria\tModLoader\ModSources\DragonballPichu\obj\Debug\net6.0\ref\DragonballPichu.dll
+C:\Users\ghols\Documents\My Games\Terraria\tModLoader\ModSources\DragonballPichu\obj\Debug\net6.0\DragonballPichu.sourcelink.json

@@ -96,6 +96,7 @@ namespace DragonballPichu
         public List<int> stackedBuffIDs = new List<int>();
 
         public List<string> unlockedForms = new List<string>();
+        public List<string> unlockLoaded = new List<string>();
 
         
 
@@ -221,11 +222,11 @@ namespace DragonballPichu
         }
         public Boolean useFormPoints(string formName)
         {
-            
-            if(formName == null || !FormTree.forms.Contains(formName))
+            if (formName == null || !FormTree.forms.Contains(formName) || unlockedForms.Contains(formName))
             {
                 return false;
             }
+
             Dictionary<string, Boolean> formToUnlockCondition = new Dictionary<string, Boolean>()
         {
             { "FSSJ", FSSJUnlockCondition },
@@ -772,7 +773,7 @@ namespace DragonballPichu
             }
             if (tag.ContainsKey("unlockedForms"))
             {
-                unlockedForms = tag.Get<List<String>>("unlockedForms");
+                unlockLoaded = tag.Get<List<String>>("unlockedForms");
             }
             if (tag.ContainsKey("enemyCompendium"))
             {
