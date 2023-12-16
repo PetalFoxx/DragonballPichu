@@ -15,7 +15,7 @@ namespace DragonballPichu.Common.GUI
 {
     public class FormButton : UIPanel
     {
-        string name;
+        public string name;
         private FormButtonIcon icon;
         Boolean unlock;
 
@@ -93,7 +93,11 @@ namespace DragonballPichu.Common.GUI
             {
                 return modSystem.MyFormsStatsUI.visibleUnlocks.Contains(name);
             }
-            return modPlayer.unlockedForms.Contains(name);
+            else
+            {
+                return modPlayer.unlockedForms.Contains(name);
+            }
+            
         }
 
         public override void Draw(SpriteBatch spriteBatch)

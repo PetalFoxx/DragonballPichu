@@ -845,35 +845,6 @@ namespace DragonballPichu
             base.LoadData(tag);
         }*/
 
-        public void loadBaseItem(TagCompound tag, string item)
-        {
-            switch (item)
-            {
-                case "experience":
-                    experience = tag.Get<float>(item);
-                    return;
-                case "level":
-                    setLevel(tag.Get<int>(item));
-                    return;
-                case "unlockedForms":
-                    unlockedForms = tag.Get<List<string>>(item);
-                    return;
-                case "enemyCompendium":
-                    enemyCompendium = tag.Get<List<string>>(item);
-                    return;
-                case "formPoints":
-                    formPoints = tag.Get<int>(item);
-                    return;
-                default:
-                    return;
-            }
-        }
 
-        public void loadForm(TagCompound tag, string form)
-        {
-
-            nameToStats[form].setLevel(tag.Get<int>(form+"level"));
-            nameToStats[form].gainExperience(tag.Get<float>(form+"experience"));
-        }
     }
 }

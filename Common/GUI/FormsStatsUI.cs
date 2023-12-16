@@ -22,7 +22,7 @@ namespace DragonballPichu.Common.GUI
         public string formHoverText = "None!";
         public UIPanel formsPanel;
         public UIPanel statsPanel;
-        public UIGrid formChooserPanel;
+        public UIPanel formChooserPanel;
 
         StatButton kiMaxStatButton;
         StatButton kiGainStatButton;
@@ -110,74 +110,185 @@ namespace DragonballPichu.Common.GUI
 
         Dictionary<string, Dictionary<string, object>> nameToUnlockTreeInfo = new Dictionary<string, Dictionary<string, object>>()
         {
-            { "FSSJ", new Dictionary<string, object>(){ { "vAlign", 0.0625f * 1 },{ "hAlign", 0.0714f * 0 } } },
-            { "UI", new Dictionary<string, object>(){ { "vAlign", 0.0625f * 1 },{ "hAlign", 0.0714f * 9 } } },
-            { "Ikari", new Dictionary<string, object>(){ { "vAlign", 0.0625f * 1 },{ "hAlign", 0.0714f * 10 } } },
+            { "FSSJ", new Dictionary<string, object>(){ { "horizontal", 0.0625f * 1 },{ "vertical", 0.0714f * 0 } } },
+            { "UI", new Dictionary<string, object>(){ { "horizontal", 0.0625f * 1 },{ "vertical", 0.0714f * 9 } } },
+            { "Ikari", new Dictionary<string, object>(){ { "horizontal", 0.0625f * 1 },{ "vertical", 0.0714f * 10 } } },
 
-            { "Divine", new Dictionary<string, object>(){ { "vAlign",0.0625f*2},{ "hAlign",0.0714f*7} } },
-            { "PU", new Dictionary<string, object>(){ { "vAlign",0.0625f*2},{ "hAlign",0.0714f*12} } },
+            { "Divine", new Dictionary<string, object>(){ { "horizontal",0.0625f*2},{ "vertical",0.0714f*7} } },
+            { "PU", new Dictionary<string, object>(){ { "horizontal",0.0625f*2},{ "vertical",0.0714f*12} } },
 
-            { "SSJ1", new Dictionary<string, object>(){ { "vAlign",0.0625f*3},{ "hAlign",0.0714f*0} } },
-            { "SSJ1G4", new Dictionary<string, object>(){ { "vAlign",0.0625f*3},{ "hAlign",0.0714f*1} } },
-            { "FLSSJ", new Dictionary<string, object>(){ { "vAlign",0.0625f*3},{ "hAlign",0.0714f*10} } },
-            { "Evil", new Dictionary<string, object>(){ { "vAlign",0.0625f*3},{ "hAlign",0.0714f*11} } },
+            { "SSJ1", new Dictionary<string, object>(){ { "horizontal",0.0625f*3},{ "vertical",0.0714f*0} } },
+            { "SSJ1G4", new Dictionary<string, object>(){ { "horizontal",0.0625f*3},{ "vertical",0.0714f*1} } },
+            { "FLSSJ", new Dictionary<string, object>(){ { "horizontal",0.0625f*3},{ "vertical",0.0714f*10} } },
+            { "Evil", new Dictionary<string, object>(){ { "horizontal",0.0625f*3},{ "vertical",0.0714f*11} } },
 
-            { "SSJ1G2", new Dictionary<string, object>(){ { "vAlign",0.0625f*4},{ "hAlign",0.0714f*0} } },
-            { "SSJ2", new Dictionary<string, object>(){ { "vAlign",0.0625f*4},{ "hAlign",0.0714f*1} } },
-            { "LSSJ1", new Dictionary<string, object>(){ { "vAlign",0.0625f*4},{ "hAlign",0.0714f*10} } },
-            { "Rampaging", new Dictionary<string, object>(){ { "vAlign",0.0625f*4},{ "hAlign",0.0714f*11} } },
+            { "SSJ1G2", new Dictionary<string, object>(){ { "horizontal",0.0625f*4},{ "vertical",0.0714f*0} } },
+            { "SSJ2", new Dictionary<string, object>(){ { "horizontal",0.0625f*4},{ "vertical",0.0714f*1} } },
+            { "LSSJ1", new Dictionary<string, object>(){ { "horizontal",0.0625f*4},{ "vertical",0.0714f*10} } },
+            { "Rampaging", new Dictionary<string, object>(){ { "horizontal",0.0625f*4},{ "vertical",0.0714f*11} } },
                                                                                                                
-            { "SSJ1G3", new Dictionary<string, object>(){ { "vAlign",0.0625f*5},{ "hAlign",0.0714f*0} } },
-            { "SSJ3", new Dictionary<string, object>(){ { "vAlign",0.0625f*5},{ "hAlign", 0.0714f * 1 } } },
-            { "LSSJ2", new Dictionary<string, object>(){ { "vAlign",0.0625f*5},{ "hAlign",0.0714f*10} } },
-            { "Berserk", new Dictionary<string, object>(){ { "vAlign",0.0625f*5},{ "hAlign",0.0714f*11} } },
+            { "SSJ1G3", new Dictionary<string, object>(){ { "horizontal",0.0625f*5},{ "vertical",0.0714f*0} } },
+            { "SSJ3", new Dictionary<string, object>(){ { "horizontal",0.0625f*5},{ "vertical", 0.0714f * 1 } } },
+            { "LSSJ2", new Dictionary<string, object>(){ { "horizontal",0.0625f*5},{ "vertical",0.0714f*10} } },
+            { "Berserk", new Dictionary<string, object>(){ { "horizontal",0.0625f*5},{ "vertical",0.0714f*11} } },
 
-            { "SSJ4", new Dictionary<string, object>(){ { "vAlign",0.0625f*6},{ "hAlign",0.0714f*1} } },
-            { "LSSJ3", new Dictionary<string, object>(){ { "vAlign",0.0625f*6},{ "hAlign",0.0714f*10} } },
+            { "SSJ4", new Dictionary<string, object>(){ { "horizontal",0.0625f*6},{ "vertical",0.0714f*1} } },
+            { "LSSJ3", new Dictionary<string, object>(){ { "horizontal",0.0625f*6},{ "vertical",0.0714f*10} } },
                                                                                                     
-            { "SSJ4LB", new Dictionary<string, object>(){ { "vAlign",0.0625f*7},{ "hAlign",0.0714f*1} } },
-            { "SSJG", new Dictionary<string, object>(){ { "vAlign",0.0625f*7},{ "hAlign",0.0714f*3} } },
-            { "LSSJ4", new Dictionary<string, object>(){ { "vAlign",0.0625f*7},{ "hAlign",0.0714f*10} } },
+            { "SSJ4LB", new Dictionary<string, object>(){ { "horizontal",0.0625f*7},{ "vertical",0.0714f*1} } },
+            { "SSJG", new Dictionary<string, object>(){ { "horizontal",0.0625f*7},{ "vertical",0.0714f*3} } },
+            { "LSSJ4", new Dictionary<string, object>(){ { "horizontal",0.0625f*7},{ "vertical",0.0714f*10} } },
                                                                                                     
-            { "SSJ5", new Dictionary<string, object>(){ { "vAlign",0.0625f*8},{ "hAlign",0.0714f*1} } },
-            { "SSJ5G4", new Dictionary<string, object>(){ { "vAlign",0.0625f*8},{ "hAlign",0.0714f*2} } },
-            { "FSSJB", new Dictionary<string, object>(){ { "vAlign",0.0625f*8},{ "hAlign",0.0714f*3} } },
-            { "LSSJ4LB", new Dictionary<string, object>(){ { "vAlign",0.0625f*8},{ "hAlign",0.0714f*10} } },
+            { "SSJ5", new Dictionary<string, object>(){ { "horizontal",0.0625f*8},{ "vertical",0.0714f*1} } },
+            { "SSJ5G4", new Dictionary<string, object>(){ { "horizontal",0.0625f*8},{ "vertical",0.0714f*2} } },
+            { "FSSJB", new Dictionary<string, object>(){ { "horizontal",0.0625f*8},{ "vertical",0.0714f*3} } },
+            { "LSSJ4LB", new Dictionary<string, object>(){ { "horizontal",0.0625f*8},{ "vertical",0.0714f*10} } },
                                                                                                     
-            { "SSJRage", new Dictionary<string, object>(){ { "vAlign",0.0625f*9},{ "hAlign",0.0714f*0} } }, 
-            { "SSJB1", new Dictionary<string, object>(){ { "vAlign",0.0625f*9},{ "hAlign",0.0714f*3} } },
-            { "SSJB1G4", new Dictionary<string, object>(){ { "vAlign",0.0625f*9},{ "hAlign",0.0714f*4} } },
-            { "SSJR1", new Dictionary<string, object>(){ { "vAlign",0.0625f*9},{ "hAlign",0.0714f*6} } },
-            { "SSJR1G4", new Dictionary<string, object>(){ { "vAlign",0.0625f*9},{ "hAlign",0.0714f*7} } },
+            { "SSJRage", new Dictionary<string, object>(){ { "horizontal",0.0625f*9},{ "vertical",0.0714f*0} } }, 
+            { "SSJB1", new Dictionary<string, object>(){ { "horizontal",0.0625f*9},{ "vertical",0.0714f*3} } },
+            { "SSJB1G4", new Dictionary<string, object>(){ { "horizontal",0.0625f*9},{ "vertical",0.0714f*4} } },
+            { "SSJR1", new Dictionary<string, object>(){ { "horizontal",0.0625f*9},{ "vertical",0.0714f*6} } },
+            { "SSJR1G4", new Dictionary<string, object>(){ { "horizontal",0.0625f*9},{ "vertical",0.0714f*7} } },
                                                                                                     
-            { "SSJ5G2", new Dictionary<string, object>(){ { "vAlign",0.0625f*10},{ "hAlign", 0.0714f * 1} } },
+            { "SSJ5G2", new Dictionary<string, object>(){ { "horizontal",0.0625f*10},{ "vertical", 0.0714f * 1} } },
                                                                                                     
-            { "SSJ6", new Dictionary<string, object>(){ { "vAlign",0.0625f*11},{ "hAlign",0.0714f*2} } },
-            { "SSJB1G2", new Dictionary<string, object>(){ { "vAlign",0.0625f*11},{ "hAlign",0.0714f*3} } },
-            { "LSSJB", new Dictionary<string, object>(){ { "vAlign",0.0625f*11},{ "hAlign",0.0714f*5} } },  
-            { "SSJR1G2", new Dictionary<string, object>(){ { "vAlign",0.0625f*11},{ "hAlign",0.0714f*6} } },
-            { "LSSJ5", new Dictionary<string, object>(){ { "vAlign",0.0625f*11},{ "hAlign",0.0714f*10} } },
+            { "SSJ6", new Dictionary<string, object>(){ { "horizontal",0.0625f*11},{ "vertical",0.0714f*2} } },
+            { "SSJB1G2", new Dictionary<string, object>(){ { "horizontal",0.0625f*11},{ "vertical",0.0714f*3} } },
+            { "LSSJB", new Dictionary<string, object>(){ { "horizontal",0.0625f*11},{ "vertical",0.0714f*5} } },  
+            { "SSJR1G2", new Dictionary<string, object>(){ { "horizontal",0.0625f*11},{ "vertical",0.0714f*6} } },
+            { "LSSJ5", new Dictionary<string, object>(){ { "horizontal",0.0625f*11},{ "vertical",0.0714f*10} } },
                                                                                                     
-            { "SSJB1G3", new Dictionary<string, object>(){ { "vAlign",0.0625f*12},{ "hAlign",0.0714f*3} } },
-            { "SSJB2", new Dictionary<string, object>(){ { "vAlign",0.0625f*12},{ "hAlign",0.0714f*4} } },
-            { "SSJR1G3", new Dictionary<string, object>(){ { "vAlign",0.0625f*12},{ "hAlign",0.0714f*6} } },
-            { "SSJR2", new Dictionary<string, object>(){ { "vAlign",0.0625f*12},{ "hAlign", 0.0714f * 7 } } },
+            { "SSJB1G3", new Dictionary<string, object>(){ { "horizontal",0.0625f*12},{ "vertical",0.0714f*3} } },
+            { "SSJB2", new Dictionary<string, object>(){ { "horizontal",0.0625f*12},{ "vertical",0.0714f*4} } },
+            { "SSJR1G3", new Dictionary<string, object>(){ { "horizontal",0.0625f*12},{ "vertical",0.0714f*6} } },
+            { "SSJR2", new Dictionary<string, object>(){ { "horizontal",0.0625f*12},{ "vertical", 0.0714f * 7 } } },
                                                                                                     
-            { "SSJ5G3", new Dictionary<string, object>(){ { "vAlign",0.0625f*13},{ "hAlign",0.0714f*1} } }, 
+            { "SSJ5G3", new Dictionary<string, object>(){ { "horizontal",0.0625f*13},{ "vertical",0.0714f*1} } }, 
                                                                                                     
-            { "SSJ7", new Dictionary<string, object>(){ { "vAlign",0.0625f*14},{ "hAlign",0.0714f*2} } },   
-            { "SSJBE", new Dictionary<string, object>(){ { "vAlign",0.0625f*14},{ "hAlign",0.0714f*3} } },  
-            { "SSJB3", new Dictionary<string, object>(){ { "vAlign",0.0625f*14},{ "hAlign",0.0714f*4} } },  
-            { "SSJR3", new Dictionary<string, object>(){ { "vAlign",0.0625f*14},{ "hAlign",0.0714f*7} } },  
-            { "DR", new Dictionary<string, object>(){ { "vAlign",0.0625f*14},{ "hAlign",0.0714f*8} } },     
-            { "TUI", new Dictionary<string, object>(){ { "vAlign",0.0625f*14},{ "hAlign", 0.0714f * 9 } } },
-            { "LSSJ6", new Dictionary<string, object>(){ { "vAlign",0.0625f*14},{ "hAlign",0.0714f*10} } },
+            { "SSJ7", new Dictionary<string, object>(){ { "horizontal",0.0625f*14},{ "vertical",0.0714f*2} } },   
+            { "SSJBE", new Dictionary<string, object>(){ { "horizontal",0.0625f*14},{ "vertical",0.0714f*3} } },  
+            { "SSJB3", new Dictionary<string, object>(){ { "horizontal",0.0625f*14},{ "vertical",0.0714f*4} } },  
+            { "SSJR3", new Dictionary<string, object>(){ { "horizontal",0.0625f*14},{ "vertical",0.0714f*7} } },  
+            { "DR", new Dictionary<string, object>(){ { "horizontal",0.0625f*14},{ "vertical",0.0714f*8} } },     
+            { "TUI", new Dictionary<string, object>(){ { "horizontal",0.0625f*14},{ "vertical", 0.0714f * 9 } } },
+            { "LSSJ6", new Dictionary<string, object>(){ { "horizontal",0.0625f*14},{ "vertical",0.0714f*10} } },
                                                                                                           
-            { "Beast", new Dictionary<string, object>(){ { "vAlign",0.0625f*15},{ "hAlign",0.0714f*12} } },       
-            { "UE", new Dictionary<string, object>(){ { "vAlign",0.0625f*15},{ "hAlign",0.0714f*13} } },
+            { "Beast", new Dictionary<string, object>(){ { "horizontal",0.0625f*15},{ "vertical",0.0714f*12} } },       
+            { "UE", new Dictionary<string, object>(){ { "horizontal",0.0625f*15},{ "vertical",0.0714f*13} } },
                                                                                                                
-            { "UILB", new Dictionary<string, object>(){ { "vAlign",0.0625f*16},{ "hAlign",0.0714f*9} } },              
-            { "LSSJ7", new Dictionary<string, object>(){ { "vAlign",0.0625f*16},{ "hAlign",0.0714f*10} } },            
+            { "UILB", new Dictionary<string, object>(){ { "horizontal",0.0625f*16},{ "vertical",0.0714f*9} } },              
+            { "LSSJ7", new Dictionary<string, object>(){ { "horizontal",0.0625f*16},{ "vertical",0.0714f*10} } },            
+        };
+
+
+
+
+        Dictionary<string, Dictionary<string, object>> nameToFormChooseInfo = new Dictionary<string, Dictionary<string, object>>()
+        {
+
+            //horizontal: 0-9
+            //vertical: 0-14
+            { "baseForm", new Dictionary<string, object>(){ { "horizontal", 0.1f * 0 },{ "vertical", 0.066f * 0 } } },
+            { "FSSJ", new Dictionary<string, object>(){ { "horizontal", 0.1f * 1 },{ "vertical", 0.066f * 0 } } },
+            { "SSJ1", new Dictionary<string, object>(){ { "horizontal",0.1f*2},{ "vertical",0.066f*0} } },
+            { "SSJ1G2", new Dictionary<string, object>(){ { "horizontal",0.1f*3},{ "vertical",0.066f*0} } },
+            { "SSJ1G3", new Dictionary<string, object>(){ { "horizontal",0.1f*4},{ "vertical",0.066f*0} } },
+            { "SSJ1G4", new Dictionary<string, object>(){ { "horizontal",0.1f*5},{ "vertical",0.066f*0} } },
+            { "SSJ2", new Dictionary<string, object>(){ { "horizontal",0.1f*6},{ "vertical",0.066f*0} } },
+            { "SSJ3", new Dictionary<string, object>(){ { "horizontal",0.1f*7},{ "vertical", 0.066f * 0 } } },
+            { "SSJRage", new Dictionary<string, object>(){ { "horizontal",0.1f*8},{ "vertical",0.066f*0} } },
+
+            { "SSJ4", new Dictionary<string, object>(){ { "horizontal",0.1f*0},{ "vertical",0.066f*1} } },
+            { "SSJ4LB", new Dictionary<string, object>(){ { "horizontal",0.1f*1},{ "vertical",0.066f*1} } },
+            { "SSJ5", new Dictionary<string, object>(){ { "horizontal",0.1f*2},{ "vertical",0.066f*1} } },
+            { "SSJ5G2", new Dictionary<string, object>(){ { "horizontal",0.1f*3},{ "vertical", 0.066f * 1} } },
+            { "SSJ5G3", new Dictionary<string, object>(){ { "horizontal",0.1f*4},{ "vertical",0.066f*1} } },
+            { "SSJ5G4", new Dictionary<string, object>(){ { "horizontal",0.1f*5},{ "vertical",0.066f*1} } },
+            { "SSJ6", new Dictionary<string, object>(){ { "horizontal",0.1f*6},{ "vertical",0.066f*1} } },
+            { "SSJ7", new Dictionary<string, object>(){ { "horizontal",0.1f*7},{ "vertical",0.066f*1} } },
+
+            { "Ikari", new Dictionary<string, object>(){ { "horizontal", 0.1f * 0 },{ "vertical", 0.066f * 2} } },
+            { "FLSSJ", new Dictionary<string, object>(){ { "horizontal",0.1f*1},{ "vertical",0.066f * 2} } },
+            { "LSSJ1", new Dictionary<string, object>(){ { "horizontal",0.1f*2},{ "vertical",0.066f * 2} } },
+            { "LSSJ2", new Dictionary<string, object>(){ { "horizontal",0.1f*3},{ "vertical",0.066f * 2} } },
+            { "LSSJ3", new Dictionary<string, object>(){ { "horizontal",0.1f*4},{ "vertical",0.066f * 2} } },
+            { "LSSJ4", new Dictionary<string, object>(){ { "horizontal",0.1f*5},{ "vertical",0.066f * 2} } },
+            { "LSSJ4LB", new Dictionary<string, object>(){ { "horizontal",0.1f*6},{ "vertical",0.066f * 2} } },
+            { "LSSJ5", new Dictionary<string, object>(){ { "horizontal",0.1f*7},{ "vertical",0.066f * 2} } },
+            { "LSSJ6", new Dictionary<string, object>(){ { "horizontal",0.1f*8},{ "vertical",0.066f * 2} } },
+            { "LSSJ7", new Dictionary<string, object>(){ { "horizontal",0.1f*9},{ "vertical",0.066f * 2} } },
+            
+            { "SSJG", new Dictionary<string, object>(){ { "horizontal",0.1f*0},{ "vertical",0.066f*3} } },
+            { "FSSJB", new Dictionary<string, object>(){ { "horizontal",0.1f*1},{ "vertical",0.066f*3} } },
+            { "SSJB1", new Dictionary<string, object>(){ { "horizontal",0.1f*2},{ "vertical",0.066f*3} } },
+            { "SSJB1G2", new Dictionary<string, object>(){ { "horizontal",0.1f*3},{ "vertical",0.066f*3} } },
+            { "SSJB1G3", new Dictionary<string, object>(){ { "horizontal",0.1f*4},{ "vertical",0.066f*3} } },
+            { "SSJB1G4", new Dictionary<string, object>(){ { "horizontal",0.1f*5},{ "vertical",0.066f*3} } },
+            { "SSJB2", new Dictionary<string, object>(){ { "horizontal",0.1f*6},{ "vertical",0.066f*3} } },
+            { "SSJB3", new Dictionary<string, object>(){ { "horizontal",0.1f*7},{ "vertical",0.066f*3} } },
+            { "SSJBE", new Dictionary<string, object>(){ { "horizontal",0.1f*8},{ "vertical",0.066f*3} } },
+            { "LSSJB", new Dictionary<string, object>(){ { "horizontal",0.1f*9},{ "vertical",0.066f * 3} } },
+
+            { "SSJR1", new Dictionary<string, object>(){ { "horizontal",0.1f*0},{ "vertical",0.066f*4} } },
+            { "SSJR1G2", new Dictionary<string, object>(){ { "horizontal",0.1f*1},{ "vertical",0.066f*4} } },
+            { "SSJR1G3", new Dictionary<string, object>(){ { "horizontal",0.1f*2},{ "vertical",0.066f*4} } },
+            { "SSJR1G4", new Dictionary<string, object>(){ { "horizontal",0.1f*3},{ "vertical",0.066f*4} } },
+            { "SSJR2", new Dictionary<string, object>(){ { "horizontal",0.1f*4},{ "vertical", 0.066f * 4 } } },
+            { "SSJR3", new Dictionary<string, object>(){ { "horizontal",0.1f*5},{ "vertical",0.066f*4} } },
+            { "Divine", new Dictionary<string, object>(){ { "horizontal",0.1f*6},{ "vertical",0.066f*4} } },
+            { "DR", new Dictionary<string, object>(){ { "horizontal",0.1f*7},{ "vertical",0.066f*4} } },
+
+            { "Evil", new Dictionary<string, object>(){ { "horizontal",0.1f*0},{ "vertical",0.066f*5} } },
+            { "Rampaging", new Dictionary<string, object>(){ { "horizontal",0.1f*1},{ "vertical",0.066f*5} } },
+            { "Berserk", new Dictionary<string, object>(){ { "horizontal",0.1f*2},{ "vertical",0.066f*5} } },
+
+            { "UI", new Dictionary<string, object>(){ { "horizontal", 0.1f * 0 },{ "vertical", 0.066f * 6 } } },
+            { "TUI", new Dictionary<string, object>(){ { "horizontal",0.1f*1},{ "vertical", 0.066f * 6 } } },
+            { "UILB", new Dictionary<string, object>(){ { "horizontal",0.1f*2},{ "vertical",0.066f*6} } },
+
+            { "PU", new Dictionary<string, object>(){ { "horizontal",0.1f*0},{ "vertical",0.066f*7} } },
+            { "Beast", new Dictionary<string, object>(){ { "horizontal",0.1f*1},{ "vertical",0.066f*7} } },
+
+            { "UE", new Dictionary<string, object>(){ { "horizontal",0.1f*0},{ "vertical",0.066f*8} } },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         };
 
 
@@ -206,12 +317,12 @@ namespace DragonballPichu.Common.GUI
             statsPanel.Width.Set(650, 0); //900
             Append(statsPanel);
 
-            formChooserPanel = new UIGrid();
-            formChooserPanel.Top.Set(0, .4f); //500
-            formChooserPanel.Height.Set(0, .46f); //450
+            formChooserPanel = new UIPanel();
+            formChooserPanel.Top.Set(0, .3f); //500
+            formChooserPanel.Height.Set(0, .65f); //450
             formChooserPanel.Left.Set(0, .05f); //100
             formChooserPanel.Width.Set(0, .24f); //450
-            formChooserPanel.MaxHeight.Set(0, .6f); //450
+            formChooserPanel.MaxHeight.Set(0, .65f); //450
             formChooserPanel.MaxWidth.Set(0, .24f); //450
             Append(formChooserPanel);
 
@@ -223,7 +334,7 @@ namespace DragonballPichu.Common.GUI
 
             formChooserText = new UIText("Form Chooser Panel!"); // 1
             formChooserText.HAlign = 0.5f; // 1
-            formChooserText.VAlign = 0.5f; // 1
+            formChooserText.VAlign = 1f; // 1
             formChooserPanel.Append(formChooserText);
 
             formsPanelText = new UIText("Form Unlock Panel!"); // 1
@@ -254,7 +365,10 @@ namespace DragonballPichu.Common.GUI
             //formChooserPanel.Append(formsGrid);
 
             FormButton baseFormButton = new FormButton("baseForm", ModContent.Request<Texture2D>("DragonballPichu/Content/Buffs/BuffTemplate"), false);
-            formChooserPanel.Add(baseFormButton);
+            Dictionary<string,object> baseFormInfo = nameToFormChooseInfo["baseForm"];
+            baseFormButton.VAlign = (float)baseFormInfo["vertical"];
+            baseFormButton.HAlign = (float)baseFormInfo["horizontal"];
+            formChooserPanel.Append(baseFormButton);
 
             foreach (string form in forms)
             {
@@ -366,12 +480,13 @@ namespace DragonballPichu.Common.GUI
             FormButton formUnlockButton = new FormButton(form, ModContent.Request<Texture2D>("DragonballPichu/Content/Buffs/"+form+"Buff"), true);
             
             Dictionary<string,object> formUnlockTreeInfo = nameToUnlockTreeInfo[form];
-            float VAlignFormUnlock = (float)formUnlockTreeInfo["vAlign"];
-            float HAlignFormUnlock = (float)formUnlockTreeInfo["hAlign"];
+            
+            float VAlignFormUnlock = (float)formUnlockTreeInfo["vertical"];
+            float HAlignFormUnlock = (float)formUnlockTreeInfo["horizontal"];
             //List<GUIArrow> arrows = (List<GUIArrow>)formUnlockTreeInfo["arrows"];
 
-            formUnlockButton.HAlign = VAlignFormUnlock;
-            formUnlockButton.VAlign = HAlignFormUnlock;
+            formUnlockButton.HAlign = HAlignFormUnlock;
+            formUnlockButton.VAlign = VAlignFormUnlock;
             //arrows.ForEach(formUnlockButton.getIcon().Append);
             
             formsPanel.Append(formUnlockButton);
@@ -379,7 +494,16 @@ namespace DragonballPichu.Common.GUI
             nameToFormUnlockButton.Add(form, formUnlockButton);
 
             FormButton formChooseButton = new FormButton(form, ModContent.Request<Texture2D>("DragonballPichu/Content/Buffs/"+form+"Buff"), false);
-            formChooserPanel.Add(formChooseButton);
+
+            Dictionary<string, object> formChooseInfo = nameToFormChooseInfo[form];
+            float VAlignFormChoose = (float)formChooseInfo["vertical"];
+            float HAlignFormChoose = (float)formChooseInfo["horizontal"];
+            
+
+            formChooseButton.HAlign = HAlignFormChoose;
+            formChooseButton.VAlign = VAlignFormChoose;
+
+            formChooserPanel.Append(formChooseButton);
             formChooseButton.Activate();
             nameToFormChooseButton.Add(form, formChooseButton);
         }
@@ -539,6 +663,13 @@ namespace DragonballPichu.Common.GUI
 
             if (modPlayer.unlockLoaded.Count > 0)
             {
+                foreach (string form in FormTree.forms)
+                {
+                    if (!modPlayer.unlockLoaded.Contains(form) && !treeStarterForms.Contains(form))
+                    {
+                        visibleUnlocks.Remove(form);
+                    }
+                }
                 foreach (string form in modPlayer.unlockLoaded)
                 {
                     unlockForm(form);
