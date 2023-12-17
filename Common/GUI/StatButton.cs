@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
+using Terraria.ModLoader;
 using Terraria.UI;
 
 namespace DragonballPichu.Common.GUI
@@ -39,12 +40,68 @@ namespace DragonballPichu.Common.GUI
             Append(sideText);
         }
 
+        public bool isVisible()
+        {
+            return getModifiedStatName() != "NOT USEFUL";
+        }
+
+        public string getModifiedStatName()
+        {
+            var modPlayer = Main.LocalPlayer.GetModPlayer<DragonballPichuPlayer>();
+            if(modPlayer == null) { return ""; }
+            Stat stat = modPlayer.getStat(statName);
+            if(stat == null) { return ""; }
+            string modifiedStatName;
+            if (statName.Contains("Form"))
+            {
+                modifiedStatName = stat.name;
+                modifiedStatName = modifiedStatName.Replace("Mult", "");
+                modifiedStatName = modifiedStatName.Replace("Divide", "");
+                if (modifiedStatName == "Special")
+                {
+                    modifiedStatName = FormTree.nameToSpecial[statName.Substring(0, statName.IndexOf("Form"))][0];
+                    switch (modifiedStatName)
+                    {
+                        case "Kaio-Efficient":
+                            modifiedStatName = "NOT USEFUL";
+                            break;
+                        case "Ki Power":
+                            modifiedStatName = "NOT USEFUL";
+                            break;
+                        case "HP Power":
+                            modifiedStatName = "NOT USEFUL";
+                            break;
+                        case "Dodge":
+                            modifiedStatName = "Dodge Cost Reduction";
+                            break;
+                        case "Regen":
+                            modifiedStatName = "Life Regen";
+                            break;
+                        case "DR":
+                            modifiedStatName = "Defense Effectiveness";
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            else
+            {
+                modifiedStatName = statName;
+            }
+            return modifiedStatName;
+        }
+
         public override void Update(GameTime gameTime)
         {
             var modPlayer = Main.LocalPlayer.GetModPlayer<DragonballPichuPlayer>();
             
             base.Update(gameTime);
             Stat stat = modPlayer.getStat(statName);
+            string modifiedStatName = getModifiedStatName();
+            
+
+
             if(stat ==  null)
             {
                 sideText.SetText(text + " " + statName);
@@ -56,31 +113,31 @@ namespace DragonballPichu.Common.GUI
                 switch (stat.name)
                 {
                     case "MultKi":
-                        toText = text + " " + statName;
+                        toText = text + " " + modifiedStatName;
                         sideText.SetText(toText);
                         return;
                     case "DivideDrain":
-                        toText = text + " " + statName;
+                        toText = text + " " + modifiedStatName;
                         sideText.SetText(toText);
                         return;
-                    case "MultDamage":
-                        toText = text + " " + statName;
+                    case "MultDamage": //////////////////////////////
+                        toText = text + " " + modifiedStatName;
                         sideText.SetText(toText);
                         return;
                     case "MultSpeed":
-                        toText = text + " " + statName;
+                        toText = text + " " + modifiedStatName;
                         sideText.SetText(toText);
                         return;
-                    case "MultDefense":
-                        toText = text + " " + statName;
+                    case "MultDefense": ///////////////////////////////
+                        toText = text + " " + modifiedStatName;
                         sideText.SetText(toText);
                         return;
-                    case "Special":
-                        toText = text + " " + statName;
+                    case "Special": ////////////////////////////
+                        toText = text + " " + modifiedStatName;
                         sideText.SetText(toText);
                         return;
                     default:
-                        toText = text + " " + statName + ": " + statIncreasePerClick + "/" + stat.getValue();
+                        toText = text + " " + modifiedStatName + ": " + statIncreasePerClick + "/" + stat.getValue();
                         sideText.SetText(toText);
                         return;
 
@@ -119,6 +176,10 @@ namespace DragonballPichu.Common.GUI
 
         public void OnButtonClick(UIMouseEvent evt, UIElement listeningElement)
         {
+            if (!isVisible())
+            {
+                return;
+            }
             var modPlayer = Main.LocalPlayer.GetModPlayer<DragonballPichuPlayer>();
             Stat stat = modPlayer.getStat(statName);
             if(stat != null)
@@ -144,5 +205,15 @@ namespace DragonballPichu.Common.GUI
             //var modPlayer = Main.LocalPlayer.GetModPlayer<DragonballPichuPlayer>();
             //modPlayer.setSelectedForm(this.name);
         }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            if (!isVisible())
+            {
+                return;
+            }
+            base.Draw(spriteBatch);
+        }
     }
+
 }

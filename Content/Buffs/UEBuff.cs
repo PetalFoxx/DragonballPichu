@@ -17,6 +17,7 @@ namespace DragonballPichu.Content.Buffs
         public static new readonly float DamageBonus = 2.9f;
         public static new readonly Boolean isStackable = false;
         public static new readonly string name = "UE";
+        public static new readonly List<string> special = new List<string>() { "HP Power", "0-1" };
         public override LocalizedText Description => base.Description;
 
         public override void Update(Player player, ref int buffIndex)

@@ -299,12 +299,24 @@ namespace DragonballPichu.Common.GUI
         public List<string> visibleUnlocks = new List<string>();
 
         public override void OnInitialize()
-        { 
+        {
+            Color borderMain = Colors.Orchid;
+            Color backgroundMain = Colors.Pink;
+            Color borderRespec = Colors.Teal;
+            Color backgroundRespec = Colors.Turquoise;
+
+           
+
+
             formsPanel = new UIPanel();
+            backgroundMain.A = formsPanel.BackgroundColor.A;
+            backgroundRespec.A = formsPanel.BackgroundColor.A;
             formsPanel.Top.Set(0, .1f); //100
             formsPanel.Height.Set(0, .6f); // 600
             formsPanel.Left.Set(0, .32f); //600
             formsPanel.Width.Set(0, .48f); //900
+            formsPanel.BorderColor = borderMain;
+            formsPanel.BackgroundColor = backgroundMain;
             Append(formsPanel);
 
             //1875 
@@ -315,6 +327,8 @@ namespace DragonballPichu.Common.GUI
             statsPanel.Height.Set(0, .256f); //250
             statsPanel.Left.Set(0, .32f); //600
             statsPanel.Width.Set(650, 0); //900
+            statsPanel.BorderColor = borderMain;
+            statsPanel.BackgroundColor = backgroundMain;
             Append(statsPanel);
 
             formChooserPanel = new UIPanel();
@@ -324,13 +338,28 @@ namespace DragonballPichu.Common.GUI
             formChooserPanel.Width.Set(0, .24f); //450
             formChooserPanel.MaxHeight.Set(0, .65f); //450
             formChooserPanel.MaxWidth.Set(0, .24f); //450
+            formChooserPanel.BorderColor = borderMain;
+            formChooserPanel.BackgroundColor = backgroundMain;
             Append(formChooserPanel);
+
+            //respec stats button///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            respecStatsButton = new UIPanel();
+            respecStatsButton.OnLeftClick += OnRespecButtonClick;
+            respecStatsButton.Height.Set(35, 0);
+            respecStatsButton.Width.Set(35, 0);
+            respecStatsButton.HAlign = .4f;
+            respecStatsButton.VAlign = .9f;
+            respecStatsButton.BorderColor = borderRespec;
+            respecStatsButton.BackgroundColor = backgroundRespec;
+            statsPanel.Append(respecStatsButton);
+
 
 
             statsPanelText = new UIText("Stats Panel!"); // 1
-            statsPanelText.HAlign = 0.5f; // 1
-            statsPanelText.VAlign = 0.9f; // 1
-            statsPanel.Append(statsPanelText);
+            statsPanelText.Left.Set(0, 2.5f);
+            //statsPanelText.HAlign = 1f; // 1
+            statsPanelText.VAlign = 0.5f; // 1
+            respecStatsButton.Append(statsPanelText);
 
             formChooserText = new UIText("Form Chooser Panel!"); // 1
             formChooserText.HAlign = 0.5f; // 1
@@ -349,14 +378,7 @@ namespace DragonballPichu.Common.GUI
             statsPanel.Append(formInfoText);
 
 
-            //respec stats button///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            respecStatsButton = new UIPanel();
-            respecStatsButton.OnLeftClick += OnRespecButtonClick;
-            respecStatsButton.Height.Set(35,0);
-            respecStatsButton.Width.Set(35,0);
-            respecStatsButton.HAlign = .05f;
-            respecStatsButton.VAlign = .9f;
-            statsPanel.Append(respecStatsButton);
+
 
 
             //UIGrid formsGrid = new UIGrid();
@@ -400,31 +422,43 @@ namespace DragonballPichu.Common.GUI
             kiMaxStatButton = new StatButton("Increase", "maxKi", 100);
             kiMaxStatButton.HAlign = 0;
             kiMaxStatButton.VAlign = 0;
+            kiMaxStatButton.BorderColor = borderMain;
+            kiMaxStatButton.BackgroundColor = backgroundMain;
             statsPanel.Append(kiMaxStatButton);
 
             chargeKiGainStatButton = new StatButton("Increase", "chargeKiGain", 1);
             chargeKiGainStatButton.HAlign = 0;
             chargeKiGainStatButton.VAlign = .3f;
+            chargeKiGainStatButton.BorderColor = borderMain;
+            chargeKiGainStatButton.BackgroundColor = backgroundMain;
             statsPanel.Append(chargeKiGainStatButton);
 
             kiGainStatButton = new StatButton("Increase", "kiGain", .1f);
             kiGainStatButton.HAlign = .5f;
             kiGainStatButton.VAlign = 0;
+            kiGainStatButton.BorderColor = borderMain;
+            kiGainStatButton.BackgroundColor = backgroundMain;
             statsPanel.Append(kiGainStatButton);
 
             baseDefenseButton = new StatButton("Increase", "baseDefense", .25f);
             baseDefenseButton.HAlign = .5f;
             baseDefenseButton.VAlign = .3f;
+            baseDefenseButton.BorderColor = borderMain;
+            baseDefenseButton.BackgroundColor = backgroundMain;
             statsPanel.Append(baseDefenseButton);
 
             baseAttackButton = new StatButton("Increase", "baseAttack", .01f);
             baseAttackButton.HAlign = 0f;
             baseAttackButton.VAlign = .6f;
+            baseAttackButton.BorderColor = borderMain;
+            baseAttackButton.BackgroundColor = backgroundMain;
             statsPanel.Append(baseAttackButton);
 
             baseSpeedButton = new StatButton("Increase", "baseSpeed", .01f);
             baseSpeedButton.HAlign = .5f;
             baseSpeedButton.VAlign = .6f;
+            baseSpeedButton.BorderColor = borderMain;
+            baseSpeedButton.BackgroundColor = backgroundMain;
             statsPanel.Append(baseSpeedButton);
 
             //baseDefenseButton;
@@ -450,16 +484,22 @@ namespace DragonballPichu.Common.GUI
             formIncreaseDamage = new StatButton("Increase", "SSJ1FormMultDamage", .1f);
             formIncreaseDamage.HAlign = 0;
             formIncreaseDamage.VAlign = 0;
+            formIncreaseDamage.BorderColor = borderMain;
+            formIncreaseDamage.BackgroundColor = backgroundMain;
             statsPanel.Append(formIncreaseDamage);
 
             formIncreaseDefense = new StatButton("Increase", "SSJ1FormMultDefense", .1f);
             formIncreaseDefense.HAlign = 0f;
             formIncreaseDefense.VAlign = .3f;
+            formIncreaseDefense.BorderColor = borderMain;
+            formIncreaseDefense.BackgroundColor = backgroundMain;
             statsPanel.Append(formIncreaseDefense);
 
             formSpecial = new StatButton("Increase", "SSJ1FormSpecial", .1f);
             formSpecial.HAlign = 0f;
             formSpecial.VAlign = .6f;
+            formSpecial.BorderColor = borderMain;
+            formSpecial.BackgroundColor = backgroundMain;
             statsPanel.Append(formSpecial);
 
             //addFormStatButtons("SSJ1");
@@ -546,8 +586,7 @@ namespace DragonballPichu.Common.GUI
 
             formIncreaseDefense.statName = formName + "FormMultDefense";
             formSpecial.statName = formName + "FormSpecial";
-
-            statsPanel.Append(formIncreaseDamage);  statsPanel.Append(formIncreaseDefense); statsPanel.Append(formSpecial); //statsPanel.Append(formMultiplyKi); statsPanel.Append(formDivideDrain); statsPanel.Append(formIncreaseSpeed);
+            statsPanel.Append(formIncreaseDamage);  statsPanel.Append(formIncreaseDefense); statsPanel.Append(formSpecial);//statsPanel.Append(formMultiplyKi); statsPanel.Append(formDivideDrain); statsPanel.Append(formIncreaseSpeed);
             statsPanel.Append(formInfoText);
         }
 
@@ -689,12 +728,13 @@ namespace DragonballPichu.Common.GUI
             if (selectedFormID != -1 && modPlayer.nameToStats.Keys.Contains(selectedForm))
             {
                 FormStats stats = modPlayer.nameToStats[selectedForm];
-                newStatsPanelText = "<- Respec " + selectedForm + ", level " + stats.getLevel() + ": " + stats.getPoints() + " Points! To next: " + round(stats.getExperience()) + "/" + round(stats.expNeededToAdvanceLevel());
+                //newStatsPanelText = "<- Respec " + selectedForm + ", level " + stats.getLevel() + ": " + stats.getPoints() + " Points! To next: " + round(stats.getExperience()) + "/" + round(stats.expNeededToAdvanceLevel());
+                newStatsPanelText = "Respec " +selectedForm+ "(" + stats.getPoints() + "/" + stats.getLevel() + "), (" + round(stats.getExperience()) + "/" + round(stats.expNeededToAdvanceLevel()) + ")";
                 newFormInfoText = "Drain: " + roundTens((FormTree.nameToKiDrain[selectedForm] / stats.DivideDrain.getValue()) - modPlayer.kiGain.getValue()) + " ki/s\nMultiply Ki: " + stats.MultKi.getValue() + "x\nDamage: " + roundTens(FormTree.nameToDamageBonus[selectedForm] * stats.MultDamage.getValue()) + "x\nDefense: +" + ((int)(FormTree.nameToDefenseBonus[selectedForm] * stats.MultDefense.getValue())) + "\nSpeed: " + roundTens(FormTree.nameToSpeedBonus[selectedForm] * stats.MultSpeed.getValue()) + "x\nSpecial(Not Implemented): " + roundTens(stats.Special.getValue());
             }
             else 
             {
-                newStatsPanelText = "<- Respec " + "Base Form, level " +modPlayer.getLevel()+ ": " + modPlayer.getPoints() + " Points! To next: " + round(modPlayer.getExperience()) + "/" + round(modPlayer.expNeededToAdvanceLevel());
+                newStatsPanelText = "Respec " + "Base Form(" +modPlayer.getPoints()+ "/" + modPlayer.getLevel() + "), (" + round(modPlayer.getExperience()) + "/" + round(modPlayer.expNeededToAdvanceLevel())+")";
             }
             newUnlockPanelText = "Last Hovered Over Form: "+formHoverText+"     Form Points: "+modPlayer.getFormPoints();
             statsPanelText.SetText(newStatsPanelText,.8f,false);

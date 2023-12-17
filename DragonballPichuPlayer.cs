@@ -220,6 +220,12 @@ namespace DragonballPichu
         {
             return formPoints;
         }
+
+        public override void UpdateLifeRegen()
+        {
+            base.UpdateLifeRegen();
+            Player.lifeRegen += (int)getFormSpecialRegen();
+        }
         public Boolean useFormPoints(string formName)
         {
             if (formName == null || !FormTree.forms.Contains(formName) || unlockedForms.Contains(formName))
@@ -298,6 +304,7 @@ namespace DragonballPichu
 
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
+            modifiers.FinalDamage *= getFormSpecialDamageMult();
             modifiers.FinalDamage *= getBaseAttack();
             base.ModifyHitNPC(target, ref modifiers);
         }
@@ -474,10 +481,20 @@ namespace DragonballPichu
                 kiDrain.setValue(0);
             }
         }
-        public override void PostUpdate()
+
+        public override void UpdateEquips()
         {
             base.PostUpdate();
             Player.statDefense += (int)getBaseDefense();
+            float currentEffectiveness = Player.DefenseEffectiveness.Value;
+            float desiredEffectiveness = currentEffectiveness + getFormSpecialDR();
+            Player.DefenseEffectiveness *= desiredEffectiveness / currentEffectiveness;
+            //Player.DefenseEffectiveness; //* getFormSpecialDR();
+                //.Value += getFormSpecialDR();
+                //+= getFormSpecialDR();
+        }
+        public override void PostUpdate()
+        {
         }
 
         public override void ProcessTriggers(TriggersSet triggersSet)
@@ -741,6 +758,130 @@ namespace DragonballPichu
                 
             }
         }
+
+        public float getHPPercentage()
+        {
+            return Player.statLife / Player.statLifeMax2;
+        }
+
+        public float getHPPowerMult(string form)
+        {
+            float toReturn = 1;
+            if (form != null && FormTree.nameToSpecial.ContainsKey(form))
+            {
+                List<string> buffSpecial = FormTree.nameToSpecial[form];
+                if (buffSpecial[0] == "HP Power")
+                {
+                    float hpPercent = getHPPercentage();
+                    string hpPower = buffSpecial[1];
+                    List<string> hpPowerSplit = hpPower.Split("-").ToList();
+                    float hpPowerMin = (float)Double.Parse(hpPowerSplit[0]);
+                    float hpPowerMax = (float)Double.Parse(hpPowerSplit[1]);
+                    float hpPowerRange = hpPowerMax - hpPowerMin;
+                    toReturn = hpPowerMin + (hpPowerRange * hpPercent);
+                    Math.Clamp(toReturn, hpPowerMin, hpPowerMax);
+                }
+            }
+            return toReturn;
+        }
+
+
+        public float getKiPowerMult(string form)
+        {
+            float toReturn = 1;
+            if (form != null && FormTree.nameToSpecial.ContainsKey(form))
+            {
+                List<string> buffSpecial = FormTree.nameToSpecial[form];
+                if (buffSpecial[0] == "Ki Power")
+                {
+                    float kiPercent = getKiPercentage();
+                    string kiPower = buffSpecial[1];
+                    List<string> kiPowerSplit = kiPower.Split("-").ToList();
+                    float kiPowerMin = (float)Double.Parse(kiPowerSplit[0]);
+                    float kiPowerMax = (float)Double.Parse(kiPowerSplit[1]);
+                    float kiPowerRange = kiPowerMax - kiPowerMin;
+                    toReturn = kiPowerMin + (kiPowerRange * kiPercent);
+                    Math.Clamp(toReturn, kiPowerMin, kiPowerMax);
+                }
+            }
+            return toReturn;
+        }
+
+        public float getHPRegenSpecial(string form)
+        {
+            float toReturn = 1;
+            if (form != null && FormTree.nameToSpecial.ContainsKey(form))
+            {
+                List<string> buffSpecial = FormTree.nameToSpecial[form];
+                if (buffSpecial[0] == "Regen")
+                {
+                    string regen = buffSpecial[1];
+                    toReturn = ((float)Double.Parse(regen)) * getStat(form + "FormSpecial").getValue();
+                }
+            }
+            return toReturn;
+        }
+
+        
+
+        public float getSpecialDefenseReductionMulti(string form)
+        {
+            float toReturn = 1;
+            if (form != null && FormTree.nameToSpecial.ContainsKey(form))
+            {
+                List<string> buffSpecial = FormTree.nameToSpecial[form];
+                if (buffSpecial[0] == "DR")
+                {
+                    string dr = buffSpecial[1];
+                    toReturn = ((float)Double.Parse(dr)) * getStat(form + "FormSpecial").getValue();
+                }
+            }
+            return toReturn;
+        }
+        public float getFormSpecialDR()
+        {
+            float total = 0;
+            total += getSpecialDefenseReductionMulti(currentBuff);
+
+
+            foreach (string form in stackedBuffs)
+            {
+                total += getSpecialDefenseReductionMulti(form);
+            }
+            return total;
+
+        }
+
+
+        public float getFormSpecialDamageMult()
+        {
+            float totalMult = 1;
+            totalMult *= getHPPowerMult(currentBuff);
+            totalMult *= getKiPowerMult(currentBuff);
+
+            foreach (string form in stackedBuffs)
+            {
+                totalMult *= getHPPowerMult(form);
+                totalMult *= getKiPowerMult(form);
+            }
+            return totalMult; 
+        }
+
+        public float getFormSpecialRegen()
+        {
+            float total = 0;
+            total += getHPRegenSpecial(currentBuff);
+            
+
+            foreach (string form in stackedBuffs)
+            {
+                total += getHPRegenSpecial(form);
+            }
+            return total;
+            
+        }
+
+        
 
         public override void LoadData(TagCompound tag)
         {

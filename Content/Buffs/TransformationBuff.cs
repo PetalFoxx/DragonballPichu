@@ -17,6 +17,7 @@ namespace DragonballPichu.Content.Buffs
         public static readonly float DamageBonus = 1;
         public static readonly string name = "ExampleTransformation";
         public static readonly Boolean isStackable = true;
+        public static readonly List<string> special = new List<string>() { "", "" };
 
         public override LocalizedText Description => base.Description;
 

@@ -586,6 +586,64 @@ namespace DragonballPichu.Common.Systems
             { "UILB", UILBBuff.KiDrain }
         };
 
+
+        public static Dictionary<string, List<string>> nameToSpecial= new Dictionary<string, List<string>>()
+        {
+            { "FSSJ", FSSJBuff.special },
+            { "SSJ1", SSJ1Buff.special },
+            { "SSJ1G2", SSJ1G2Buff.special },
+            { "FSSJB", FSSJBBuff.special },
+            { "SSJ1G3", SSJ1G3Buff.special },
+            { "SSJ1G4", SSJ1G4Buff.special },
+            { "SSJ2", SSJ2Buff.special },
+            { "SSJ3", SSJ3Buff.special },
+            { "SSJRage", SSJRageBuff.special },
+            { "SSJ4", SSJ4Buff.special },
+            { "SSJ4LB", SSJ4LBBuff.special },
+            { "SSJ5", SSJ5Buff.special },
+            { "SSJ5G2", SSJ5G2Buff.special },
+            { "SSJ5G3", SSJ5G3Buff.special },
+            { "SSJ5G4", SSJ5G4Buff.special },
+            { "SSJ6", SSJ6Buff.special },
+            { "SSJ7", SSJ7Buff.special },
+            { "FLSSJ", FLSSJBuff.special },
+            { "Ikari", IkariBuff.special },
+            { "LSSJ1", LSSJ1Buff.special },
+            { "LSSJ2", LSSJ2Buff.special },
+            { "LSSJ3", LSSJ3Buff.special },
+            { "LSSJ4", LSSJ4Buff.special },
+            { "LSSJ4LB", LSSJ4LBBuff.special },
+            { "LSSJ5", LSSJ5Buff.special },
+            { "LSSJ6", LSSJ6Buff.special },
+            { "LSSJ7", LSSJ7Buff.special },
+            { "SSJG", SSJGBuff.special },
+            { "LSSJB", LSSJBBuff.special },
+            { "SSJB1", SSJB1Buff.special },
+            { "SSJB1G2", SSJB1G2Buff.special },
+            { "SSJB1G3", SSJB1G3Buff.special },
+            { "SSJB1G4", SSJB1G4Buff.special },
+            { "SSJB2", SSJB2Buff.special },
+            { "SSJB3", SSJB3Buff.special },
+            { "SSJBE", SSJBEBuff.special },
+            { "SSJR1", SSJR1Buff.special },
+            { "SSJR1G2", SSJR1G2Buff.special },
+            { "SSJR1G3", SSJR1G3Buff.special },
+            { "SSJR1G4", SSJR1G4Buff.special },
+            { "SSJR2", SSJR2Buff.special },
+            { "SSJR3", SSJR3Buff.special },
+            { "Divine", DivineBuff.special },
+            { "DR", DRBuff.special },
+            { "Evil", EvilBuff.special },
+            { "Rampaging", RampagingBuff.special },
+            { "Berserk", BerserkBuff.special },
+            { "PU", PUBuff.special },
+            { "Beast", BeastBuff.special },
+            { "UE", UEBuff.special },
+            { "UI", UIBuff.special },
+            { "TUI", TUIBuff.special },
+            { "UILB", UILBBuff.special }
+        };
+
         public static int formNameToID(string name)
         {
             if(name == null)

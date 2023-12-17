@@ -17,6 +17,7 @@ namespace DragonballPichu.Content.Buffs
         public static new readonly float DamageBonus = 1.1f;
         public static new readonly string name = "Ikari";
         public static new readonly Boolean isStackable = false;
+        public static new readonly List<string> special = new List<string>() { "HP Power", "0.8-1.2" };
 
         public override LocalizedText Description => base.Description;
 

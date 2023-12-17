@@ -17,6 +17,7 @@ namespace DragonballPichu.Content.Buffs
         public static new readonly float DamageBonus = 1.4f;
         public static new readonly string name = "LSSJ1";
         public static new readonly Boolean isStackable = false;
+        public static new readonly List<string> special = new List<string>() { "Ki Power", "0.75-1.25" };
 
         public override LocalizedText Description => base.Description;
 

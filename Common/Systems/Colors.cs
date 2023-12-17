@@ -154,5 +154,12 @@ namespace DragonballPichu.Common.Systems
         public static Color Yellow = Color.Yellow;
         public static Color YellowGreen = Color.YellowGreen;
 
+
+
+        public static Color getColorTransparent(Color color, float alpha)
+        {
+            Color toReturn = new Color(color.R,color.G,color.B,alpha);
+            return toReturn;
+        }
     }
 }
