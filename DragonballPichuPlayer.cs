@@ -99,6 +99,7 @@ namespace DragonballPichu
         public List<string> unlockLoaded = new List<string>();
 
         
+        
 
         public Dictionary<string, int> formToUnlockPoints = new Dictionary<string, int>()
         {
@@ -168,6 +169,8 @@ namespace DragonballPichu
         bool isHoldingAlternateKey = false;
         bool isHoldingRevertKey = false;
         public bool isTransformed = false;
+        float secondWindTime = 0;
+        float secondWindCooldown = 0;
 
         int selectedFormID = -1;//ModContent.BuffType<SSJ1Buff>();
         String selectedForm = "baseForm";
@@ -302,11 +305,89 @@ namespace DragonballPichu
             formPoints++;
         }
 
+        public float getSecondWindLevel(string form)
+        {
+            float toReturn = 0;
+            if (form != null && nameToStats.ContainsKey(form))
+            {
+                List<string> buffSpecial = nameToStats[form].specialEffectValue;
+                if (buffSpecial[0] == "Second Wind")
+                {
+                    //return getStat(form + "FormSpecial").getValue();
+                    string secondWind = buffSpecial[1];
+                    toReturn = ((float)Double.Parse(secondWind)) * getStat(form + "FormSpecial").getValue();
+                    //toReturn = FormsStatsUI.invertFraction(toReturn);
+                }
+            }
+            return toReturn;
+        }
+
+        public float getSecondWindTotalLevel()
+        {
+            float total = 0;
+            total += getSecondWindLevel(currentBuff);
+
+
+            foreach (string form in stackedBuffs)
+            {
+                total += getSecondWindLevel(form);
+            }
+            return total;
+        }
+
+        public float getSecondWindBoost()
+        {
+            return 1 + (getSecondWindTotalLevel()/10);
+        }
+
+        public bool getWithinSecondWindThreshold()
+        {
+            return Player.statLife < 100 + getSecondWindTotalLevel() * 20;
+            //return 0.5f;
+        }
+
+        public float getSecondWindTime()
+        {
+            return getSecondWindTotalLevel() * 60;
+        }
+
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             modifiers.FinalDamage *= getFormSpecialDamageMult();
             modifiers.FinalDamage *= getBaseAttack();
+            if (secondWindTime > 0)
+            {
+                modifiers.FinalDamage *= getSecondWindBoost();
+            }
             base.ModifyHitNPC(target, ref modifiers);
+        }
+
+        public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
+        {
+            
+            if (secondWindTime > 0)
+            {
+                modifiers.FinalDamage *= 0;
+            }
+            else
+            {
+                if(getSecondWindTotalLevel() > 0 && getWithinSecondWindThreshold() && secondWindCooldown == 0)
+                {
+                    secondWindTime = getSecondWindTime();
+                }
+            }
+            
+            
+            base.ModifyHitByNPC(npc, ref modifiers);
+        }
+
+        public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
+        {
+            /*if(getSecondWindTotalLevel() > 0 && getHPPercentage() > 0 && getHPPercentage() < getSecondWindThreshold() && secondWindCooldown == 0) 
+            {
+                secondWindTime = getSecondWindTime();
+            }*/
+            base.OnHitByNPC(npc, hurtInfo);
         }
 
         public Boolean tryAddNewEnemyToCompendium(NPC npc)
@@ -440,8 +521,9 @@ namespace DragonballPichu
              
             if(isTransformed)
             {
-                //decreaseKi(formDrain);
-                decreaseKi(formDrain * (stackedBuffs.Count()+1));
+                float stackedFormsMulti = (stackedBuffs.Count() + 1);
+                stackedFormsMulti *= getFormSpecialStackCost();
+                decreaseKi(formDrain * stackedFormsMulti);
                 maxKi.multiplier = maxKiMulti;
             }
             else
@@ -486,6 +568,10 @@ namespace DragonballPichu
         {
             base.PostUpdate();
             Player.statDefense += (int)getBaseDefense();
+            if (isCharging)
+            {
+                Player.statDefense += (int)getChargeDefense();
+            }
             float currentEffectiveness = Player.DefenseEffectiveness.Value;
             float desiredEffectiveness = currentEffectiveness + getFormSpecialDR();
             Player.DefenseEffectiveness *= desiredEffectiveness / currentEffectiveness;
@@ -495,6 +581,17 @@ namespace DragonballPichu
         }
         public override void PostUpdate()
         {
+            if (secondWindCooldown > 0)
+            {
+                secondWindCooldown--;
+            }
+            if(secondWindTime > 0)
+            {
+                secondWindTime--;
+                if (secondWindTime == 0) {
+                    secondWindCooldown = 3600;
+                }
+            }
         }
 
         public override void ProcessTriggers(TriggersSet triggersSet)
@@ -738,38 +835,14 @@ namespace DragonballPichu
             increaseBaseSpeed(.01f * num);
         }
 
-        public override void SaveData(TagCompound tag)
-        {
-            tag["experience"] = experience;
-            tag["level"] = level;
-            tag["unlockedForms"] = unlockedForms;
-            tag["enemyCompendium"] = enemyCompendium;
-            tag["formPoints"] = formPoints;
-            tag["spendFormPoints"] = spendFormPoints;
-            List<string> forms = new List<string>() { "FSSJ","SSJ1","SSJ1G2","SSJ1G3","SSJ1G4","SSJ2","SSJ3","SSJRage","SSJ4","SSJ4LB","SSJ5","SSJ5G2","SSJ5G3","SSJ5G4","SSJ6","SSJ7","FLSSJ","Ikari","LSSJ1","LSSJ2","LSSJ3","LSSJ4","LSSJ4LB","LSSJ5","LSSJ6","LSSJ7","SSJG","LSSJB","FSSJB","SSJB1","SSJB1G2","SSJB1G3","SSJB1G4","SSJB2","SSJB3","SSJBE","SSJR1","SSJR1G2","SSJR1G3","SSJR1G4","SSJR2","SSJR3","Divine","DR","Evil","Rampaging","Berserk","PU","Beast","UE","UI","UILB","TUI"
-};
-            foreach (string form in forms)
-            {
-                if (nameToStats.ContainsKey(form))
-                {
-                    tag[(form + "level")] = nameToStats[form].getLevel();
-                    tag[(form + "experience")] = nameToStats[form].getExperience();
-                }
-                
-            }
-        }
 
-        public float getHPPercentage()
-        {
-            return Player.statLife / Player.statLifeMax2;
-        }
 
         public float getHPPowerMult(string form)
         {
             float toReturn = 1;
-            if (form != null && FormTree.nameToSpecial.ContainsKey(form))
+            if (form != null && nameToStats.ContainsKey(form))
             {
-                List<string> buffSpecial = FormTree.nameToSpecial[form];
+                List<string> buffSpecial = nameToStats[form].specialEffectValue;
                 if (buffSpecial[0] == "HP Power")
                 {
                     float hpPercent = getHPPercentage();
@@ -789,9 +862,9 @@ namespace DragonballPichu
         public float getKiPowerMult(string form)
         {
             float toReturn = 1;
-            if (form != null && FormTree.nameToSpecial.ContainsKey(form))
+            if (form != null && nameToStats.ContainsKey(form))
             {
-                List<string> buffSpecial = FormTree.nameToSpecial[form];
+                List<string> buffSpecial = nameToStats[form].specialEffectValue;
                 if (buffSpecial[0] == "Ki Power")
                 {
                     float kiPercent = getKiPercentage();
@@ -810,9 +883,9 @@ namespace DragonballPichu
         public float getHPRegenSpecial(string form)
         {
             float toReturn = 1;
-            if (form != null && FormTree.nameToSpecial.ContainsKey(form))
+            if (form != null && nameToStats.ContainsKey(form))
             {
-                List<string> buffSpecial = FormTree.nameToSpecial[form];
+                List<string> buffSpecial = nameToStats[form].specialEffectValue;
                 if (buffSpecial[0] == "Regen")
                 {
                     string regen = buffSpecial[1];
@@ -827,9 +900,9 @@ namespace DragonballPichu
         public float getSpecialDefenseReductionMulti(string form)
         {
             float toReturn = 1;
-            if (form != null && FormTree.nameToSpecial.ContainsKey(form))
+            if (form != null && nameToStats.ContainsKey(form))
             {
-                List<string> buffSpecial = FormTree.nameToSpecial[form];
+                List<string> buffSpecial = nameToStats[form].specialEffectValue;
                 if (buffSpecial[0] == "DR")
                 {
                     string dr = buffSpecial[1];
@@ -838,6 +911,38 @@ namespace DragonballPichu
             }
             return toReturn;
         }
+
+        public float getSpecialStackCostReductionMulti(string form)
+        {
+            float toReturn = 1;
+            if (form != null && nameToStats.ContainsKey(form))
+            {
+                List<string> buffSpecial = nameToStats[form].specialEffectValue;
+                if (buffSpecial[0] == "Special Compatibility")
+                {
+                    string stackCost = buffSpecial[1];
+                    toReturn = ((float)Double.Parse(stackCost)) * getStat(form + "FormSpecial").getValue();
+                    toReturn = FormsStatsUI.invertFraction(toReturn);
+                }
+            }
+            return toReturn;
+        }
+
+        public float getSpecialChargeDefense(string form)
+        {
+            float toReturn = 0;
+            if (form != null && nameToStats.ContainsKey(form))
+            {
+                List<string> buffSpecial = nameToStats[form].specialEffectValue;
+                if (buffSpecial[0] == "Aura Defense")
+                {
+                    string chargeDefense = buffSpecial[1];
+                    toReturn = ((float)Double.Parse(chargeDefense)) * getStat(form + "FormSpecial").getValue();
+                }
+            }
+            return toReturn;
+        }
+
         public float getFormSpecialDR()
         {
             float total = 0;
@@ -850,6 +955,33 @@ namespace DragonballPichu
             }
             return total;
 
+        }
+
+        public float getFormSpecialStackCost()
+        {
+            float total = 1;
+            total *= getSpecialStackCostReductionMulti(currentBuff);
+
+
+            foreach (string form in stackedBuffs)
+            {
+                total *= getSpecialStackCostReductionMulti(form);
+            }
+            return total;
+
+        }
+
+        public float getChargeDefense()
+        {
+            float total = 0;
+            total += getSpecialChargeDefense(currentBuff);
+
+
+            foreach (string form in stackedBuffs)
+            {
+                total += getSpecialChargeDefense(form);
+            }
+            return total;
         }
 
 
@@ -881,7 +1013,34 @@ namespace DragonballPichu
             
         }
 
-        
+        public override void SaveData(TagCompound tag)
+        {
+            tag["experience"] = experience;
+            tag["level"] = level;
+            tag["unlockedForms"] = unlockedForms;
+            tag["enemyCompendium"] = enemyCompendium;
+            tag["formPoints"] = formPoints;
+            tag["spendFormPoints"] = spendFormPoints;
+            List<string> forms = new List<string>() { "FSSJ","SSJ1","SSJ1G2","SSJ1G3","SSJ1G4","SSJ2","SSJ3","SSJRage","SSJ4","SSJ4LB","SSJ5","SSJ5G2","SSJ5G3","SSJ5G4","SSJ6","SSJ7","FLSSJ","Ikari","LSSJ1","LSSJ2","LSSJ3","LSSJ4","LSSJ4LB","LSSJ5","LSSJ6","LSSJ7","SSJG","LSSJB","FSSJB","SSJB1","SSJB1G2","SSJB1G3","SSJB1G4","SSJB2","SSJB3","SSJBE","SSJR1","SSJR1G2","SSJR1G3","SSJR1G4","SSJR2","SSJR3","Divine","DR","Evil","Rampaging","Berserk","PU","Beast","UE","UI","UILB","TUI"
+};
+            foreach (string form in forms)
+            {
+                if (nameToStats.ContainsKey(form))
+                {
+                    tag[(form + "level")] = nameToStats[form].getLevel();
+                    tag[(form + "experience")] = nameToStats[form].getExperience();
+                    tag[(form + "specialname")] = nameToStats[form].specialEffectValue[0];
+                    tag[(form + "specialvalue")] = nameToStats[form].specialEffectValue[1];
+
+                }
+
+            }
+        }
+
+        public float getHPPercentage()
+        {
+            return Player.statLife / Player.statLifeMax2;
+        }
 
         public override void LoadData(TagCompound tag)
         {
@@ -941,6 +1100,14 @@ namespace DragonballPichu
                     if (tag.ContainsKey((form + "experience")))
                     {
                         nameToStats[form].gainExperience(tag.Get<float>((form + "experience")));
+                    }
+                    if (tag.ContainsKey((form + "specialname")))
+                    {
+                        nameToStats[form].specialEffectValue[0] = tag.Get<string>((form+"specialname"));
+                    }
+                    if (tag.ContainsKey((form + "specialvalue")))
+                    {
+                        nameToStats[form].specialEffectValue[1] = tag.Get<string>((form + "specialvalue"));
                     }
                 }
 

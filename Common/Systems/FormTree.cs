@@ -587,7 +587,7 @@ namespace DragonballPichu.Common.Systems
         };
 
 
-        public static Dictionary<string, List<string>> nameToSpecial= new Dictionary<string, List<string>>()
+        /*public static Dictionary<string, List<string>> nameToSpecial= new Dictionary<string, List<string>>()
         {
             { "FSSJ", FSSJBuff.special },
             { "SSJ1", SSJ1Buff.special },
@@ -642,7 +642,7 @@ namespace DragonballPichu.Common.Systems
             { "UI", UIBuff.special },
             { "TUI", TUIBuff.special },
             { "UILB", UILBBuff.special }
-        };
+        };*/
 
         public static int formNameToID(string name)
         {

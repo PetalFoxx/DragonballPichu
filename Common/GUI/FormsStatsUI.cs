@@ -126,7 +126,7 @@ namespace DragonballPichu.Common.GUI
             { "SSJ2", new Dictionary<string, object>(){ { "horizontal",0.0625f*4},{ "vertical",0.0714f*1} } },
             { "LSSJ1", new Dictionary<string, object>(){ { "horizontal",0.0625f*4},{ "vertical",0.0714f*10} } },
             { "Rampaging", new Dictionary<string, object>(){ { "horizontal",0.0625f*4},{ "vertical",0.0714f*11} } },
-                                                                                                               
+
             { "SSJ1G3", new Dictionary<string, object>(){ { "horizontal",0.0625f*5},{ "vertical",0.0714f*0} } },
             { "SSJ3", new Dictionary<string, object>(){ { "horizontal",0.0625f*5},{ "vertical", 0.0714f * 1 } } },
             { "LSSJ2", new Dictionary<string, object>(){ { "horizontal",0.0625f*5},{ "vertical",0.0714f*10} } },
@@ -134,50 +134,50 @@ namespace DragonballPichu.Common.GUI
 
             { "SSJ4", new Dictionary<string, object>(){ { "horizontal",0.0625f*6},{ "vertical",0.0714f*1} } },
             { "LSSJ3", new Dictionary<string, object>(){ { "horizontal",0.0625f*6},{ "vertical",0.0714f*10} } },
-                                                                                                    
+
             { "SSJ4LB", new Dictionary<string, object>(){ { "horizontal",0.0625f*7},{ "vertical",0.0714f*1} } },
             { "SSJG", new Dictionary<string, object>(){ { "horizontal",0.0625f*7},{ "vertical",0.0714f*3} } },
             { "LSSJ4", new Dictionary<string, object>(){ { "horizontal",0.0625f*7},{ "vertical",0.0714f*10} } },
-                                                                                                    
+
             { "SSJ5", new Dictionary<string, object>(){ { "horizontal",0.0625f*8},{ "vertical",0.0714f*1} } },
             { "SSJ5G4", new Dictionary<string, object>(){ { "horizontal",0.0625f*8},{ "vertical",0.0714f*2} } },
             { "FSSJB", new Dictionary<string, object>(){ { "horizontal",0.0625f*8},{ "vertical",0.0714f*3} } },
             { "LSSJ4LB", new Dictionary<string, object>(){ { "horizontal",0.0625f*8},{ "vertical",0.0714f*10} } },
-                                                                                                    
-            { "SSJRage", new Dictionary<string, object>(){ { "horizontal",0.0625f*9},{ "vertical",0.0714f*0} } }, 
+
+            { "SSJRage", new Dictionary<string, object>(){ { "horizontal",0.0625f*9},{ "vertical",0.0714f*0} } },
             { "SSJB1", new Dictionary<string, object>(){ { "horizontal",0.0625f*9},{ "vertical",0.0714f*3} } },
             { "SSJB1G4", new Dictionary<string, object>(){ { "horizontal",0.0625f*9},{ "vertical",0.0714f*4} } },
             { "SSJR1", new Dictionary<string, object>(){ { "horizontal",0.0625f*9},{ "vertical",0.0714f*6} } },
             { "SSJR1G4", new Dictionary<string, object>(){ { "horizontal",0.0625f*9},{ "vertical",0.0714f*7} } },
-                                                                                                    
+
             { "SSJ5G2", new Dictionary<string, object>(){ { "horizontal",0.0625f*10},{ "vertical", 0.0714f * 1} } },
-                                                                                                    
+
             { "SSJ6", new Dictionary<string, object>(){ { "horizontal",0.0625f*11},{ "vertical",0.0714f*2} } },
             { "SSJB1G2", new Dictionary<string, object>(){ { "horizontal",0.0625f*11},{ "vertical",0.0714f*3} } },
-            { "LSSJB", new Dictionary<string, object>(){ { "horizontal",0.0625f*11},{ "vertical",0.0714f*5} } },  
+            { "LSSJB", new Dictionary<string, object>(){ { "horizontal",0.0625f*11},{ "vertical",0.0714f*5} } },
             { "SSJR1G2", new Dictionary<string, object>(){ { "horizontal",0.0625f*11},{ "vertical",0.0714f*6} } },
             { "LSSJ5", new Dictionary<string, object>(){ { "horizontal",0.0625f*11},{ "vertical",0.0714f*10} } },
-                                                                                                    
+
             { "SSJB1G3", new Dictionary<string, object>(){ { "horizontal",0.0625f*12},{ "vertical",0.0714f*3} } },
             { "SSJB2", new Dictionary<string, object>(){ { "horizontal",0.0625f*12},{ "vertical",0.0714f*4} } },
             { "SSJR1G3", new Dictionary<string, object>(){ { "horizontal",0.0625f*12},{ "vertical",0.0714f*6} } },
             { "SSJR2", new Dictionary<string, object>(){ { "horizontal",0.0625f*12},{ "vertical", 0.0714f * 7 } } },
-                                                                                                    
-            { "SSJ5G3", new Dictionary<string, object>(){ { "horizontal",0.0625f*13},{ "vertical",0.0714f*1} } }, 
-                                                                                                    
-            { "SSJ7", new Dictionary<string, object>(){ { "horizontal",0.0625f*14},{ "vertical",0.0714f*2} } },   
-            { "SSJBE", new Dictionary<string, object>(){ { "horizontal",0.0625f*14},{ "vertical",0.0714f*3} } },  
-            { "SSJB3", new Dictionary<string, object>(){ { "horizontal",0.0625f*14},{ "vertical",0.0714f*4} } },  
-            { "SSJR3", new Dictionary<string, object>(){ { "horizontal",0.0625f*14},{ "vertical",0.0714f*7} } },  
-            { "DR", new Dictionary<string, object>(){ { "horizontal",0.0625f*14},{ "vertical",0.0714f*8} } },     
+
+            { "SSJ5G3", new Dictionary<string, object>(){ { "horizontal",0.0625f*13},{ "vertical",0.0714f*1} } },
+
+            { "SSJ7", new Dictionary<string, object>(){ { "horizontal",0.0625f*14},{ "vertical",0.0714f*2} } },
+            { "SSJBE", new Dictionary<string, object>(){ { "horizontal",0.0625f*14},{ "vertical",0.0714f*3} } },
+            { "SSJB3", new Dictionary<string, object>(){ { "horizontal",0.0625f*14},{ "vertical",0.0714f*4} } },
+            { "SSJR3", new Dictionary<string, object>(){ { "horizontal",0.0625f*14},{ "vertical",0.0714f*7} } },
+            { "DR", new Dictionary<string, object>(){ { "horizontal",0.0625f*14},{ "vertical",0.0714f*8} } },
             { "TUI", new Dictionary<string, object>(){ { "horizontal",0.0625f*14},{ "vertical", 0.0714f * 9 } } },
             { "LSSJ6", new Dictionary<string, object>(){ { "horizontal",0.0625f*14},{ "vertical",0.0714f*10} } },
-                                                                                                          
-            { "Beast", new Dictionary<string, object>(){ { "horizontal",0.0625f*15},{ "vertical",0.0714f*12} } },       
+
+            { "Beast", new Dictionary<string, object>(){ { "horizontal",0.0625f*15},{ "vertical",0.0714f*12} } },
             { "UE", new Dictionary<string, object>(){ { "horizontal",0.0625f*15},{ "vertical",0.0714f*13} } },
-                                                                                                               
-            { "UILB", new Dictionary<string, object>(){ { "horizontal",0.0625f*16},{ "vertical",0.0714f*9} } },              
-            { "LSSJ7", new Dictionary<string, object>(){ { "horizontal",0.0625f*16},{ "vertical",0.0714f*10} } },            
+
+            { "UILB", new Dictionary<string, object>(){ { "horizontal",0.0625f*16},{ "vertical",0.0714f*9} } },
+            { "LSSJ7", new Dictionary<string, object>(){ { "horizontal",0.0625f*16},{ "vertical",0.0714f*10} } },
         };
 
 
@@ -217,7 +217,7 @@ namespace DragonballPichu.Common.GUI
             { "LSSJ5", new Dictionary<string, object>(){ { "horizontal",0.1f*7},{ "vertical",0.066f * 2} } },
             { "LSSJ6", new Dictionary<string, object>(){ { "horizontal",0.1f*8},{ "vertical",0.066f * 2} } },
             { "LSSJ7", new Dictionary<string, object>(){ { "horizontal",0.1f*9},{ "vertical",0.066f * 2} } },
-            
+
             { "SSJG", new Dictionary<string, object>(){ { "horizontal",0.1f*0},{ "vertical",0.066f*3} } },
             { "FSSJB", new Dictionary<string, object>(){ { "horizontal",0.1f*1},{ "vertical",0.066f*3} } },
             { "SSJB1", new Dictionary<string, object>(){ { "horizontal",0.1f*2},{ "vertical",0.066f*3} } },
@@ -305,7 +305,7 @@ namespace DragonballPichu.Common.GUI
             Color borderRespec = Colors.Teal;
             Color backgroundRespec = Colors.Turquoise;
 
-           
+
 
 
             formsPanel = new UIPanel();
@@ -387,7 +387,7 @@ namespace DragonballPichu.Common.GUI
             //formChooserPanel.Append(formsGrid);
 
             FormButton baseFormButton = new FormButton("baseForm", ModContent.Request<Texture2D>("DragonballPichu/Content/Buffs/BuffTemplate"), false);
-            Dictionary<string,object> baseFormInfo = nameToFormChooseInfo["baseForm"];
+            Dictionary<string, object> baseFormInfo = nameToFormChooseInfo["baseForm"];
             baseFormButton.VAlign = (float)baseFormInfo["vertical"];
             baseFormButton.HAlign = (float)baseFormInfo["horizontal"];
             formChooserPanel.Append(baseFormButton);
@@ -408,7 +408,7 @@ namespace DragonballPichu.Common.GUI
                 formsPanel.Append(arrow);
             }
 
-            
+
 
 
 
@@ -503,7 +503,7 @@ namespace DragonballPichu.Common.GUI
             statsPanel.Append(formSpecial);
 
             //addFormStatButtons("SSJ1");
-            
+
             addBaseStatButtons();
             addFormStatButtons("SSJ1");
             //removeFormStatButtons();
@@ -513,14 +513,14 @@ namespace DragonballPichu.Common.GUI
             //modPlayer.setSelectedForm(this.name);
             //modSystem.MyFormsStatsUI.addStatButtons(modPlayer.getSelectedFormID());
         }
-        
+
 
         public void createFormButtons(string form)
         {
-            FormButton formUnlockButton = new FormButton(form, ModContent.Request<Texture2D>("DragonballPichu/Content/Buffs/"+form+"Buff"), true);
-            
-            Dictionary<string,object> formUnlockTreeInfo = nameToUnlockTreeInfo[form];
-            
+            FormButton formUnlockButton = new FormButton(form, ModContent.Request<Texture2D>("DragonballPichu/Content/Buffs/" + form + "Buff"), true);
+
+            Dictionary<string, object> formUnlockTreeInfo = nameToUnlockTreeInfo[form];
+
             float VAlignFormUnlock = (float)formUnlockTreeInfo["vertical"];
             float HAlignFormUnlock = (float)formUnlockTreeInfo["horizontal"];
             //List<GUIArrow> arrows = (List<GUIArrow>)formUnlockTreeInfo["arrows"];
@@ -528,17 +528,17 @@ namespace DragonballPichu.Common.GUI
             formUnlockButton.HAlign = HAlignFormUnlock;
             formUnlockButton.VAlign = VAlignFormUnlock;
             //arrows.ForEach(formUnlockButton.getIcon().Append);
-            
+
             formsPanel.Append(formUnlockButton);
             formUnlockButton.Activate();
             nameToFormUnlockButton.Add(form, formUnlockButton);
 
-            FormButton formChooseButton = new FormButton(form, ModContent.Request<Texture2D>("DragonballPichu/Content/Buffs/"+form+"Buff"), false);
+            FormButton formChooseButton = new FormButton(form, ModContent.Request<Texture2D>("DragonballPichu/Content/Buffs/" + form + "Buff"), false);
 
             Dictionary<string, object> formChooseInfo = nameToFormChooseInfo[form];
             float VAlignFormChoose = (float)formChooseInfo["vertical"];
             float HAlignFormChoose = (float)formChooseInfo["horizontal"];
-            
+
 
             formChooseButton.HAlign = HAlignFormChoose;
             formChooseButton.VAlign = VAlignFormChoose;
@@ -586,13 +586,13 @@ namespace DragonballPichu.Common.GUI
 
             formIncreaseDefense.statName = formName + "FormMultDefense";
             formSpecial.statName = formName + "FormSpecial";
-            statsPanel.Append(formIncreaseDamage);  statsPanel.Append(formIncreaseDefense); statsPanel.Append(formSpecial);//statsPanel.Append(formMultiplyKi); statsPanel.Append(formDivideDrain); statsPanel.Append(formIncreaseSpeed);
+            statsPanel.Append(formIncreaseDamage); statsPanel.Append(formIncreaseDefense); statsPanel.Append(formSpecial);//statsPanel.Append(formMultiplyKi); statsPanel.Append(formDivideDrain); statsPanel.Append(formIncreaseSpeed);
             statsPanel.Append(formInfoText);
         }
 
         public void removeFormStatButtons()
         {
-            formIncreaseDamage.Remove();  formIncreaseDefense.Remove(); formSpecial.Remove(); //formMultiplyKi.Remove(); formDivideDrain.Remove(); formIncreaseSpeed.Remove();
+            formIncreaseDamage.Remove(); formIncreaseDefense.Remove(); formSpecial.Remove(); //formMultiplyKi.Remove(); formDivideDrain.Remove(); formIncreaseSpeed.Remove();
             formInfoText.Remove();
         }
 
@@ -619,7 +619,7 @@ namespace DragonballPichu.Common.GUI
             var modPlayer = Main.LocalPlayer.GetModPlayer<DragonballPichuPlayer>();
             if (isFormButtons)
             {
-                
+
                 string selectedForm = modPlayer.getSelectedForm();
                 modPlayer.nameToStats[selectedForm].respec();
             }
@@ -631,14 +631,14 @@ namespace DragonballPichu.Common.GUI
 
         private List<GUIArrow> getArrowsOriginIsForm(string form)
         {
-            List<GUIArrow> toReturn = new List<GUIArrow> ();
-            foreach (GUIArrow arrow in unlockArrows) 
+            List<GUIArrow> toReturn = new List<GUIArrow>();
+            foreach (GUIArrow arrow in unlockArrows)
             {
-                if(arrow.originForm == null && arrow.destinationForm == form)
+                if (arrow.originForm == null && arrow.destinationForm == form)
                 {
                     toReturn.Add(arrow);
                 }
-                else if(arrow.originForm == form )
+                else if (arrow.originForm == form)
                 {
                     toReturn.Add(arrow);
                 }
@@ -663,7 +663,7 @@ namespace DragonballPichu.Common.GUI
 
         public void addStatButtons(int buffID)
         {
-            if(buffID == -1)
+            if (buffID == -1)
             {
                 removeFormStatButtons();
                 addBaseStatButtons();
@@ -687,6 +687,75 @@ namespace DragonballPichu.Common.GUI
         {
             return (float)((Math.Round(num * 10)) / 10f);
         }
+
+        public static float invertFraction(float num)
+        {
+            return 1 / num;
+        }
+
+        public string formSpecialDisplayText()
+        {
+            var modPlayer = Main.LocalPlayer.GetModPlayer<DragonballPichuPlayer>();
+            string selectedForm = modPlayer.getSelectedForm();
+            FormStats stats = modPlayer.nameToStats[selectedForm];
+            string toReturn = "x\nSpecial: ";
+            //List<string> special = FormTree.nameToSpecial[selectedForm];
+            List<string> special = modPlayer.nameToStats[selectedForm].specialEffectValue; 
+            string specialName = special[0];
+            string specialValue = special[1];
+            float specialValueFloat;
+            float specialValueFloatInverted;
+            switch (specialName)
+            {
+                case "Kaio-Efficient":
+                    toReturn += specialName;
+                    break;
+                case "Ki Power":
+                    toReturn += specialName + " " + specialValue;
+                    break;
+                case "HP Power":
+                    toReturn += specialName + " " + specialValue;
+                    break;
+                case "Dodge":
+                    toReturn += specialName + " Type " + specialValue;
+                    break;
+                case "Regen":
+                    specialValueFloat = (float)Double.Parse(specialValue);
+                    toReturn += roundTens(stats.Special.getValue() * specialValueFloat) + " Life Regen";
+                    break;
+                case "DR":
+                    specialValueFloat = (float)Double.Parse(specialValue);
+                    toReturn += roundTens(stats.Special.getValue() * specialValueFloat) + "% Defense Effectiveness";
+                    break;
+                case "Ki Attack Master":
+                    specialValueFloat = (float)Double.Parse(specialValue);
+                    specialValueFloatInverted = invertFraction(stats.Special.getValue() * specialValueFloat);
+                    toReturn += "Ki Cooldown Reduced: "+roundTens((1-specialValueFloatInverted)*100)+"%";
+                    break;
+                case "Aura Defense":
+                    toReturn += specialValue + " Defense While Charging";
+                    break;
+                case "Special Compatibility":
+                    specialValueFloat = (float)Double.Parse(specialValue);
+                    specialValueFloatInverted = invertFraction(stats.Special.getValue() * specialValueFloat);
+                    toReturn += "Stacking Cost Reduced: " + roundTens((1 - specialValueFloatInverted) * 100) + "%";
+                    break;
+                case "Second Wind":
+                    specialValueFloat = (float)Double.Parse(specialValue);
+                    toReturn += "Second Wind: Level " + roundTens(stats.Special.getValue() * specialValueFloat);
+                    break;
+                case "Frantic Ki Regen":
+                    specialValueFloat = (float)Double.Parse(specialValue);
+                    toReturn += "Frantic Ki Regen: Level " + roundTens(stats.Special.getValue() * specialValueFloat);
+                    break;
+                default:
+                    toReturn = "";
+                    break;
+            }
+        
+            //toReturn = "x\nSpecial(Not Implemented): " + roundTens(stats.Special.getValue());
+            return toReturn;
+            }
 
         public override void Update(GameTime gameTime)
         {
@@ -730,7 +799,7 @@ namespace DragonballPichu.Common.GUI
                 FormStats stats = modPlayer.nameToStats[selectedForm];
                 //newStatsPanelText = "<- Respec " + selectedForm + ", level " + stats.getLevel() + ": " + stats.getPoints() + " Points! To next: " + round(stats.getExperience()) + "/" + round(stats.expNeededToAdvanceLevel());
                 newStatsPanelText = "Respec " +selectedForm+ "(" + stats.getPoints() + "/" + stats.getLevel() + "), (" + round(stats.getExperience()) + "/" + round(stats.expNeededToAdvanceLevel()) + ")";
-                newFormInfoText = "Drain: " + roundTens((FormTree.nameToKiDrain[selectedForm] / stats.DivideDrain.getValue()) - modPlayer.kiGain.getValue()) + " ki/s\nMultiply Ki: " + stats.MultKi.getValue() + "x\nDamage: " + roundTens(FormTree.nameToDamageBonus[selectedForm] * stats.MultDamage.getValue()) + "x\nDefense: +" + ((int)(FormTree.nameToDefenseBonus[selectedForm] * stats.MultDefense.getValue())) + "\nSpeed: " + roundTens(FormTree.nameToSpeedBonus[selectedForm] * stats.MultSpeed.getValue()) + "x\nSpecial(Not Implemented): " + roundTens(stats.Special.getValue());
+                newFormInfoText = "Drain: " + roundTens((FormTree.nameToKiDrain[selectedForm] / stats.DivideDrain.getValue()) - modPlayer.kiGain.getValue()) + " ki/s\nMultiply Ki: " + stats.MultKi.getValue() + "x\nDamage: " + roundTens(FormTree.nameToDamageBonus[selectedForm] * stats.MultDamage.getValue()) + "x\nDefense: +" + ((int)(FormTree.nameToDefenseBonus[selectedForm] * stats.MultDefense.getValue())) + "\nSpeed: " + roundTens(FormTree.nameToSpeedBonus[selectedForm] * stats.MultSpeed.getValue()) + formSpecialDisplayText();
             }
             else 
             {

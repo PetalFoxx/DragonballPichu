@@ -42,7 +42,7 @@ namespace DragonballPichu.Common.GUI
 
         public bool isVisible()
         {
-            return getModifiedStatName() != "NOT USEFUL";
+            return !(getModifiedStatName() == "NOT USEFUL" || getModifiedStatName() == "");
         }
 
         public string getModifiedStatName()
@@ -59,11 +59,12 @@ namespace DragonballPichu.Common.GUI
                 modifiedStatName = modifiedStatName.Replace("Divide", "");
                 if (modifiedStatName == "Special")
                 {
-                    modifiedStatName = FormTree.nameToSpecial[statName.Substring(0, statName.IndexOf("Form"))][0];
+                    //modifiedStatName = FormTree.nameToSpecial[statName.Substring(0, statName.IndexOf("Form"))][0];
+                    modifiedStatName = modPlayer.nameToStats[statName.Substring(0, statName.IndexOf("Form"))].specialEffectValue[0];
                     switch (modifiedStatName)
                     {
                         case "Kaio-Efficient":
-                            modifiedStatName = "NOT USEFUL";
+                            modifiedStatName = "Kaioken Drain Reduction";
                             break;
                         case "Ki Power":
                             modifiedStatName = "NOT USEFUL";
@@ -79,6 +80,21 @@ namespace DragonballPichu.Common.GUI
                             break;
                         case "DR":
                             modifiedStatName = "Defense Effectiveness";
+                            break;
+                        case "Ki Attack Master":
+                            modifiedStatName = "Ki Attack Charge Speed";
+                            break;
+                        case "Aura Defense":
+                            modifiedStatName = "Aura Defense Gain";
+                            break;
+                        case "Special Compatibility":
+                            modifiedStatName = "Stack Efficiency";
+                            break;
+                        case "Second Wind":
+                            modifiedStatName = "Second Wind Level";
+                            break;
+                        case "Frantic Ki Regen":
+                            modifiedStatName = "Regen and Ki Max at low HP";
                             break;
                         default:
                             break;
