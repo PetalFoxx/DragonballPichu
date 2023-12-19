@@ -86,19 +86,30 @@ namespace DragonballPichu.Common.GUI
 
         public Boolean isVisible()
         {
+            
             if(name == "baseForm") { return true; }
             var modPlayer = Main.LocalPlayer.GetModPlayer<DragonballPichuPlayer>();
             DragonballPichuUISystem modSystem = ModContent.GetInstance<DragonballPichuUISystem>();
             if (unlock)
             {
-                return modSystem.MyFormsStatsUI.visibleUnlocks.Contains(name);
+                if (modSystem.MyFormsStatsUI.nameToVisible["unlock"])
+                {
+                    return modSystem.MyFormsStatsUI.visibleUnlocks.Contains(name);
+                }
+                return false;
             }
             else
             {
-                return modPlayer.unlockedForms.Contains(name);
+                if (modSystem.MyFormsStatsUI.nameToVisible["choose"])
+                {
+                    return modPlayer.unlockedForms.Contains(name);
+                }
+                return false;
             }
             
         }
+
+
 
         public override void Draw(SpriteBatch spriteBatch)
         {

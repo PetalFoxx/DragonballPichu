@@ -12,6 +12,8 @@ using DragonballPichu.Common;
 using DragonballPichu.Content.Buffs;
 using DragonballPichu.Common.GUI;
 using Terraria.ModLoader.IO;
+using Terraria.WorldBuilding;
+using Microsoft.Xna.Framework;
 
 namespace DragonballPichu
 {
@@ -305,6 +307,43 @@ namespace DragonballPichu
             formPoints++;
         }
 
+        public float getFranticRegenLevel(string form)
+        {
+            float toReturn = 0;
+            if (form != null && nameToStats.ContainsKey(form))
+            {
+                List<string> buffSpecial = nameToStats[form].specialEffectValue;
+                if (buffSpecial[0] == "Frantic Ki Regen")
+                {
+                    //return getStat(form + "FormSpecial").getValue();
+                    string secondWind = buffSpecial[1];
+                    toReturn = ((float)Double.Parse(secondWind)) * getStat(form + "FormSpecial").getValue();
+                    //toReturn = FormsStatsUI.invertFraction(toReturn);
+                }
+            }
+            return toReturn;
+        }
+
+        public float getFranticRegenTotalLevel()
+        {
+            float total = 0;
+            total += getFranticRegenLevel(currentBuff);
+
+
+            foreach (string form in stackedBuffs)
+            {
+                total += getFranticRegenLevel(form);
+            }
+            return total;
+        }
+
+        
+
+        public float getKiRegenFromFranticRegen()
+        {
+            return ((1 - getHPPercentage()) * getFranticRegenTotalLevel());
+        }
+
         public float getSecondWindLevel(string form)
         {
             float toReturn = 0;
@@ -371,22 +410,86 @@ namespace DragonballPichu
             }
             else
             {
-                if(getSecondWindTotalLevel() > 0 && getWithinSecondWindThreshold() && secondWindCooldown == 0)
+                int dodgeTier = getHighestFormDodgeTier();
+                switch (dodgeTier)
                 {
-                    secondWindTime = getSecondWindTime();
+                    case 1:
+                        doDodge1(npc, ref modifiers);
+                        break;
+                    case 2:
+                        doDodge2(npc, ref modifiers);
+                        break;
+                    default:
+                        //Main.NewText("Didn't dodge");
+                        break;
                 }
+                
             }
             
             
             base.ModifyHitByNPC(npc, ref modifiers);
         }
 
+        public void doDodge1(NPC npc, ref Player.HurtModifiers modifiers)
+        {
+            //Main.NewText("Dodge 1");
+            float specialDodgeCostTotal = getTotalSpecialDodgeCost();
+            float dodgeCostLiteral = getMaxKi() * .2f;
+            dodgeCostLiteral /= specialDodgeCostTotal;
+            if(getCurKi() > dodgeCostLiteral)
+            {
+                decreaseKi(dodgeCostLiteral * 20);
+                //Main.NewText("Dodge 1 Success!");
+                modifiers.FinalDamage *= 0;
+                modifiers.Knockback *= 0;
+                
+                //Vector2 attackingPos = npc.position;
+                //Vector2 playerPos = Player.position;
+                
+
+                
+            }
+            
+        }
+
+        public void doDodge2(NPC npc, ref Player.HurtModifiers modifiers)
+        {
+            //Main.NewText("Dodge 1");
+            float specialDodgeCostTotal = getTotalSpecialDodgeCost();
+            float dodgeCostLiteral = 500;
+            dodgeCostLiteral /= specialDodgeCostTotal;
+            if (getCurKi() > dodgeCostLiteral)
+            {
+                decreaseKi(dodgeCostLiteral * 20);
+                //Main.NewText("Dodge 1 Success!");
+                modifiers.FinalDamage *= 0;
+                modifiers.Knockback *= 0;
+
+                //Vector2 attackingPos = npc.position;
+                //Vector2 playerPos = Player.position;
+
+
+
+            }
+
+        }
+
+        public override bool CanBeHitByNPC(NPC npc, ref int cooldownSlot)
+        {
+            return base.CanBeHitByNPC(npc, ref cooldownSlot);
+        }
+
+        
+
+
+
+
         public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
         {
-            /*if(getSecondWindTotalLevel() > 0 && getHPPercentage() > 0 && getHPPercentage() < getSecondWindThreshold() && secondWindCooldown == 0) 
+            if(getSecondWindTotalLevel() > 0 && getWithinSecondWindThreshold() && secondWindCooldown == 0) 
             {
                 secondWindTime = getSecondWindTime();
-            }*/
+            }
             base.OnHitByNPC(npc, hurtInfo);
         }
 
@@ -505,6 +608,7 @@ namespace DragonballPichu
             base.PreUpdateBuffs();
             float formDrain = sumKiDrain();
             float maxKiMulti = 1f;
+            float maxKiAddition = 0;
             if (currentBuffID != -1)
             {
                 //formDrain /= modPlayer.getStat(currentBuff + "FormDivideDrain").getValue();
@@ -518,8 +622,10 @@ namespace DragonballPichu
             {
                 maxKiMulti = 1f;
             }
-             
-            if(isTransformed)
+            
+
+
+            if (isTransformed)
             {
                 float stackedFormsMulti = (stackedBuffs.Count() + 1);
                 stackedFormsMulti *= getFormSpecialStackCost();
@@ -538,11 +644,15 @@ namespace DragonballPichu
                 currentBuff = null;
                 currentBuffID = -1;
             }
+            float kiGainFrantic = getKiRegenFromFranticRegen();
+
             if (isCharging)
                 increaseKi(getChargeKiGain());
-            increaseKi(kiGain.getValue());
+            increaseKi(kiGain.getValue() + kiGainFrantic);
 
         }
+
+
         public override void PreUpdateBuffs()
         {
             setKiDrain(0);
@@ -715,15 +825,22 @@ namespace DragonballPichu
                 }
             }
 
-            if (KeybindSystem.ShowMenuKeybind.JustPressed)
+            if (KeybindSystem.ShowFormMenuKeybind.JustPressed)
             {
-                ModContent.GetInstance<DragonballPichuUISystem>().switchVisibility();
+                ModContent.GetInstance<DragonballPichuUISystem>().MyFormsStatsUI.switchVisibility("choose");
+            }
+            if (KeybindSystem.ShowUnlockMenuKeybind.JustPressed)
+            {
+                ModContent.GetInstance<DragonballPichuUISystem>().MyFormsStatsUI.switchVisibility("unlock");
+            }
+            if (KeybindSystem.ShowStatsMenuKeybind.JustPressed)
+            {
+                ModContent.GetInstance<DragonballPichuUISystem>().MyFormsStatsUI.switchVisibility("stats");
                 if (firstTimeOpenMenu)
                 {
                     firstTimeOpenMenu = false;
                     modSystem.MyFormsStatsUI.removeFormStatButtons();
                 }
-                
             }
             if (KeybindSystem.AdminGiveFormPoint.JustPressed)
             {
@@ -1011,6 +1128,71 @@ namespace DragonballPichu
             }
             return total;
             
+        }
+
+        public int getFormDodgeTier(string form)
+        {
+            int toReturn = 0;
+            if (form != null && nameToStats.ContainsKey(form))
+            {
+                List<string> buffSpecial = nameToStats[form].specialEffectValue;
+                if (buffSpecial[0] == "Dodge")
+                {
+                    string formDodgeTier = buffSpecial[1];
+                    toReturn = (int.Parse(formDodgeTier));
+                }
+            }
+            return toReturn;
+        }
+
+        public int getHighestFormDodgeTier()
+        {
+            int highestDodgeTier = 0;
+            int currentDodgeTier = getFormDodgeTier(currentBuff);
+            if (currentDodgeTier > highestDodgeTier)
+            {
+                highestDodgeTier = currentDodgeTier;
+            }
+
+
+            foreach (string form in stackedBuffs)
+            {
+                int stackedDodgeTier = getFormDodgeTier(form);
+                if (stackedDodgeTier > highestDodgeTier)
+                {
+                    highestDodgeTier = stackedDodgeTier;
+                }
+            }
+            return highestDodgeTier;
+
+        }
+
+        public float getTotalSpecialDodgeCost()
+        {
+            float total = 1;
+            total *= getSpecialDodgeCost(currentBuff);
+
+
+            foreach (string form in stackedBuffs)
+            {
+                total *= getSpecialDodgeCost(form);
+            }
+            return total;
+        }
+
+        public float getSpecialDodgeCost(string form)
+        {
+            float toReturn = 1;
+            if (form != null && nameToStats.ContainsKey(form))
+            {
+                List<string> buffSpecial = nameToStats[form].specialEffectValue;
+                if (buffSpecial[0] == "Dodge")
+                {
+
+                    toReturn = nameToStats[form].Special.getValue();
+                }
+            }
+            return toReturn;
         }
 
         public override void SaveData(TagCompound tag)

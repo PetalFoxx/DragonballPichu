@@ -7,6 +7,9 @@ Keybinds: {
 	AltForm.DisplayName: Ascend/Descend
 	ShowMenu.DisplayName: Show Menu
 	AdminGiveFormPoint.DisplayName: Admin Give Form Point
+	ShowStatsMenu.DisplayName: Show Stats Menu
+	ShowUnlockMenu.DisplayName: Show Unlock Menu
+	ShowFormMenu.DisplayName: Show Form Menu
 }
 
 Buffs: {

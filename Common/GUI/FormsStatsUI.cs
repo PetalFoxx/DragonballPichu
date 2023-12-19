@@ -180,7 +180,12 @@ namespace DragonballPichu.Common.GUI
             { "LSSJ7", new Dictionary<string, object>(){ { "horizontal",0.0625f*16},{ "vertical",0.0714f*10} } },
         };
 
-
+        public Dictionary<string, bool> nameToVisible = new Dictionary<string, bool>() 
+        {
+            { "choose", false },
+            { "unlock", false },
+            { "stats", false }
+        };
 
 
         Dictionary<string, Dictionary<string, object>> nameToFormChooseInfo = new Dictionary<string, Dictionary<string, object>>()
@@ -368,9 +373,9 @@ namespace DragonballPichu.Common.GUI
 
             formsPanelText = new UIText("Form Unlock Panel!"); // 1
             formsPanelText.HAlign = 0.5f; // 1
-            formsPanelText.VAlign = 0.05f; // 1
+            formsPanelText.VAlign = 0.0f; // 1
             //formsPanelText.Top.Set(-100, 0);
-            Append(formsPanelText);
+            formsPanel.Append(formsPanelText);
 
             formInfoText = new UIText("Form Info:\nForm Info:\nForm Info:\nForm Info:\nForm Info:\nForm Info:\nForm Info:");
             formInfoText.HAlign = .6f;
@@ -512,6 +517,9 @@ namespace DragonballPichu.Common.GUI
             //addFormStatButtons("SSJ1");
             //modPlayer.setSelectedForm(this.name);
             //modSystem.MyFormsStatsUI.addStatButtons(modPlayer.getSelectedFormID());
+            HideMyUI("choose");
+            HideMyUI("unlock");
+            HideMyUI("stats");
         }
 
 
@@ -600,18 +608,38 @@ namespace DragonballPichu.Common.GUI
         {
             base.DrawSelf(spriteBatch);
             // If this code is in the panel or container element, check it directly
-            if (formsPanel.ContainsPoint(Main.MouseScreen))
+            if (formsPanel.ContainsPoint(Main.MouseScreen) && nameToVisible["unlock"])
             {
-                //Main.LocalPlayer.mouseInterface = true;
+                Main.LocalPlayer.mouseInterface = true;
             }
-            if (formChooserPanel.ContainsPoint(Main.MouseScreen))
+            if (formChooserPanel.ContainsPoint(Main.MouseScreen) && nameToVisible["choose"])
             {
-                //Main.LocalPlayer.mouseInterface = true;
+                Main.LocalPlayer.mouseInterface = true;
             }
-            if (statsPanel.ContainsPoint(Main.MouseScreen))
+            if (statsPanel.ContainsPoint(Main.MouseScreen) && nameToVisible["stats"])
             {
-                //Main.LocalPlayer.mouseInterface = true;
+                Main.LocalPlayer.mouseInterface = true;
             }
+        }
+
+        protected override void DrawChildren(SpriteBatch spriteBatch)
+        {
+            foreach (UIElement element in Elements)
+            {
+                if(element.Equals(formsPanel) && nameToVisible["unlock"])
+                {
+                    element.Draw(spriteBatch);
+                }
+                if (element.Equals(formChooserPanel) && nameToVisible["choose"])
+                {
+                    element.Draw(spriteBatch);
+                }
+                if (element.Equals(statsPanel) && nameToVisible["stats"])
+                {
+                    element.Draw(spriteBatch);
+                }
+            }
+            //base.DrawChildren(spriteBatch);
         }
 
         public void OnRespecButtonClick(UIMouseEvent evt, UIElement listeningElement)
@@ -756,6 +784,31 @@ namespace DragonballPichu.Common.GUI
             //toReturn = "x\nSpecial(Not Implemented): " + roundTens(stats.Special.getValue());
             return toReturn;
             }
+
+
+
+        public void ShowMyUI(string name)
+        {
+            nameToVisible[name] = true;
+            
+        }
+
+        public void HideMyUI(string name)
+        {
+            nameToVisible[name] = false;
+        }
+
+        public void switchVisibility(string name)
+        {
+            if (nameToVisible[name])
+            {
+                HideMyUI(name);
+            }
+            else
+            {
+                ShowMyUI(name);
+            }
+        }
 
         public override void Update(GameTime gameTime)
         {
