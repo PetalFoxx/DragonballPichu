@@ -60,7 +60,8 @@ namespace DragonballPichu.Common.GUI
                 if (modifiedStatName == "Special")
                 {
                     //modifiedStatName = FormTree.nameToSpecial[statName.Substring(0, statName.IndexOf("Form"))][0];
-                    modifiedStatName = modPlayer.nameToStats[statName.Substring(0, statName.IndexOf("Form"))].specialEffectValue[0];
+                    //modifiedStatName = modPlayer.nameToStats[statName.Substring(0, statName.IndexOf("Form"))].specialEffectValue[0];
+                    modifiedStatName = FormTree.getSpecial(statName.Substring(0, statName.IndexOf("Form")))[0];
                     switch (modifiedStatName)
                     {
                         case "Kaio-Efficient":

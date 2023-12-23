@@ -4,7 +4,7 @@ Hold {Charge} to charge your ki, when it is over 95% full the bar disappears, an
 Press {Transform} to power up into your selected form, this drains your ki, but increases your damage & speed, and gives defense
 Press {Untransform} to go back to base form, this happens automatically when your ki runs out completely.
 Press {Ascend/Descend} with {Transform} or {Untransform} to Ascend or Descend forms, descending SSJ becomes FSSJ(False Super Saiyan), and descending that becomes base form. Ascending either of those will become SSJ.
-Press {Show Menu} to toggle the menu, which is where the progression happens. First box you should notice is the stats window, you can click on a form you have unlocked, or your base form:
+Press the {Show Menu} keybinds to toggle the menus, which is where the progression happens. First box you should notice is the stats window, you can click on a form you have unlocked, or your base form:
 It will change the stats to show what you can upgrade for that form(or your base) You can click these once you have points, and respec your points anytime with the button. I will detail how you earn experience/levels in a second!
 
 The second thing you should notice is at the top. There should be all the forms below. Currently they cost 1 form point each to unlock, which you earn for killing unique bosses. Hovering on a form button says the name, and it is also on the tree.
@@ -12,7 +12,7 @@ The second thing you should notice is at the top. There should be all the forms 
 
 The last place is the form choosing grid. This contains all of your currently accessible forms & your base. This allows you to upgrade the forms(or your base), or select one for use.
 
-To gain experience: kill enemies; the higher the max hp, the better the experience gain. Also, the first time you gain xp this way from an enemy, you get 10x as much! :D
+To gain experience: kill enemies; the higher the max hp, the better the experience gain. Also, you get XP per second while in a form, even for base form(while in a form to make it not super easy to level up base at first ^^)
 
 You can use a stackable form along with a normal form, or other stackable forms. The stackable forms are:
 		Evil

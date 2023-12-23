@@ -728,7 +728,7 @@ namespace DragonballPichu.Common.GUI
             FormStats stats = modPlayer.nameToStats[selectedForm];
             string toReturn = "x\nSpecial: ";
             //List<string> special = FormTree.nameToSpecial[selectedForm];
-            List<string> special = modPlayer.nameToStats[selectedForm].specialEffectValue; 
+            List<string> special = FormTree.getSpecial(selectedForm); 
             string specialName = special[0];
             string specialValue = special[1];
             float specialValueFloat;

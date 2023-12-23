@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ghols\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\DragonballPichu\\DragonballPichu.csproj": {}
+    "C:\\Users\\Brodie\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\DragonballPichu\\DragonballPichu.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ghols\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\DragonballPichu\\DragonballPichu.csproj": {
+    "C:\\Users\\Brodie\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\DragonballPichu\\DragonballPichu.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ghols\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\DragonballPichu\\DragonballPichu.csproj",
+        "projectUniqueName": "C:\\Users\\Brodie\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\DragonballPichu\\DragonballPichu.csproj",
         "projectName": "DragonballPichu",
-        "projectPath": "C:\\Users\\ghols\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\DragonballPichu\\DragonballPichu.csproj",
-        "packagesPath": "C:\\Users\\ghols\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ghols\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\DragonballPichu\\obj\\",
+        "projectPath": "C:\\Users\\Brodie\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\DragonballPichu\\DragonballPichu.csproj",
+        "packagesPath": "C:\\Users\\Brodie\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Brodie\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\DragonballPichu\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\ghols\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Brodie\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

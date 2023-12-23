@@ -15,13 +15,14 @@ namespace DragonballPichu
             base.OnKill(npc);
             DragonballPichuPlayer modPlayer = Main.LocalPlayer.GetModPlayer<DragonballPichuPlayer>();
 
-            Boolean newEnemy = modPlayer.tryAddNewEnemyToCompendium(npc);
+            Boolean newEnemy = modPlayer.tryAddNewBossToCompendium(npc);
             Boolean boss = npc.boss;
             float xpToGain = npc.lifeMax / 10f;
             //if (newEnemy)
             //{
             //    xpToGain *= 10;
             //}
+
             if (boss && newEnemy)
             {
                 //xpToGain *= 10;

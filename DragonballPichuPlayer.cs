@@ -14,6 +14,8 @@ using DragonballPichu.Common.GUI;
 using Terraria.ModLoader.IO;
 using Terraria.WorldBuilding;
 using Microsoft.Xna.Framework;
+using log4net.Core;
+using Terraria.DataStructures;
 
 namespace DragonballPichu
 {
@@ -177,6 +179,31 @@ namespace DragonballPichu
         int selectedFormID = -1;//ModContent.BuffType<SSJ1Buff>();
         String selectedForm = "baseForm";
 
+        public bool formLevelCompare(string form, bool higherOrEqual, int value)
+        {
+            int formLevel = getFormLevel(form);
+            if (higherOrEqual)
+            {
+                return formLevel >= value;
+            }
+            else
+            {
+                return formLevel <= value;
+            }
+        }
+
+        public int getFormLevel(string form)
+        {
+            return nameToStats[form].getLevel();
+        }
+
+        public bool hasBeaten(string enemy)
+        {
+            return enemyCompendium.Contains(enemy);
+        }
+
+
+
         public Stat getStat(string statName)
         {
 
@@ -312,7 +339,7 @@ namespace DragonballPichu
             float toReturn = 0;
             if (form != null && nameToStats.ContainsKey(form))
             {
-                List<string> buffSpecial = nameToStats[form].specialEffectValue;
+                List<string> buffSpecial = FormTree.getSpecial(form);
                 if (buffSpecial[0] == "Frantic Ki Regen")
                 {
                     //return getStat(form + "FormSpecial").getValue();
@@ -349,7 +376,7 @@ namespace DragonballPichu
             float toReturn = 0;
             if (form != null && nameToStats.ContainsKey(form))
             {
-                List<string> buffSpecial = nameToStats[form].specialEffectValue;
+                List<string> buffSpecial = FormTree.getSpecial(form);
                 if (buffSpecial[0] == "Second Wind")
                 {
                     //return getStat(form + "FormSpecial").getValue();
@@ -401,77 +428,91 @@ namespace DragonballPichu
             base.ModifyHitNPC(target, ref modifiers);
         }
 
-        public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
+        public override void ModifyHurt(ref Player.HurtModifiers modifiers)
         {
             
-            if (secondWindTime > 0)
-            {
-                modifiers.FinalDamage *= 0;
-            }
-            else
-            {
-                int dodgeTier = getHighestFormDodgeTier();
-                switch (dodgeTier)
-                {
-                    case 1:
-                        doDodge1(npc, ref modifiers);
-                        break;
-                    case 2:
-                        doDodge2(npc, ref modifiers);
-                        break;
-                    default:
-                        //Main.NewText("Didn't dodge");
-                        break;
-                }
-                
-            }
-            
-            
-            base.ModifyHitByNPC(npc, ref modifiers);
+            //base.ModifyHurt(ref modifiers);
         }
 
-        public void doDodge1(NPC npc, ref Player.HurtModifiers modifiers)
+        /*public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
         {
-            //Main.NewText("Dodge 1");
+            if(modifiers.FinalDamage > Player.statLife)
+            {
+
+            }
+            base.ModifyHitByNPC(npc, ref modifiers);
+        }*/
+
+        public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genDust, ref PlayerDeathReason damageSource)
+        {
+
+            Entity entity;
+            damageSource.TryGetCausingEntity(out entity);
+            if (entity is NPC && ((NPC)entity).boss)
+            {
+                if (!unlockedForms.Contains("FSSJ"))
+                {
+                    DragonballPichuUISystem modSystem = ModContent.GetInstance<DragonballPichuUISystem>();
+                    modSystem.MyFormsStatsUI.unlockForm("FSSJ");
+                    currentBuff = "FSSJ";
+                    currentBuffID = FormTree.formNameToID(currentBuff);
+                    isTransformed = true;
+                    Player.statLife = Player.statLifeMax2 / 2;
+                    return false;
+                }
+                return true;
+            }
+            return base.PreKill(damage, hitDirection, pvp, ref playSound, ref genDust, ref damageSource);
+        }
+
+        public override bool ImmuneTo(PlayerDeathReason damageSource, int cooldownCounter, bool dodgeable)
+        {
+            //Entity entity = null;
+            //damageSource.TryGetCausingEntity(out entity);
+            if(secondWindTime > 0)
+            {
+                return true;
+            }
+            int dodgeTier = getHighestFormDodgeTier();
+            switch (dodgeTier)
+            {
+                case 1:
+                    return doDodge1();
+                case 2:
+                    return doDodge2();
+                default:
+                    break;
+            }
+            return base.ImmuneTo(damageSource, cooldownCounter, dodgeable);
+        }
+        public bool doDodge1()
+        {
             float specialDodgeCostTotal = getTotalSpecialDodgeCost();
-            float dodgeCostLiteral = getMaxKi() * .2f;
+            float dodgeCostLiteral = getMaxKi() * .01f;
             dodgeCostLiteral /= specialDodgeCostTotal;
-            if(getCurKi() > dodgeCostLiteral)
+            float kiPercentage = getKiPercentage();
+            Random r = new Random();
+            float rand = (float)r.NextDouble();
+            bool doesDodge = (.9 + kiPercentage / 10) > rand;
+            if(getCurKi() > dodgeCostLiteral && doesDodge)
             {
                 decreaseKi(dodgeCostLiteral * 20);
-                //Main.NewText("Dodge 1 Success!");
-                modifiers.FinalDamage *= 0;
-                modifiers.Knockback *= 0;
-                
-                //Vector2 attackingPos = npc.position;
-                //Vector2 playerPos = Player.position;
-                
-
-                
+                return true;
             }
-            
+            return false;
         }
 
-        public void doDodge2(NPC npc, ref Player.HurtModifiers modifiers)
+        public bool doDodge2()
         {
-            //Main.NewText("Dodge 1");
             float specialDodgeCostTotal = getTotalSpecialDodgeCost();
-            float dodgeCostLiteral = 500;
+            float dodgeCostLiteral = 25;
             dodgeCostLiteral /= specialDodgeCostTotal;
             if (getCurKi() > dodgeCostLiteral)
             {
                 decreaseKi(dodgeCostLiteral * 20);
-                //Main.NewText("Dodge 1 Success!");
-                modifiers.FinalDamage *= 0;
-                modifiers.Knockback *= 0;
-
-                //Vector2 attackingPos = npc.position;
-                //Vector2 playerPos = Player.position;
-
-
-
+                return true;
             }
-
+            return false;
         }
 
         public override bool CanBeHitByNPC(NPC npc, ref int cooldownSlot)
@@ -493,9 +534,9 @@ namespace DragonballPichu
             base.OnHitByNPC(npc, hurtInfo);
         }
 
-        public Boolean tryAddNewEnemyToCompendium(NPC npc)
+        public Boolean tryAddNewBossToCompendium(NPC npc)
         {
-            if (enemyCompendium.Contains(npc.TypeName))
+            if (enemyCompendium.Contains(npc.TypeName) || !npc.boss)
             {
                 return false;
             }
@@ -959,7 +1000,7 @@ namespace DragonballPichu
             float toReturn = 1;
             if (form != null && nameToStats.ContainsKey(form))
             {
-                List<string> buffSpecial = nameToStats[form].specialEffectValue;
+                List<string> buffSpecial = FormTree.getSpecial(form);
                 if (buffSpecial[0] == "HP Power")
                 {
                     float hpPercent = getHPPercentage();
@@ -981,7 +1022,7 @@ namespace DragonballPichu
             float toReturn = 1;
             if (form != null && nameToStats.ContainsKey(form))
             {
-                List<string> buffSpecial = nameToStats[form].specialEffectValue;
+                List<string> buffSpecial = FormTree.getSpecial(form);
                 if (buffSpecial[0] == "Ki Power")
                 {
                     float kiPercent = getKiPercentage();
@@ -1002,7 +1043,7 @@ namespace DragonballPichu
             float toReturn = 1;
             if (form != null && nameToStats.ContainsKey(form))
             {
-                List<string> buffSpecial = nameToStats[form].specialEffectValue;
+                List<string> buffSpecial = FormTree.getSpecial(form);
                 if (buffSpecial[0] == "Regen")
                 {
                     string regen = buffSpecial[1];
@@ -1019,7 +1060,7 @@ namespace DragonballPichu
             float toReturn = 1;
             if (form != null && nameToStats.ContainsKey(form))
             {
-                List<string> buffSpecial = nameToStats[form].specialEffectValue;
+                List<string> buffSpecial = FormTree.getSpecial(form);
                 if (buffSpecial[0] == "DR")
                 {
                     string dr = buffSpecial[1];
@@ -1034,7 +1075,7 @@ namespace DragonballPichu
             float toReturn = 1;
             if (form != null && nameToStats.ContainsKey(form))
             {
-                List<string> buffSpecial = nameToStats[form].specialEffectValue;
+                List<string> buffSpecial = FormTree.getSpecial(form);
                 if (buffSpecial[0] == "Special Compatibility")
                 {
                     string stackCost = buffSpecial[1];
@@ -1050,7 +1091,7 @@ namespace DragonballPichu
             float toReturn = 0;
             if (form != null && nameToStats.ContainsKey(form))
             {
-                List<string> buffSpecial = nameToStats[form].specialEffectValue;
+                List<string> buffSpecial = FormTree.getSpecial(form);
                 if (buffSpecial[0] == "Aura Defense")
                 {
                     string chargeDefense = buffSpecial[1];
@@ -1135,7 +1176,7 @@ namespace DragonballPichu
             int toReturn = 0;
             if (form != null && nameToStats.ContainsKey(form))
             {
-                List<string> buffSpecial = nameToStats[form].specialEffectValue;
+                List<string> buffSpecial = FormTree.getSpecial(form);
                 if (buffSpecial[0] == "Dodge")
                 {
                     string formDodgeTier = buffSpecial[1];
@@ -1185,7 +1226,7 @@ namespace DragonballPichu
             float toReturn = 1;
             if (form != null && nameToStats.ContainsKey(form))
             {
-                List<string> buffSpecial = nameToStats[form].specialEffectValue;
+                List<string> buffSpecial = FormTree.getSpecial(form);
                 if (buffSpecial[0] == "Dodge")
                 {
 
