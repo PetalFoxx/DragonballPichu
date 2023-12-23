@@ -1,8 +1,11 @@
-﻿using System;
+﻿using DragonballPichu.Common.GUI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Terraria;
+using Terraria.ModLoader;
 
 
 namespace DragonballPichu.Common.Systems
@@ -150,6 +153,8 @@ Frantic Ki Regen [ multiplier ]
                 increaseLevel();
                 expNeeded = expNeededToAdvanceLevel();
             }
+
+
         }
 
         public void gainExperience(float experience)
@@ -160,6 +165,8 @@ Frantic Ki Regen [ multiplier ]
 
         public void increaseLevel()
         {
+            var modPlayer = Main.LocalPlayer.GetModPlayer<DragonballPichuPlayer>();
+            DragonballPichuUISystem modSystem = ModContent.GetInstance<DragonballPichuUISystem>();
             level += 1;
             points++;
             if(level % 5 == 0)
@@ -167,6 +174,18 @@ Frantic Ki Regen [ multiplier ]
                 levelInAll++;
                 increaseAll(1);
             }
+            if (form == "SSJ1")
+            {
+                if(level >= 5 && !modPlayer.unlockedForms.Contains("SSJ1G2"))
+                {
+                    modSystem.MyFormsStatsUI.unlockForm("SSJ1G2");
+                }
+                if(level >= 10 && !modPlayer.unlockedForms.Contains("SSJ1G4"))
+                {
+                    modSystem.MyFormsStatsUI.unlockForm("SSJ1G4");
+                }
+            }
+
         }
         public void setLevel(int level)
         {

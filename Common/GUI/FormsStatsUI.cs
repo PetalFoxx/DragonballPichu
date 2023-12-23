@@ -561,6 +561,7 @@ namespace DragonballPichu.Common.GUI
             var modPlayer = Main.LocalPlayer.GetModPlayer<DragonballPichuPlayer>();
             if (!modPlayer.unlockedForms.Contains(form))
             {
+                Main.NewText("Unlocked " + form);
                 modPlayer.unlockedForms.Add(form);
             }
             if (!visibleUnlocks.Contains(form))

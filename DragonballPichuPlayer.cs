@@ -102,8 +102,8 @@ namespace DragonballPichu
         public List<string> unlockedForms = new List<string>();
         public List<string> unlockLoaded = new List<string>();
 
-        
-        
+        public List<NPC> bossesThatHitYou = new List<NPC>();
+
 
         public Dictionary<string, int> formToUnlockPoints = new Dictionary<string, int>()
         {
@@ -434,6 +434,27 @@ namespace DragonballPichu
             //base.ModifyHurt(ref modifiers);
         }
 
+        public override void PreUpdate()
+        {
+            if(Main.npc == null || Main.npc.Length == 0)
+            {
+                base.PreUpdate();
+                return;
+            }
+
+            List<NPC> activeBossesThatHitYou = new List<NPC>();
+            foreach (NPC boss in bossesThatHitYou)
+            {
+                if (boss.active)
+                {
+                    activeBossesThatHitYou.Add(boss);
+                }
+            }
+            bossesThatHitYou = activeBossesThatHitYou;
+
+            base.PreUpdate();
+        }
+
         /*public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
         {
             if(modifiers.FinalDamage > Player.statLife)
@@ -531,6 +552,11 @@ namespace DragonballPichu
             {
                 secondWindTime = getSecondWindTime();
             }
+            if (npc.boss)
+            {
+                bossesThatHitYou.Add(npc);
+                //Main.NewText(npc + " hit you");
+            }
             base.OnHitByNPC(npc, hurtInfo);
         }
 
@@ -581,6 +607,8 @@ namespace DragonballPichu
             Player.maxRunSpeed *= speedMulti;
             base.PostUpdateRunSpeeds();
         }
+
+
 
         public float getCurKi() { return curKi; }
         public void setCurKi(float kiAmt) { curKi = (Math.Clamp(kiAmt, 0, maxKi.getValue())); }
@@ -680,6 +708,7 @@ namespace DragonballPichu
             if (getCurKi() <= 0) 
             {
                 isTransformed = false;
+                Main.NewText("Reverting to base");
                 stackedBuffs.Clear();
                 stackedBuffIDs.Clear();
                 currentBuff = null;
@@ -694,6 +723,15 @@ namespace DragonballPichu
         }
 
 
+        public void addBuff(int buffID)
+        {
+            if (!Player.HasBuff(buffID))
+            {
+                Main.NewText("Transforming into " +FormTree.IDToFormName(buffID));
+            }
+            Player.AddBuff(buffID, 3);
+        }
+
         public override void PreUpdateBuffs()
         {
             setKiDrain(0);
@@ -701,12 +739,15 @@ namespace DragonballPichu
             if (isTransformed && currentBuffID != -1)
             {
                 cleanStacked();
-                Player.AddBuff(currentBuffID, 2);
+                
+                //Player.AddBuff(currentBuffID, 2);
+                addBuff(currentBuffID);
                 nameToStats[currentBuff].gainExperience(1 / 20f);
                 gainExperience(1 / 20f);
                 foreach (int stackedBuffID in stackedBuffIDs)
                 {
-                    Player.AddBuff(stackedBuffID, 2);
+                    addBuff(stackedBuffID);
+                    //Player.AddBuff(stackedBuffID, 2);
                 }
             }
             else
@@ -861,6 +902,7 @@ namespace DragonballPichu
                     currentBuff = null;
                     currentBuffID = -1;
                     isTransformed = false;
+                    Main.NewText("Reverting to base");
                     stackedBuffs.Clear();
                     stackedBuffIDs.Clear();
                 }
