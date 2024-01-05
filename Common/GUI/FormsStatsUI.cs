@@ -737,7 +737,9 @@ namespace DragonballPichu.Common.GUI
             switch (specialName)
             {
                 case "Kaio-Efficient":
-                    toReturn += specialName;
+                    specialValueFloat = (float)Double.Parse(specialValue);
+                    specialValueFloatInverted = invertFraction(stats.Special.getValue() * specialValueFloat);
+                    toReturn += "Kaioken Cost Reduced: " + roundTens((1 - specialValueFloatInverted) * 100) + "%";
                     break;
                 case "Ki Power":
                     toReturn += specialName + " " + specialValue;

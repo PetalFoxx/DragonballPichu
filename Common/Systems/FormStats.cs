@@ -81,7 +81,7 @@ Frantic Ki Regen [ multiplier ]
                         default: return "1-1";
                     }
                 case "Kaio-Efficient":
-                    return "2";
+                    return "1";
                 case "DR":
                     return "0.5";
                 case "Ki Attack Master":

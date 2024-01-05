@@ -94,6 +94,8 @@ namespace DragonballPichu
         int spendFormPoints = 0;
         Boolean firstTimeOpenMenu = true;
 
+        List<int> errorIDsList = new List<int>();
+
         public string currentBuff = "";
         public int currentBuffID = -1;
 
@@ -372,6 +374,7 @@ namespace DragonballPichu
         {
             float baseStrainPerUpdate = .33f;
             float formMulti = getTotalFormsCount();
+            float specialMulti = getFormSpecialKaiokenCost();
             if (stackedBuffs.Contains("Kaio-ken"))
             {
                 formMulti -= 1;
@@ -379,7 +382,9 @@ namespace DragonballPichu
 
 
 
-            float strain = baseStrainPerUpdate * formMulti;
+
+            
+            float strain = baseStrainPerUpdate * formMulti * specialMulti;
             return strain;
         }
         /*
@@ -871,7 +876,15 @@ namespace DragonballPichu
                     {
                         addBuff(stackedBuffID);
                     }
-                    Main.NewText("Refusing to add a stackedBuffID that does not correlate to any form in FormTree.nameToFormID.Values " + stackedBuffID);
+                    else
+                    {
+                        if (!errorIDsList.Contains(stackedBuffID))
+                        {
+                            Main.NewText("Refusing to add a stackedBuffID that does not correlate to any form in FormTree.nameToFormID.Values " + stackedBuffID);
+                            errorIDsList.Add(stackedBuffID);
+                        }
+                        
+                    }
                     //Player.AddBuff(stackedBuffID, 2);
                 }
             }
@@ -1294,6 +1307,36 @@ namespace DragonballPichu
             }
             return total;
 
+        }
+
+        public float getFormSpecialKaiokenCost()
+        {
+            float total = 1;
+            total *= getSpecialKaiokenCostReductionMulti(currentBuff);
+
+
+            foreach (string form in stackedBuffs)
+            {
+                total *= getSpecialKaiokenCostReductionMulti(form);
+            }
+            return total;
+
+        }
+
+        public float getSpecialKaiokenCostReductionMulti(string form)
+        {
+            float toReturn = 1;
+            if (form != null && nameToStats.ContainsKey(form))
+            {
+                List<string> buffSpecial = FormTree.getSpecial(form);
+                if (buffSpecial[0] == "Kaio-Efficient")
+                {
+                    string stackCost = buffSpecial[1];
+                    toReturn = ((float)Double.Parse(stackCost)) * getStat(form + "FormSpecial").getValue();
+                    toReturn = FormsStatsUI.invertFraction(toReturn);
+                }
+            }
+            return toReturn;
         }
 
         public float getChargeDefense()
