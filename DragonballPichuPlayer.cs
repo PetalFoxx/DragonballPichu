@@ -21,49 +21,49 @@ namespace DragonballPichu
 {
     public class DragonballPichuPlayer : ModPlayer
     {
-        public Boolean FSSJUnlockCondition = true;
+        public Boolean FSSJUnlockCondition = false;
         public Boolean SSJ1UnlockCondition = true;
-        public Boolean SSJ1G2UnlockCondition = true;
-        public Boolean SSJ1G3UnlockCondition = true;
-        public Boolean SSJ1G4UnlockCondition = true;
-        public Boolean SSJ2UnlockCondition = true;
-        public Boolean SSJ3UnlockCondition = true;
+        public Boolean SSJ1G2UnlockCondition = false;
+        public Boolean SSJ1G3UnlockCondition = false;
+        public Boolean SSJ1G4UnlockCondition = false;
+        public Boolean SSJ2UnlockCondition = false;
+        public Boolean SSJ3UnlockCondition = false;
         public Boolean SSJRageUnlockCondition = true;
-        public Boolean SSJ4UnlockCondition = true;
-        public Boolean SSJ4LBUnlockCondition = true;
+        public Boolean SSJ4UnlockCondition = false;
+        public Boolean SSJ4LBUnlockCondition = false;
         public Boolean SSJ5UnlockCondition = true;
-        public Boolean SSJ5G2UnlockCondition = true;
-        public Boolean SSJ5G3UnlockCondition = true;
-        public Boolean SSJ5G4UnlockCondition = true;
+        public Boolean SSJ5G2UnlockCondition = false;
+        public Boolean SSJ5G3UnlockCondition = false;
+        public Boolean SSJ5G4UnlockCondition = false;
         public Boolean SSJ6UnlockCondition = true;
         public Boolean SSJ7UnlockCondition = true;
-        public Boolean FLSSJUnlockCondition = true;
+        public Boolean FLSSJUnlockCondition = false;
         public Boolean IkariUnlockCondition = true;
-        public Boolean LSSJ1UnlockCondition = true;
-        public Boolean LSSJ2UnlockCondition = true;
-        public Boolean LSSJ3UnlockCondition = true;
-        public Boolean LSSJ4UnlockCondition = true;
-        public Boolean LSSJ4LBUnlockCondition = true;
+        public Boolean LSSJ1UnlockCondition = false;
+        public Boolean LSSJ2UnlockCondition = false;
+        public Boolean LSSJ3UnlockCondition = false;
+        public Boolean LSSJ4UnlockCondition = false;
+        public Boolean LSSJ4LBUnlockCondition = false;
         public Boolean LSSJ5UnlockCondition = true;
         public Boolean LSSJ6UnlockCondition = true;
         public Boolean LSSJ7UnlockCondition = true;
-        public Boolean SSJGUnlockCondition = true;
-        public Boolean LSSJBUnlockCondition = true;
-        public Boolean FSSJBUnlockCondition = true;
-        public Boolean SSJB1UnlockCondition = true;
-        public Boolean SSJB1G2UnlockCondition = true;
-        public Boolean SSJB1G3UnlockCondition = true;
-        public Boolean SSJB1G4UnlockCondition = true;
+        public Boolean SSJGUnlockCondition = false;
+        public Boolean LSSJBUnlockCondition = false;
+        public Boolean FSSJBUnlockCondition = false;
+        public Boolean SSJB1UnlockCondition = false;
+        public Boolean SSJB1G2UnlockCondition = false;
+        public Boolean SSJB1G3UnlockCondition = false;
+        public Boolean SSJB1G4UnlockCondition = false;
         public Boolean SSJB2UnlockCondition = true;
         public Boolean SSJB3UnlockCondition = true;
         public Boolean SSJBEUnlockCondition = true;
-        public Boolean SSJR1UnlockCondition = true;
-        public Boolean SSJR1G2UnlockCondition = true;
-        public Boolean SSJR1G3UnlockCondition = true;
-        public Boolean SSJR1G4UnlockCondition = true;
+        public Boolean SSJR1UnlockCondition = false;
+        public Boolean SSJR1G2UnlockCondition = false;
+        public Boolean SSJR1G3UnlockCondition = false;
+        public Boolean SSJR1G4UnlockCondition = false;
         public Boolean SSJR2UnlockCondition = true;
         public Boolean SSJR3UnlockCondition = true;
-        public Boolean DivineUnlockCondition = true;
+        public Boolean DivineUnlockCondition = false;
         public Boolean DRUnlockCondition = true;
         public Boolean EvilUnlockCondition = true;
         public Boolean RampagingUnlockCondition = true;
@@ -107,59 +107,59 @@ namespace DragonballPichu
 
         public Dictionary<string, int> formToUnlockPoints = new Dictionary<string, int>()
         {
-            { "FSSJ", 1 },
-            { "SSJ1", 1 },
-            { "SSJ1G2", 1 },
-            { "FSSJB", 1 },
-            { "SSJ1G3", 1 },
-            { "SSJ1G4", 1 },
-            { "SSJ2", 1 },
-            { "SSJ3", 1 },
-            { "SSJRage", 1 },
-            { "SSJ4", 1 },
-            { "SSJ4LB", 1 },
-            { "SSJ5", 1 },
-            { "SSJ5G2", 1 },
-            { "SSJ5G3", 1 },
-            { "SSJ5G4", 1 },
-            { "SSJ6", 1 },
-            { "SSJ7", 1 },
-            { "FLSSJ", 1 },
-            { "Ikari", 1 },
-            { "LSSJ1", 1 },
-            { "LSSJ2", 1 },
-            { "LSSJ3", 1 },
-            { "LSSJ4", 1 },
-            { "LSSJ4LB", 1 },
-            { "LSSJ5", 1 },
-            { "LSSJ6", 1 },
-            { "LSSJ7", 1 },
-            { "SSJG", 1 },
-            { "LSSJB", 1 },
-            { "SSJB1", 1 },
-            { "SSJB1G2", 1 },
-            { "SSJB1G3", 1 },
-            { "SSJB1G4", 1 },
-            { "SSJB2", 1 },
-            { "SSJB3", 1 },
-            { "SSJBE", 1 },
-            { "SSJR1", 1 },
-            { "SSJR1G2", 1 },
-            { "SSJR1G3", 1 },
-            { "SSJR1G4", 1 },
-            { "SSJR2", 1 },
-            { "SSJR3", 1 },
-            { "Divine", 1 },
-            { "DR", 1 },
-            { "Evil", 1 },
-            { "Rampaging", 1 },
-            { "Berserk", 1 },
-            { "PU", 1 },
-            { "Beast", 1 },
-            { "UE", 1 },
-            { "UI", 1 },
-            { "TUI", 1 },
-            { "UILB", 1 }
+            { "FSSJ", 0 },
+            { "SSJ1", 4 },
+            { "SSJ1G2", 0 },
+            { "FSSJB", 0 },
+            { "SSJ1G3", 0 },
+            { "SSJ1G4", 0 },
+            { "SSJ2", 0 },
+            { "SSJ3", 0 },
+            { "SSJRage", 200 },
+            { "SSJ4", 0 },
+            { "SSJ4LB", 0 },
+            { "SSJ5", 100 },
+            { "SSJ5G2", 0 },
+            { "SSJ5G3", 0 },
+            { "SSJ5G4", 0 },
+            { "SSJ6", 200 },
+            { "SSJ7", 300 },
+            { "FLSSJ", 0 },
+            { "Ikari", 2 },
+            { "LSSJ1", 0 },
+            { "LSSJ2", 0 },
+            { "LSSJ3", 0 },
+            { "LSSJ4", 0 },
+            { "LSSJ4LB", 0 },
+            { "LSSJ5", 100 },
+            { "LSSJ6", 200 },
+            { "LSSJ7", 300 },
+            { "SSJG", 0 },
+            { "LSSJB", 0 },
+            { "SSJB1", 0 },
+            { "SSJB1G2", 0 },
+            { "SSJB1G3", 0 },
+            { "SSJB1G4", 0 },
+            { "SSJB2", 200 },
+            { "SSJB3", 300 },
+            { "SSJBE", 500 },
+            { "SSJR1", 0 },
+            { "SSJR1G2", 0 },
+            { "SSJR1G3", 0 },
+            { "SSJR1G4", 0 },
+            { "SSJR2", 200 },
+            { "SSJR3", 300 },
+            { "Divine", 0 },
+            { "DR", 500 },
+            { "Evil", 4 },
+            { "Rampaging", 10 },
+            { "Berserk", 50 },
+            { "PU", 4 },
+            { "Beast", 500 },
+            { "UE", 500 },
+            { "UI", 100 },
+            { "TUI", 200 },
+            { "UILB", 300 }
         };
 
         public List<string> enemyCompendium = new List<string>();
@@ -331,7 +331,14 @@ namespace DragonballPichu
         }
         public void gainFormPoints(NPC npc)
         {
-            formPoints++;
+            if (DragonballPichuGlobalNPC.formPointsValue.Keys.Contains(npc.TypeName))
+            {
+                formPoints += DragonballPichuGlobalNPC.formPointsValue[npc.TypeName];
+            }
+            else
+            {
+                formPoints++;
+            }
         }
 
         public float getFranticRegenLevel(string form)
@@ -469,7 +476,7 @@ namespace DragonballPichu
 
             Entity entity;
             damageSource.TryGetCausingEntity(out entity);
-            if (entity is NPC && ((NPC)entity).boss)
+            if (entity is NPC && DragonballPichuGlobalNPC.isBossOrMiniBoss((((NPC)entity))))
             {
                 if (!unlockedForms.Contains("FSSJ"))
                 {
@@ -552,7 +559,7 @@ namespace DragonballPichu
             {
                 secondWindTime = getSecondWindTime();
             }
-            if (npc.boss)
+            if (DragonballPichuGlobalNPC.isBossOrMiniBoss(npc))
             {
                 bossesThatHitYou.Add(npc);
                 //Main.NewText(npc + " hit you");
@@ -562,13 +569,14 @@ namespace DragonballPichu
 
         public Boolean tryAddNewBossToCompendium(NPC npc)
         {
-            if (enemyCompendium.Contains(npc.TypeName) || !npc.boss)
+            if(DragonballPichuGlobalNPC.isBossOrMiniBoss(npc) && !enemyCompendium.Contains(npc.TypeName))
             {
-                return false;
+                enemyCompendium.Add(npc.TypeName);
+                return true;
             }
 
-            enemyCompendium.Add(npc.TypeName);
-            return true;
+            return false;
+            
         }
 
         public string getSelectedForm()
@@ -705,10 +713,15 @@ namespace DragonballPichu
             {
                 maxKi.multiplier = 1f;
             }
+            
             if (getCurKi() <= 0) 
             {
+                if(currentBuffID != -1 || stackedBuffIDs.Count > 0)
+                {
+                    Main.NewText("Reverting to base");
+                }
                 isTransformed = false;
-                Main.NewText("Reverting to base");
+                
                 stackedBuffs.Clear();
                 stackedBuffIDs.Clear();
                 currentBuff = null;
