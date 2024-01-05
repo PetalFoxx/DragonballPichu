@@ -60,3 +60,8 @@ This will be distinctly different from other, similar mods. It will diverge from
 I appreciate feedback greatly! Please comment below, or join my discord! ( https://discord.gg/nqE5efx4Ag ) Even if you hate me and my mod, I will be thankful for the comment / joining >:3
 
 Unsure how to fix it, but there is an issue, atleast for me, that updating the mod resets my unlocked forms! I don't know how to fix this, but saving should be perfect besides that. If you know how to fix this, tell pls! :D
+
+Added compatability with Kaio-ken mod by KosmicDev & Vyklade, highly recommend checking it out:
+https://steamcommunity.com/sharedfiles/filedetails/?id=2875492216&searchtext=kaioken
+Essentially, if you have kaio-ken enabled, it multiplies your ki drain just like other forms, and if you have forms enabled with kaio-ken at the same time, it gives additional strain!
+This mod is close to exactly what I want out of Kaio-ken, so I may simply leave this compatability and not make my own. But we will see! Compatability will stay, nevertheless :)

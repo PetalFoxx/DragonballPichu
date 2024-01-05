@@ -16,6 +16,7 @@ using Terraria.WorldBuilding;
 using Microsoft.Xna.Framework;
 using log4net.Core;
 using Terraria.DataStructures;
+using System.Runtime.InteropServices;
 
 namespace DragonballPichu
 {
@@ -341,6 +342,69 @@ namespace DragonballPichu
             }
         }
 
+        [StructLayout(LayoutKind.Sequential)]
+        public record struct KaiokenPlayerData(float Mastery, double Strain, bool Formed);
+
+        public KaiokenPlayerData getKaiokenModData(Mod kaioken)
+        {
+           
+            var pointer = kaioken.Call(true, Player.whoAmI) is IntPtr ptr ? ptr : throw new Exception($"Can't Call {kaioken.DisplayName}");
+            var data = Marshal.PtrToStructure<KaiokenPlayerData>(pointer);
+            //Main.NewText(data);
+            //data.Strain += 1;
+            //Marshal.StructureToPtr(data, pointer, true);
+            //kaioken.Call(false, Player.whoAmI, pointer);
+            return data;
+        }
+
+        public void increaseKaiokenModStrain(Mod kaioken, float strainToAdd)
+        {
+            var pointer = kaioken.Call(true, Player.whoAmI) is IntPtr ptr ? ptr : throw new Exception($"Can't Call {kaioken.DisplayName}");
+            var data = Marshal.PtrToStructure<KaiokenPlayerData>(pointer);
+            //Main.NewText(data);
+            data.Strain += strainToAdd;
+            Marshal.StructureToPtr(data, pointer, true);
+            kaioken.Call(false, Player.whoAmI, pointer);
+
+        }
+
+        public float getKaiokenModStrainGainWithModifiers()
+        {
+            float baseStrainPerUpdate = .33f;
+            float formMulti = getTotalFormsCount();
+            if (stackedBuffs.Contains("Kaio-ken"))
+            {
+                formMulti -= 1;
+            }
+
+
+
+            float strain = baseStrainPerUpdate * formMulti;
+            return strain;
+        }
+        /*
+         if (ModLoader.TryGetMod("KaiokenMod", out var kaioken))
+            {
+
+            } 
+        */
+
+
+        /*public override void PostUpdateBuffs()
+        {
+            if (ModLoader.TryGetMod("KaiokenMod", out var kaioken))
+            {
+                var pointer = kaioken.Call(true, Player.whoAmI) is IntPtr ptr ? ptr : throw new Exception($"Can't Call {kaioken.DisplayName}");
+                var data = Marshal.PtrToStructure<KaiokenPlayerData>(pointer);
+                Main.NewText(data);
+                data.Strain += 1;
+                Marshal.StructureToPtr(data, pointer, true);
+                kaioken.Call(false, Player.whoAmI, pointer);
+            }
+
+            
+        }*/
+
         public float getFranticRegenLevel(string form)
         {
             float toReturn = 0;
@@ -473,7 +537,7 @@ namespace DragonballPichu
 
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genDust, ref PlayerDeathReason damageSource)
         {
-
+            
             Entity entity;
             damageSource.TryGetCausingEntity(out entity);
             if (entity is NPC && DragonballPichuGlobalNPC.isBossOrMiniBoss((((NPC)entity))))
@@ -679,9 +743,30 @@ namespace DragonballPichu
         }
         public float getKiPercentage() { return (float)getCurKi() / (float)getMaxKi(); }
 
+        public void printAllStacked()
+        {
+            string toPrint = "";
+            if (stackedBuffs.Count > 0)
+            {
+                foreach (string buff in stackedBuffs)
+                {
+                    toPrint += buff + " ";
+                }
+            }
+            if (currentBuff != null)
+            {
+                toPrint += currentBuff;
+            }
+            if (!toPrint.Equals(""))
+            {
+                Main.NewText(toPrint);
+            }
+        }
+
         public override void PostUpdateBuffs()
         {
             var modPlayer = Main.LocalPlayer.GetModPlayer<DragonballPichuPlayer>();
+            // printKaiokenModData();
             base.PreUpdateBuffs();
             float formDrain = sumKiDrain();
             float maxKiMulti = 1f;
@@ -699,11 +784,12 @@ namespace DragonballPichu
             {
                 maxKiMulti = 1f;
             }
-            
+
 
 
             if (isTransformed)
             {
+                //printAllStacked();
                 float stackedFormsMulti = (stackedBuffs.Count() + 1);
                 stackedFormsMulti *= getFormSpecialStackCost();
                 decreaseKi(formDrain * stackedFormsMulti);
@@ -713,15 +799,15 @@ namespace DragonballPichu
             {
                 maxKi.multiplier = 1f;
             }
-            
-            if (getCurKi() <= 0) 
+
+            if (getCurKi() <= 0)
             {
-                if(currentBuffID != -1 || stackedBuffIDs.Count > 0)
+                if (currentBuffID != -1 || stackedBuffIDs.Count > 0)
                 {
                     Main.NewText("Reverting to base");
                 }
                 isTransformed = false;
-                
+
                 stackedBuffs.Clear();
                 stackedBuffIDs.Clear();
                 currentBuff = null;
@@ -733,6 +819,28 @@ namespace DragonballPichu
                 increaseKi(getChargeKiGain());
             increaseKi(kiGain.getValue() + kiGainFrantic);
 
+
+            if (ModLoader.TryGetMod("KaiokenMod", out var kaioken))
+            {
+                if (getKaiokenModData(kaioken).Formed && getTotalFormsCount() > 0)
+                {
+                    float strain = getKaiokenModStrainGainWithModifiers();
+                    increaseKaiokenModStrain(kaioken, strain);
+                }
+                
+            }
+        }
+
+        public int getTotalFormsCount()
+        {
+            int count = 0;
+            if(currentBuff != null && currentBuff != "baseForm")
+            {
+                count++;
+            }
+            count += stackedBuffs.Count;
+
+            return count;
         }
 
 
@@ -749,7 +857,7 @@ namespace DragonballPichu
         {
             setKiDrain(0);
             base.PreUpdateBuffs();
-            if (isTransformed && currentBuffID != -1)
+            if (isTransformed && currentBuffID != -1 && FormTree.nameToFormID.Values.Contains(currentBuffID))
             {
                 cleanStacked();
                 
@@ -759,7 +867,11 @@ namespace DragonballPichu
                 gainExperience(1 / 20f);
                 foreach (int stackedBuffID in stackedBuffIDs)
                 {
-                    addBuff(stackedBuffID);
+                    if (FormTree.nameToFormID.Values.Contains(stackedBuffID))
+                    {
+                        addBuff(stackedBuffID);
+                    }
+                    Main.NewText("Refusing to add a stackedBuffID that does not correlate to any form in FormTree.nameToFormID.Values " + stackedBuffID);
                     //Player.AddBuff(stackedBuffID, 2);
                 }
             }
