@@ -72,6 +72,11 @@ namespace DragonballPichu.Common.GUI
                         modSystem.MyFormsStatsUI.unlockForm(name);
                         //BorderColor = Colors.Green;
                     }
+                    else if (modPlayer.unlockedForms.Contains(name))
+                    {
+                        modPlayer.setSelectedForm(this.name);
+                        modSystem.MyFormsStatsUI.addStatButtons(modPlayer.getSelectedFormID());
+                    }
                 }
                 else
                 {

@@ -6,6 +6,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlTypes;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.ConstrainedExecution;
@@ -16,6 +17,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
+using static Humanizer.In;
 using static Humanizer.On;
 using static tModPorter.ProgressUpdate;
 
@@ -169,6 +171,7 @@ namespace DragonballPichu
             { "Nihil, the Fathomless Seeker",250},
             { "Exodygen",                 250},
             { "Xeroc, the Nameless Deity",250},
+            { "Trojan Squirrel",          1  },
             { "Giant Clam",               1  },
             { "Cyber Draedon",            3  },
             { "Clamitas",                 5  },
@@ -194,7 +197,36 @@ namespace DragonballPichu
             { "Nuclear Terror",           25 },
             { "La Ruga",                  25 },
             { "Lav'e Rugamarius",         50 },
-            { "Primordial Rainbow Slime", 100}
+            { "Primordial Rainbow Slime", 100},
+            { "Deviantt",                 1  },
+            { "Mutant",                  1000},
+            { "Astrum Viridis",           30 },
+            { "Calamity Elemental",       10 },
+            { "Dragonfolly",              50 },
+            { "Calamitas Clone",          10 },
+            { "XS-01 Artemis",            50 },
+            { "XS-03 Apollo",             50 },
+            { "XF-09 Ares",               50 },
+            { "XF-09 Ares Gauss Nuke",    50 },
+            { "XF-09 Ares Laser Cannon",  50 },
+            { "XF-09 Ares Plasma Cannon", 50 },
+            { "XF-09 Ares Tesla Cannon",  50 },
+            { "Anahita",                  5  },
+            { "The Leviathan",            10 },
+            { "The Old Duke",             100},
+            { "Primordial Wyrm",          100},
+            { "Guardian Commander",       50 },
+            { "Eridanus, Champion of Cosmos",100},
+            { "Champion of Earth",        25 },
+            { "Champion of Life",         25 },
+            { "Champion of Shadow",       25 },
+            { "Champion of Spirit",       25 },
+            { "Champion of Timber",       25 },
+            { "Champion of Will",         25 },
+            { "Lifelight",                50 },
+            { "Permafrost",               1000},
+            { "Banished Baron",           50 },
+            { "Abominationn",             250},
         };
 
         public static bool isBossOrMiniBoss(NPC npc)
@@ -212,7 +244,9 @@ namespace DragonballPichu
             DragonballPichuPlayer modPlayer = Main.LocalPlayer.GetModPlayer<DragonballPichuPlayer>();
             Boolean newEnemy = modPlayer.tryAddNewBossToCompendium(npc);
             DragonballPichuUISystem modSystem = ModContent.GetInstance<DragonballPichuUISystem>();
-
+            if (npc.TypeName.ToLower().Contains("bunny") || npc.TypeName.ToLower().Contains("rabbit")){
+                modPlayer.setUnlockCondition("Evil", true);
+            }
             if (npc.townNPC)
             {
                 Random r = new Random();
@@ -225,6 +259,20 @@ namespace DragonballPichu
                         modPlayer.currentBuffID = FormTree.formNameToID(modPlayer.currentBuff);
                         modPlayer.isTransformed = true;
                     }
+                    if (modPlayer.unlockedForms.Contains("SSJ4LB") && !modPlayer.unlockedForms.Contains("SSJ5"))
+                    {
+                        modSystem.MyFormsStatsUI.unlockForm("SSJ5");
+                        modPlayer.currentBuff = "SSJ5";
+                        modPlayer.currentBuffID = FormTree.formNameToID(modPlayer.currentBuff);
+                        modPlayer.isTransformed = true;
+                    }
+                    if (modPlayer.unlockedForms.Contains("LSSJ4LB") && !modPlayer.unlockedForms.Contains("LSSJ5"))
+                    {
+                        modSystem.MyFormsStatsUI.unlockForm("LSSJ5");
+                        modPlayer.currentBuff = "LSSJ5";
+                        modPlayer.currentBuffID = FormTree.formNameToID(modPlayer.currentBuff);
+                        modPlayer.isTransformed = true;
+                    }
                 }
                 
             }
@@ -233,7 +281,6 @@ namespace DragonballPichu
                 if (!modPlayer.unlockedForms.Contains("UI"))
                 //if(true)
                 {
-                    //Main.NewText(npc + "died");
                     modPlayer.stackedBuffs.Clear();
                     modPlayer.stackedBuffIDs.Clear();
                     modSystem.MyFormsStatsUI.unlockForm("UI");
@@ -245,7 +292,6 @@ namespace DragonballPichu
             if (isBossOrMiniBoss(npc) && modPlayer.bossesThatHitYou.Contains(npc))
             {
                 modPlayer.bossesThatHitYou.Remove(npc);
-                //Main.NewText(npc + "died after hitting you");
             }
             
             base.OnKill(npc);
@@ -264,12 +310,13 @@ namespace DragonballPichu
             {
                 if (isBossOrMiniBoss(npc) && formPointsValue.Keys.Contains(npc.TypeName))
                 {
-                    //Main.NewText(npc.TypeName + " has a value of " + formPointsValue[npc.TypeName]);
                     Main.NewText("Gained " + formPointsValue[npc.TypeName] + " form points for killing " + npc.TypeName);
+                    modPlayer.printToLog("Gained " + formPointsValue[npc.TypeName] + " form points for killing " + npc.TypeName);
                 }
                 if (isBossOrMiniBoss(npc) && !formPointsValue.Keys.Contains(npc.TypeName))
                 {
                     Main.NewText("Couldn't find point value for " + npc.TypeName);
+                    modPlayer.printToLog("Couldn't find point value for " + npc.TypeName);
                 }
                 //xpToGain *= 10;
                 modPlayer.gainFormPoints(npc);
@@ -288,27 +335,98 @@ namespace DragonballPichu
             {
                 modPlayer.gainExperience(xpToGain * 2f);
             }
+
+            if (isBossOrMiniBoss(npc))
+            {
+                if(npc.TypeName == "Wall of Flesh")
+                {
+                    if(modPlayer.currentBuff == "SSJ1G4")
+                    {
+                        FormStats.unlockAndTransform("SSJ2");
+                    }
+                    else if(modPlayer.currentBuff == "FLSSJ")
+                    {
+                        FormStats.unlockAndTransform("LSSJ1");
+                    }
+                }
+                if(npc.TypeName == "Retinazer" || npc.TypeName == "Spazmatism" || npc.TypeName == "The Destroyer" || npc.TypeName == "Skeletron Prime" || npc.TypeName == "Mechdusa")
+                {
+                    if (modPlayer.currentBuff == "SSJ2")
+                    {
+                        FormStats.unlockAndTransform("SSJ3");
+                    }
+                    else if (modPlayer.currentBuff == "LSSJ1")
+                    {
+                        FormStats.unlockAndTransform("LSSJ2");
+                    }
+                }
+                if(npc.TypeName == "Plantera")
+                {
+                    if (modPlayer.currentBuff == "SSJ3")
+                    {
+                        FormStats.unlockAndTransform("SSJ4");
+                    }
+                    else if (modPlayer.currentBuff == "LSSJ2")
+                    {
+                        FormStats.unlockAndTransform("LSSJ3");
+                    }
+                }
+                if(npc.TypeName == "Golem")
+                {
+                    if (modPlayer.currentBuff == "SSJ4")
+                    {
+                        FormStats.unlockAndTransform("SSJ4LB");
+                    }
+                    else if (modPlayer.currentBuff == "LSSJ3")
+                    {
+                        FormStats.unlockAndTransform("LSSJ4");
+                    }
+                }
+                if(npc.TypeName == "Lunatic Cultist")
+                {
+                    FormStats.unlockAndTransform("SSJG");
+                }
+                if(npc.TypeName == "Moon Lord" || npc.TypeName == "Moon Lord's Core")
+                {
+                    if (modPlayer.currentBuff == "FSSJB")
+                    {
+                        FormStats.unlockAndTransform("SSJB1");
+                    }
+                    else if (modPlayer.currentBuff == "LSSJ4")
+                    {
+                        FormStats.unlockAndTransform("LSSJ4LB");
+                    }
+                    else if ((modPlayer.currentBuff == "SSJG" || modPlayer.currentBuff == "LSSJ3") && (modPlayer.unlockedForms.Contains("SSJG") && modPlayer.unlockedForms.Contains("LSSJ3")))
+                    {
+                        FormStats.unlockAndTransform("LSSJB");
+                    }
+                }
+            }
         }
 
-        /*public override void OnSpawn(NPC npc, IEntitySource source)
+        public override void OnSpawn(NPC npc, IEntitySource source)
         {
             if (!npc.active) { base.OnSpawn(npc, source); return; }
-            if (isBossOrMiniBoss(npc) && formPointsValue.Keys.Contains(npc.TypeName))
+            DragonballPichuPlayer modPlayer = Main.LocalPlayer.GetModPlayer<DragonballPichuPlayer>();
+            DragonballPichuUISystem modSystem = ModContent.GetInstance<DragonballPichuUISystem>();
+            if (npc.TypeName.Equals("Wall of Flesh"))
             {
-                Main.NewText(npc.TypeName + " has a value of " + formPointsValue[npc.TypeName]);
+                modPlayer.setUnlockCondition("Rampaging", true);
             }
-            else if (isBossOrMiniBoss(npc))
+            else if((npc.TypeName.Equals("Moon Lord") || npc.TypeName == "Moon Lord's Core") && modPlayer.currentBuff.Equals("SSJG") && !modPlayer.unlockedForms.Contains("FSSJB"))
             {
-                Main.NewText(npc.TypeName + " is a boss or miniboss not with a point value");
+                modSystem.MyFormsStatsUI.unlockForm("FSSJB");
+                modPlayer.currentBuff = "FSSJB";
+                modPlayer.currentBuffID = FormTree.formNameToID(modPlayer.currentBuff);
+                modPlayer.isTransformed = true;
             }
-            else if ( ! isBossOrMiniBoss(npc)  && formPointsValue.Keys.Contains(npc.TypeName))
+            else if(npc.TypeName.Equals("Lunatic Cultist"))
             {
-                Main.NewText(npc.TypeName + " isn't a boss or in list of minibosses but has a point value");
+                modPlayer.setUnlockCondition("SSJRage", true);
             }
-
-            //if (npc.)
             
-        }*/
+            
+        }
 
 
     }

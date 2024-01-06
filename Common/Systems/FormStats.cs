@@ -163,6 +163,37 @@ Frantic Ki Regen [ multiplier ]
             levelUp();
         }
 
+        public void unlockIfLevel(int level, int needed, string form)
+        {
+            var modPlayer = Main.LocalPlayer.GetModPlayer<DragonballPichuPlayer>();
+            DragonballPichuUISystem modSystem = ModContent.GetInstance<DragonballPichuUISystem>();
+            if (level >= needed && !modPlayer.unlockedForms.Contains(form))
+            {
+                modSystem.MyFormsStatsUI.unlockForm(form);
+            }
+        }
+
+        public void setUnlockConditionIfLevel(int level, int needed, string form)
+        {
+            var modPlayer = Main.LocalPlayer.GetModPlayer<DragonballPichuPlayer>();
+            DragonballPichuUISystem modSystem = ModContent.GetInstance<DragonballPichuUISystem>();
+            if (level >= needed && !modPlayer.unlockedForms.Contains(form))
+            {
+                modPlayer.setUnlockCondition("form", true);
+            }
+        }
+
+        public static void unlockAndTransform(string form)
+        {
+            var modPlayer = Main.LocalPlayer.GetModPlayer<DragonballPichuPlayer>();
+            DragonballPichuUISystem modSystem = ModContent.GetInstance<DragonballPichuUISystem>();
+            if (modPlayer.unlockedForms.Contains(form)) return;
+            modSystem.MyFormsStatsUI.unlockForm(form);
+            modPlayer.currentBuff = form;
+            modPlayer.currentBuffID = FormTree.formNameToID(modPlayer.currentBuff);
+            modPlayer.isTransformed = true;
+        }
+
         public void increaseLevel()
         {
             var modPlayer = Main.LocalPlayer.GetModPlayer<DragonballPichuPlayer>();
@@ -174,18 +205,45 @@ Frantic Ki Regen [ multiplier ]
                 levelInAll++;
                 increaseAll(1);
             }
-            if (form == "SSJ1")
+
+            switch (form)
             {
-                if(level >= 5 && !modPlayer.unlockedForms.Contains("SSJ1G2"))
-                {
-                    modSystem.MyFormsStatsUI.unlockForm("SSJ1G2");
-                }
-                if(level >= 10 && !modPlayer.unlockedForms.Contains("SSJ1G4"))
-                {
-                    modSystem.MyFormsStatsUI.unlockForm("SSJ1G4");
-                }
+                case "SSJ1":
+                    unlockIfLevel(level, 5, "SSJ1G2");
+                    unlockIfLevel(level, 10, "SSJ1G4");
+                    break;
+                case "SSJ1G2":
+                    unlockIfLevel(level, 5, "SSJ1G3");
+                    break;
+                case "SSJR1":
+                    unlockIfLevel(level, 5, "SSJR1G2");
+                    unlockIfLevel(level, 10, "SSJR1G4");
+                    break;
+                case "SSJR1G2":
+                    unlockIfLevel(level, 5, "SSJR1G3");
+                    break;
+                case "SSJR1G4":
+                    unlockIfLevel(level, 10, "Divine");
+                    break;
+                case "SSJ5":
+                    unlockIfLevel(level, 5, "SSJ5G2");
+                    unlockIfLevel(level, 10, "SSJ5G4");
+                    break;
+                case "SSJ5G2":
+                    unlockIfLevel(level, 5, "SSJ5G3");
+                    break;
+                case "SSJB1":
+                    unlockIfLevel(level, 5, "SSJB1G2");
+                    unlockIfLevel(level, 10, "SSJB1G4");
+                    break;
+                case "SSJB1G2":
+                    unlockIfLevel(level, 5, "SSJB1G3");
+                    break;
+
+
             }
 
+            
         }
         public void setLevel(int level)
         {

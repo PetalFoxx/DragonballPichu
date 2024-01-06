@@ -17,64 +17,12 @@ using Microsoft.Xna.Framework;
 using log4net.Core;
 using Terraria.DataStructures;
 using System.Runtime.InteropServices;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace DragonballPichu
 {
     public class DragonballPichuPlayer : ModPlayer
     {
-        public Boolean FSSJUnlockCondition = false;
-        public Boolean SSJ1UnlockCondition = true;
-        public Boolean SSJ1G2UnlockCondition = false;
-        public Boolean SSJ1G3UnlockCondition = false;
-        public Boolean SSJ1G4UnlockCondition = false;
-        public Boolean SSJ2UnlockCondition = false;
-        public Boolean SSJ3UnlockCondition = false;
-        public Boolean SSJRageUnlockCondition = true;
-        public Boolean SSJ4UnlockCondition = false;
-        public Boolean SSJ4LBUnlockCondition = false;
-        public Boolean SSJ5UnlockCondition = true;
-        public Boolean SSJ5G2UnlockCondition = false;
-        public Boolean SSJ5G3UnlockCondition = false;
-        public Boolean SSJ5G4UnlockCondition = false;
-        public Boolean SSJ6UnlockCondition = true;
-        public Boolean SSJ7UnlockCondition = true;
-        public Boolean FLSSJUnlockCondition = false;
-        public Boolean IkariUnlockCondition = true;
-        public Boolean LSSJ1UnlockCondition = false;
-        public Boolean LSSJ2UnlockCondition = false;
-        public Boolean LSSJ3UnlockCondition = false;
-        public Boolean LSSJ4UnlockCondition = false;
-        public Boolean LSSJ4LBUnlockCondition = false;
-        public Boolean LSSJ5UnlockCondition = true;
-        public Boolean LSSJ6UnlockCondition = true;
-        public Boolean LSSJ7UnlockCondition = true;
-        public Boolean SSJGUnlockCondition = false;
-        public Boolean LSSJBUnlockCondition = false;
-        public Boolean FSSJBUnlockCondition = false;
-        public Boolean SSJB1UnlockCondition = false;
-        public Boolean SSJB1G2UnlockCondition = false;
-        public Boolean SSJB1G3UnlockCondition = false;
-        public Boolean SSJB1G4UnlockCondition = false;
-        public Boolean SSJB2UnlockCondition = true;
-        public Boolean SSJB3UnlockCondition = true;
-        public Boolean SSJBEUnlockCondition = true;
-        public Boolean SSJR1UnlockCondition = false;
-        public Boolean SSJR1G2UnlockCondition = false;
-        public Boolean SSJR1G3UnlockCondition = false;
-        public Boolean SSJR1G4UnlockCondition = false;
-        public Boolean SSJR2UnlockCondition = true;
-        public Boolean SSJR3UnlockCondition = true;
-        public Boolean DivineUnlockCondition = false;
-        public Boolean DRUnlockCondition = true;
-        public Boolean EvilUnlockCondition = true;
-        public Boolean RampagingUnlockCondition = true;
-        public Boolean BerserkUnlockCondition = true;
-        public Boolean PUUnlockCondition = true;
-        public Boolean BeastUnlockCondition = true;
-        public Boolean UEUnlockCondition = true;
-        public Boolean UIUnlockCondition = true;
-        public Boolean TUIUnlockCondition = true;
-        public Boolean UILBUnlockCondition = true;
 
         float curKi = 0;
 
@@ -145,7 +93,7 @@ namespace DragonballPichu
             { "SSJB1G4", 0 },
             { "SSJB2", 200 },
             { "SSJB3", 300 },
-            { "SSJBE", 500 },
+            { "SSJBE", 0 },
             { "SSJR1", 0 },
             { "SSJR1G2", 0 },
             { "SSJR1G3", 0 },
@@ -163,6 +111,63 @@ namespace DragonballPichu
             { "UI", 100 },
             { "TUI", 200 },
             { "UILB", 300 }
+        };
+
+        public Dictionary<string, bool> formToUnlockCondition= new Dictionary<string, bool>()
+        {
+            { "FSSJ", false },
+            { "SSJ1", true },
+            { "SSJ1G2", false },
+            { "FSSJB", false },
+            { "SSJ1G3", false },
+            { "SSJ1G4", false },
+            { "SSJ2", false },
+            { "SSJ3", false },
+            { "SSJRage", true },
+            { "SSJ4", false },
+            { "SSJ4LB", false },
+            { "SSJ5", true },
+            { "SSJ5G2", false },
+            { "SSJ5G3", false },
+            { "SSJ5G4", false },
+            { "SSJ6", true },
+            { "SSJ7", true },
+            { "FLSSJ", false },
+            { "Ikari", true },
+            { "LSSJ1", false },
+            { "LSSJ2", false },
+            { "LSSJ3", false },
+            { "LSSJ4", false },
+            { "LSSJ4LB", false },
+            { "LSSJ5", true },
+            { "LSSJ6", true },
+            { "LSSJ7", true },
+            { "SSJG", false },
+            { "LSSJB", false },
+            { "SSJB1", false },
+            { "SSJB1G2", false },
+            { "SSJB1G3", false },
+            { "SSJB1G4", false },
+            { "SSJB2", true },
+            { "SSJB3", true },
+            { "SSJBE", false },
+            { "SSJR1", false },
+            { "SSJR1G2", false },
+            { "SSJR1G3", false },
+            { "SSJR1G4", false },
+            { "SSJR2", true },
+            { "SSJR3", true },
+            { "Divine", false },
+            { "DR", true },
+            { "Evil", false },
+            { "Rampaging", false },
+            { "Berserk", true },
+            { "PU", true },
+            { "Beast", true },
+            { "UE", true },
+            { "UI", true },
+            { "TUI", true },
+            { "UILB", true }
         };
 
         public List<string> enemyCompendium = new List<string>();
@@ -205,7 +210,26 @@ namespace DragonballPichu
             return enemyCompendium.Contains(enemy);
         }
 
+        public void setUnlockCondition(string form, bool val)
+        {
+            formToUnlockCondition[form] = val;
+        }
 
+        public bool getUnlockCondition(string form)
+        {
+            
+            return formToUnlockCondition[form];
+        }
+
+        public int getTotalSSJBGradesLevel()
+        {
+            int total = 0;
+            total += nameToStats["SSJB1"].getLevel();
+            total += nameToStats["SSJB1G2"].getLevel();
+            total += nameToStats["SSJB1G3"].getLevel();
+            total += nameToStats["SSJB1G4"].getLevel();
+            return total;
+        }
 
         public Stat getStat(string statName)
         {
@@ -268,63 +292,21 @@ namespace DragonballPichu
                 return false;
             }
 
-            Dictionary<string, Boolean> formToUnlockCondition = new Dictionary<string, Boolean>()
-        {
-            { "FSSJ", FSSJUnlockCondition },
-            { "SSJ1", SSJ1UnlockCondition },
-            { "SSJ1G2", SSJ1G2UnlockCondition },
-            { "FSSJB", FSSJBUnlockCondition },
-            { "SSJ1G3", SSJ1G3UnlockCondition },
-            { "SSJ1G4", SSJ1G4UnlockCondition },
-            { "SSJ2", SSJ2UnlockCondition },
-            { "SSJ3", SSJ3UnlockCondition },
-            { "SSJRage", SSJRageUnlockCondition },
-            { "SSJ4", SSJ4UnlockCondition },
-            { "SSJ4LB", SSJ4LBUnlockCondition },
-            { "SSJ5", SSJ5UnlockCondition },
-            { "SSJ5G2", SSJ5G2UnlockCondition },
-            { "SSJ5G3", SSJ5G3UnlockCondition },
-            { "SSJ5G4", SSJ5G4UnlockCondition },
-            { "SSJ6", SSJ6UnlockCondition },
-            { "SSJ7", SSJ7UnlockCondition },
-            { "FLSSJ", FLSSJUnlockCondition },
-            { "Ikari", IkariUnlockCondition },
-            { "LSSJ1", LSSJ1UnlockCondition },
-            { "LSSJ2", LSSJ2UnlockCondition },
-            { "LSSJ3", LSSJ3UnlockCondition },
-            { "LSSJ4", LSSJ4UnlockCondition },
-            { "LSSJ4LB", LSSJ4LBUnlockCondition },
-            { "LSSJ5", LSSJ5UnlockCondition },
-            { "LSSJ6", LSSJ6UnlockCondition },
-            { "LSSJ7", LSSJ7UnlockCondition },
-            { "SSJG", SSJGUnlockCondition },
-            { "LSSJB", LSSJBUnlockCondition },
-            { "SSJB1", SSJB1UnlockCondition },
-            { "SSJB1G2", SSJB1G2UnlockCondition },
-            { "SSJB1G3", SSJB1G3UnlockCondition },
-            { "SSJB1G4", SSJB1G4UnlockCondition },
-            { "SSJB2", SSJB2UnlockCondition },
-            { "SSJB3", SSJB3UnlockCondition },
-            { "SSJBE", SSJBEUnlockCondition },
-            { "SSJR1", SSJR1UnlockCondition },
-            { "SSJR1G2", SSJR1G2UnlockCondition },
-            { "SSJR1G3", SSJR1G3UnlockCondition },
-            { "SSJR1G4", SSJR1G4UnlockCondition },
-            { "SSJR2", SSJR2UnlockCondition },
-            { "SSJR3", SSJR3UnlockCondition },
-            { "Divine", DivineUnlockCondition },
-            { "DR", DRUnlockCondition },
-            { "Evil", EvilUnlockCondition },
-            { "Rampaging", RampagingUnlockCondition },
-            { "Berserk", BerserkUnlockCondition },
-            { "PU", PUUnlockCondition },
-            { "Beast", BeastUnlockCondition },
-            { "UE", UEUnlockCondition },
-            { "UI", UIUnlockCondition },
-            { "TUI", TUIUnlockCondition },
-            { "UILB", UILBUnlockCondition }
-        };
-            if (getFormPoints() >= formToUnlockPoints[formName] && formToUnlockCondition[formName])
+            if (!isTransformed)
+            {
+                switch ((getCurKi() >= 1000))
+                {
+                    case true:
+                        setUnlockCondition("Ikari", true); break;
+                    case false:
+                        setUnlockCondition("Ikari", false); break;
+                }
+            }
+
+            
+
+            
+            if (getFormPoints() >= formToUnlockPoints[formName] && getUnlockCondition(formName))
             {
                 formPoints-= formToUnlockPoints[formName];
                 spendFormPoints += formToUnlockPoints[formName];
@@ -352,7 +334,7 @@ namespace DragonballPichu
            
             var pointer = kaioken.Call(true, Player.whoAmI) is IntPtr ptr ? ptr : throw new Exception($"Can't Call {kaioken.DisplayName}");
             var data = Marshal.PtrToStructure<KaiokenPlayerData>(pointer);
-            //Main.NewText(data);
+            
             //data.Strain += 1;
             //Marshal.StructureToPtr(data, pointer, true);
             //kaioken.Call(false, Player.whoAmI, pointer);
@@ -363,7 +345,7 @@ namespace DragonballPichu
         {
             var pointer = kaioken.Call(true, Player.whoAmI) is IntPtr ptr ? ptr : throw new Exception($"Can't Call {kaioken.DisplayName}");
             var data = Marshal.PtrToStructure<KaiokenPlayerData>(pointer);
-            //Main.NewText(data);
+            
             data.Strain += strainToAdd;
             Marshal.StructureToPtr(data, pointer, true);
             kaioken.Call(false, Player.whoAmI, pointer);
@@ -401,7 +383,7 @@ namespace DragonballPichu
             {
                 var pointer = kaioken.Call(true, Player.whoAmI) is IntPtr ptr ? ptr : throw new Exception($"Can't Call {kaioken.DisplayName}");
                 var data = Marshal.PtrToStructure<KaiokenPlayerData>(pointer);
-                Main.NewText(data);
+                
                 data.Strain += 1;
                 Marshal.StructureToPtr(data, pointer, true);
                 kaioken.Call(false, Player.whoAmI, pointer);
@@ -539,6 +521,17 @@ namespace DragonballPichu
             }
             base.ModifyHitByNPC(npc, ref modifiers);
         }*/
+        public bool reviveUnlockTransform(string form)
+        {
+            DragonballPichuUISystem modSystem = ModContent.GetInstance<DragonballPichuUISystem>();
+            modSystem.MyFormsStatsUI.unlockForm(form);
+            currentBuff = form;
+            currentBuffID = FormTree.formNameToID(currentBuff);
+            isTransformed = true;
+            Player.statLife = Player.statLifeMax2 / 2;
+            return false;
+        }
+
 
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genDust, ref PlayerDeathReason damageSource)
         {
@@ -547,15 +540,73 @@ namespace DragonballPichu
             damageSource.TryGetCausingEntity(out entity);
             if (entity is NPC && DragonballPichuGlobalNPC.isBossOrMiniBoss((((NPC)entity))))
             {
+                NPC npc = (NPC)entity;
                 if (!unlockedForms.Contains("FSSJ"))
                 {
-                    DragonballPichuUISystem modSystem = ModContent.GetInstance<DragonballPichuUISystem>();
-                    modSystem.MyFormsStatsUI.unlockForm("FSSJ");
-                    currentBuff = "FSSJ";
-                    currentBuffID = FormTree.formNameToID(currentBuff);
-                    isTransformed = true;
-                    Player.statLife = Player.statLifeMax2 / 2;
-                    return false;
+                    return reviveUnlockTransform("FSSJ");
+                }
+                if (npc.TypeName == "Wall of Flesh")
+                {
+                    if (currentBuff == "SSJ1G4")
+                    {
+                        return reviveUnlockTransform("SSJ2");
+                    }
+                    else if (currentBuff == "FLSSJ")
+                    {
+                        return reviveUnlockTransform("LSSJ1");
+                    }
+                }
+                if (npc.TypeName == "Retinazer" || npc.TypeName == "Spazmatism" || npc.TypeName == "The Destroyer" || npc.TypeName == "Skeletron Prime" || npc.TypeName == "Mechdusa")
+                {
+                    if (currentBuff == "SSJ2")
+                    {
+                        return reviveUnlockTransform("SSJ3");
+                    }
+                    else if (currentBuff == "LSSJ1")
+                    {
+                        return reviveUnlockTransform("LSSJ2");
+                    }
+                }
+                if (npc.TypeName == "Plantera")
+                {
+                    if (currentBuff == "SSJ3")
+                    {
+                        return reviveUnlockTransform("SSJ4");
+                    }
+                    else if (currentBuff == "LSSJ2")
+                    {
+                        return reviveUnlockTransform("LSSJ3");
+                    }
+                }
+                if (npc.TypeName == "Golem")
+                {
+                    if (currentBuff == "SSJ4")
+                    {
+                        return reviveUnlockTransform("SSJ4LB");
+                    }
+                    else if (currentBuff == "LSSJ3")
+                    {
+                        return reviveUnlockTransform("LSSJ4");
+                    }
+                }
+                if (npc.TypeName == "Lunatic Cultist")
+                {
+                    return reviveUnlockTransform("SSJG");
+                }
+                if (npc.TypeName == "Moon Lord" || npc.TypeName == "Moon Lord's Core")
+                {
+                    if (currentBuff == "FSSJB")
+                    {
+                        return reviveUnlockTransform("SSJB1");
+                    }
+                    else if (currentBuff == "LSSJ4")
+                    {
+                        return reviveUnlockTransform("LSSJ4LB");
+                    }
+                    else if ((currentBuff == "SSJG" || currentBuff == "LSSJ3") && (unlockedForms.Contains("SSJG") && unlockedForms.Contains("LSSJ3")))
+                    {
+                        return reviveUnlockTransform("LSSJB");
+                    }
                 }
                 return true;
             }
@@ -631,7 +682,7 @@ namespace DragonballPichu
             if (DragonballPichuGlobalNPC.isBossOrMiniBoss(npc))
             {
                 bossesThatHitYou.Add(npc);
-                //Main.NewText(npc + " hit you");
+                
             }
             base.OnHitByNPC(npc, hurtInfo);
         }
@@ -653,8 +704,19 @@ namespace DragonballPichu
             return selectedForm;
             
         }
+
+        public void printToLog(string text)
+        {
+            Mod.Logger.Debug(text);
+        }
+
         public void setSelectedForm(string form)
         {
+            if(selectedForm != form)
+            {
+                Main.NewText("Selected " + form);
+                printToLog("Selected " + form);
+            }
             selectedForm = form;
             selectedFormID = FormTree.formNameToID(form);
         }
@@ -765,12 +827,18 @@ namespace DragonballPichu
             if (!toPrint.Equals(""))
             {
                 Main.NewText(toPrint);
+                printToLog(toPrint);
             }
         }
 
         public override void PostUpdateBuffs()
         {
             var modPlayer = Main.LocalPlayer.GetModPlayer<DragonballPichuPlayer>();
+            if(modPlayer == null)
+            {
+                base.PostUpdateBuffs();
+                return;
+            }
             // printKaiokenModData();
             base.PreUpdateBuffs();
             float formDrain = sumKiDrain();
@@ -810,6 +878,7 @@ namespace DragonballPichu
                 if (currentBuffID != -1 || stackedBuffIDs.Count > 0)
                 {
                     Main.NewText("Reverting to base");
+                    printToLog("Reverting to base");
                 }
                 isTransformed = false;
 
@@ -834,6 +903,27 @@ namespace DragonballPichu
                 }
                 
             }
+
+            if (!modPlayer.unlockedForms.Contains("SSJBE") && currentBuff.Contains("SSJB1") && modPlayer.getTotalSSJBGradesLevel() > 40)
+            {
+                FormStats.unlockAndTransform("SSJBE");
+            }
+            else if (!modPlayer.unlockedForms.Contains("TUI") && modPlayer.nameToStats["UI"].MultDefense.getValue() >= 3)
+            {
+                modPlayer.setUnlockCondition("TUI", true);
+            }
+            else if (!modPlayer.unlockedForms.Contains("UILB") && modPlayer.nameToStats["TUI"].MultDamage.getValue() >= 3)
+            {
+                modPlayer.setUnlockCondition("UILB", true);
+            }
+            else if (!modPlayer.unlockedForms.Contains("Beast") && modPlayer.nameToStats["PU"].MultKi.getValue() >= 1.5)
+            {
+                modPlayer.setUnlockCondition("Beast", true);
+            }
+            else if (!modPlayer.unlockedForms.Contains("UE") && modPlayer.getBaseAttack() >= 1.5)
+            {
+                modPlayer.setUnlockCondition("UE", true);
+            }
         }
 
         public int getTotalFormsCount()
@@ -854,6 +944,7 @@ namespace DragonballPichu
             if (!Player.HasBuff(buffID))
             {
                 Main.NewText("Transforming into " +FormTree.IDToFormName(buffID));
+                printToLog("Transforming into " + FormTree.IDToFormName(buffID));
             }
             Player.AddBuff(buffID, 3);
         }
@@ -881,6 +972,7 @@ namespace DragonballPichu
                         if (!errorIDsList.Contains(stackedBuffID))
                         {
                             Main.NewText("Refusing to add a stackedBuffID that does not correlate to any form in FormTree.nameToFormID.Values " + stackedBuffID);
+                            printToLog("Refusing to add a stackedBuffID that does not correlate to any form in FormTree.nameToFormID.Values " + stackedBuffID);
                             errorIDsList.Add(stackedBuffID);
                         }
                         
@@ -891,6 +983,15 @@ namespace DragonballPichu
             else
             {
                 kiDrain.setValue(0);
+            }
+
+            if(Player.shimmerWet && !unlockedForms.Contains("FLSSJ") && ( currentBuff == "SSJ1" || currentBuff == "SSJ1G4" ) && unlockedForms.Contains("Ikari"))
+            {
+                FormStats.unlockAndTransform("FLSSJ");
+            }
+            else if(Player.shimmerWet && !unlockedForms.Contains("SSJR1") && (currentBuff == "SSJB1" || currentBuff == "SSJB1G4"))
+            {
+                FormStats.unlockAndTransform("SSJR1");
             }
         }
 
@@ -1041,6 +1142,7 @@ namespace DragonballPichu
                     currentBuffID = -1;
                     isTransformed = false;
                     Main.NewText("Reverting to base");
+                    printToLog("Reverting to base");
                     stackedBuffs.Clear();
                     stackedBuffIDs.Clear();
                 }
@@ -1454,6 +1556,8 @@ namespace DragonballPichu
             tag["enemyCompendium"] = enemyCompendium;
             tag["formPoints"] = formPoints;
             tag["spendFormPoints"] = spendFormPoints;
+            tag["unlockConditionsKeys"] = formToUnlockCondition.Keys.ToList();
+            tag["unlockConditionsValues"] = formToUnlockCondition.Values.ToList();
             List<string> forms = new List<string>() { "FSSJ","SSJ1","SSJ1G2","SSJ1G3","SSJ1G4","SSJ2","SSJ3","SSJRage","SSJ4","SSJ4LB","SSJ5","SSJ5G2","SSJ5G3","SSJ5G4","SSJ6","SSJ7","FLSSJ","Ikari","LSSJ1","LSSJ2","LSSJ3","LSSJ4","LSSJ4LB","LSSJ5","LSSJ6","LSSJ7","SSJG","LSSJB","FSSJB","SSJB1","SSJB1G2","SSJB1G3","SSJB1G4","SSJB2","SSJB3","SSJBE","SSJR1","SSJR1G2","SSJR1G3","SSJR1G4","SSJR2","SSJR3","Divine","DR","Evil","Rampaging","Berserk","PU","Beast","UE","UI","UILB","TUI"
 };
             foreach (string form in forms)
@@ -1486,7 +1590,8 @@ namespace DragonballPichu
                 stats.Add("baseAttack", baseAttack);
                 stats.Add("baseDefense", baseDefense);
                 stats.Add("baseSpeed", baseSpeed);
-
+                
+                
 
             }
             if (nameToStats.Count == 0)
@@ -1520,6 +1625,14 @@ namespace DragonballPichu
             {
                 spendFormPoints = tag.GetInt("spendFormPoints");
             }
+
+            if(tag.ContainsKey("unlockConditionsKeys") && tag.ContainsKey("unlockConditionsValues"))
+            {
+                var names = tag.Get<List<string>>("unlockConditionsKeys");
+                var values = tag.Get<List<bool>>("unlockConditionsValues");
+                formToUnlockCondition = names.Zip(values, (k, v) => new { Key = k, Value = v }).ToDictionary(x => x.Key, x => x.Value);
+            }
+
             List<string> forms = new List<string>() { "FSSJ","SSJ1","SSJ1G2","SSJ1G3","SSJ1G4","SSJ2","SSJ3","SSJRage","SSJ4","SSJ4LB","SSJ5","SSJ5G2","SSJ5G3","SSJ5G4","SSJ6","SSJ7","FLSSJ","Ikari","LSSJ1","LSSJ2","LSSJ3","LSSJ4","LSSJ4LB","LSSJ5","LSSJ6","LSSJ7","SSJG","LSSJB","FSSJB","SSJB1","SSJB1G2","SSJB1G3","SSJB1G4","SSJB2","SSJB3","SSJBE","SSJR1","SSJR1G2","SSJR1G3","SSJR1G4","SSJR2","SSJR3","Divine","DR","Evil","Rampaging","Berserk","PU","Beast","UE","UI","UILB","TUI"
 };
             foreach (string form in forms)

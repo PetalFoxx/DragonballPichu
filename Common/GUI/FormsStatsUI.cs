@@ -562,6 +562,7 @@ namespace DragonballPichu.Common.GUI
             if (!modPlayer.unlockedForms.Contains(form))
             {
                 Main.NewText("Unlocked " + form);
+                modPlayer.printToLog("Unlocked " + form);
                 modPlayer.unlockedForms.Add(form);
             }
             if (!visibleUnlocks.Contains(form))
