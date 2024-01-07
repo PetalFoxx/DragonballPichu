@@ -18,6 +18,8 @@ namespace DragonballPichu.Content.Buffs
         public static new readonly string name = "SSJRage";
         public static new readonly Boolean isStackable = false;
         public static new readonly List<string> special = new List<string>() { "DR", "0.5" };
+        public static new readonly string UnlockHint = "It may be difficult to achieve this form, but face off against the leader of a dastardly cult, and ascend to the level of a god!";
+
 
         public override LocalizedText Description => base.Description;
 

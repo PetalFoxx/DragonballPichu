@@ -18,6 +18,7 @@ namespace DragonballPichu.Content.Buffs
         public static new readonly string name = "SSJBE";
         public static new readonly Boolean isStackable = false;
         public static new readonly List<string> special = new List<string>() { "DR", "0.5" };
+        public static new readonly string UnlockHint = "Perfection of the normal forms may yield a different path, yet it is still powerful, in its own right!";
 
         public override LocalizedText Description => base.Description;
 

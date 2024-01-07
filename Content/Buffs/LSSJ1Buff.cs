@@ -18,6 +18,7 @@ namespace DragonballPichu.Content.Buffs
         public static new readonly string name = "LSSJ1";
         public static new readonly Boolean isStackable = false;
         public static new readonly List<string> special = new List<string>() { "Ki Power", "0.75-1.25" };
+        public static new readonly string UnlockHint = "The Fleshy Prison of Light and Darkness can be used to enhance your false power.";
 
         public override LocalizedText Description => base.Description;
 

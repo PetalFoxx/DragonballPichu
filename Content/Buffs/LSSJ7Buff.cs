@@ -18,6 +18,7 @@ namespace DragonballPichu.Content.Buffs
         public static new readonly string name = "LSSJ7";
         public static new readonly Boolean isStackable = false;
         public static new readonly List<string> special = new List<string>() { "Ki Power", "0.5-1.5" };
+        public static new readonly string UnlockHint = "This is the pinnacle of power, can you achieve this plateau?";
 
         public override LocalizedText Description => base.Description;
 

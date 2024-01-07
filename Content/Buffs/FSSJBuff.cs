@@ -18,6 +18,7 @@ namespace DragonballPichu.Content.Buffs
         public static new readonly string name = "FSSJ";
         public static new readonly Boolean isStackable = false;
         public static new readonly List<string> special = new List<string>() { "DR", "0.2" };
+        public static new readonly string UnlockHint = "You might not be strong enough to win, but you'll damn try!";
 
         public override LocalizedText Description => base.Description;
 

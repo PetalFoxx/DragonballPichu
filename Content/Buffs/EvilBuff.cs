@@ -18,6 +18,7 @@ namespace DragonballPichu.Content.Buffs
         public static new readonly string name = "Evil";
         public static new readonly Boolean isStackable = true;
         public static new readonly List<string> special = new List<string>() { "DR", "0.25" };
+        public static new readonly string UnlockHint = "You did the worst thing you could do...";
 
         public override LocalizedText Description => base.Description;
 

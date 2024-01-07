@@ -18,6 +18,7 @@ namespace DragonballPichu.Content.Buffs
         public static new readonly string name = "DR";
         public static new readonly Boolean isStackable = false;
         public static new readonly List<string> special = new List<string>() { "Regen", "1" };
+        public static new readonly string UnlockHint = "Discover the rewards of godly strife";
 
         public override LocalizedText Description => base.Description;
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Humanizer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,6 +19,7 @@ namespace DragonballPichu.Content.Buffs
         public static new readonly string name = "UILB";
         public static new readonly Boolean isStackable = false;
         public static new readonly List<string> special = new List<string>() { "Dodge", "1" };
+        public static new readonly string UnlockHint = "Throw your whole body and soul into the fleeting moment of each strike, and allow the flames of your power to rage!";
 
         public override LocalizedText Description => base.Description;
 

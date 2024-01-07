@@ -18,7 +18,7 @@ namespace DragonballPichu.Content.Buffs
         public static new readonly string name = "SSJG";
         public static new readonly Boolean isStackable = false;
         public static new readonly List<string> special = new List<string>() { "Regen", "0.5" };
-
+        public static new readonly string UnlockHint = "When it is time for you to ascend to the heavens, this power will awaken.";
         public override LocalizedText Description => base.Description;
 
         public override void Update(Player player, ref int buffIndex)

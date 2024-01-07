@@ -17,6 +17,8 @@ namespace DragonballPichu.Content.Buffs
         public static new readonly float DamageBonus = 2.65f;
         public static new readonly string name = "SSJ5G3";
         public static new readonly List<string> special = new List<string>() { "Kaio-Efficient", "1" };
+        public static new readonly string UnlockHint = "Even further beyond... but is it worth it?";
+
 
         public static new readonly Boolean isStackable = false;
 

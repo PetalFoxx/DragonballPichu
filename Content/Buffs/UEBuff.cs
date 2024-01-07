@@ -18,6 +18,7 @@ namespace DragonballPichu.Content.Buffs
         public static new readonly Boolean isStackable = false;
         public static new readonly string name = "UE";
         public static new readonly List<string> special = new List<string>() { "HP Power", "0-1" };
+        public static new readonly string UnlockHint = "The only thing on your mind is destroying everything. Every boss, every block.";
         public override LocalizedText Description => base.Description;
 
         public override void Update(Player player, ref int buffIndex)

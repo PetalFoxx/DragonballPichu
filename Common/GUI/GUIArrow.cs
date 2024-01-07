@@ -56,13 +56,11 @@ namespace DragonballPichu.Common.GUI
         public Boolean isVisible()
         {
             if (destinationForm == null) { return false; }
-            if (originForm == "baseForm" || originForm == null) { return true; }
-            
+            //if (originForm == "baseForm" || originForm == null) { return true; }
+            DragonballPichuPlayer modPlayer = Main.LocalPlayer.GetModPlayer<DragonballPichuPlayer>();
             DragonballPichuUISystem modSystem = ModContent.GetInstance<DragonballPichuUISystem>();
-            if (modSystem.MyFormsStatsUI.visibleUnlocks.Contains(destinationForm))
-            {
-                return true;
-            }
+            if (modSystem.MyFormsStatsUI.visibleUnlocks.Contains(destinationForm)) { return true; }
+            if (modPlayer.unlockedForms.Contains(destinationForm)) { return true; }
             return false;
         }
 

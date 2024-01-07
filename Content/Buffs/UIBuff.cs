@@ -18,6 +18,8 @@ namespace DragonballPichu.Content.Buffs
         public static new readonly string name = "UI";
         public static new readonly Boolean isStackable = true;
         public static new readonly List<string> special = new List<string>() { "Dodge", "1" };
+        public static new readonly string UnlockHint = "Focus on nothing but you, your opponent, and the fight; This is the pinnacle of martial arts";
+
         public override LocalizedText Description => base.Description;
 
         public override void Update(Player player, ref int buffIndex)

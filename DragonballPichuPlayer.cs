@@ -52,6 +52,7 @@ namespace DragonballPichu
 
         public List<string> unlockedForms = new List<string>();
         public List<string> unlockLoaded = new List<string>();
+        public List<string> loadVisibleUnlocks = new List<string>();
 
         public List<NPC> bossesThatHitYou = new List<NPC>();
 
@@ -291,6 +292,7 @@ namespace DragonballPichu
             {
                 return false;
             }
+            DragonballPichuUISystem modSystem = ModContent.GetInstance<DragonballPichuUISystem>();
 
             if (!isTransformed)
             {
@@ -834,7 +836,8 @@ namespace DragonballPichu
         public override void PostUpdateBuffs()
         {
             var modPlayer = Main.LocalPlayer.GetModPlayer<DragonballPichuPlayer>();
-            if(modPlayer == null)
+            DragonballPichuUISystem modSystem = ModContent.GetInstance<DragonballPichuUISystem>();
+            if (modPlayer == null)
             {
                 base.PostUpdateBuffs();
                 return;
@@ -903,26 +906,40 @@ namespace DragonballPichu
                 }
                 
             }
-
-            if (!modPlayer.unlockedForms.Contains("SSJBE") && currentBuff.Contains("SSJB1") && modPlayer.getTotalSSJBGradesLevel() > 40)
+            if (level >= 5 && !modSystem.MyFormsStatsUI.visibleUnlocks.Contains("PU"))
             {
-                FormStats.unlockAndTransform("SSJBE");
+                modSystem.MyFormsStatsUI.visibleUnlocks.Add("PU");
             }
-            else if (!modPlayer.unlockedForms.Contains("TUI") && modPlayer.nameToStats["UI"].MultDefense.getValue() >= 3)
+            if(!modPlayer.unlockedForms.Contains("SSJBE") && modPlayer.getTotalSSJBGradesLevel() > 40)
+            {
+                if (currentBuff.Contains("SSJB1"))
+                {
+                    FormStats.unlockAndTransform("SSJBE");
+                }
+                else
+                {
+                    modSystem.MyFormsStatsUI.unlockForm("SSJBE");
+                }
+            }
+            if (!modPlayer.unlockedForms.Contains("TUI") && modPlayer.nameToStats["UI"].MultDefense.getValue() >= 3)
             {
                 modPlayer.setUnlockCondition("TUI", true);
             }
-            else if (!modPlayer.unlockedForms.Contains("UILB") && modPlayer.nameToStats["TUI"].MultDamage.getValue() >= 3)
+            if (!modPlayer.unlockedForms.Contains("UILB") && modPlayer.nameToStats["TUI"].MultDamage.getValue() >= 3)
             {
                 modPlayer.setUnlockCondition("UILB", true);
             }
-            else if (!modPlayer.unlockedForms.Contains("Beast") && modPlayer.nameToStats["PU"].MultKi.getValue() >= 1.5)
+            if (!modPlayer.unlockedForms.Contains("Beast") && modPlayer.nameToStats["PU"].MultKi.getValue() >= 1.5)
             {
                 modPlayer.setUnlockCondition("Beast", true);
             }
-            else if (!modPlayer.unlockedForms.Contains("UE") && modPlayer.getBaseAttack() >= 1.5)
+            if (!modPlayer.unlockedForms.Contains("UE") && modPlayer.getBaseAttack() >= 1.5)
             {
                 modPlayer.setUnlockCondition("UE", true);
+            }
+            if (getMaxKi() >= 1000 && !modSystem.MyFormsStatsUI.visibleUnlocks.Contains("Ikari"))
+            {
+                modSystem.MyFormsStatsUI.visibleUnlocks.Add("Ikari");
             }
         }
 
@@ -985,13 +1002,10 @@ namespace DragonballPichu
                 kiDrain.setValue(0);
             }
 
-            if(Player.shimmerWet && !unlockedForms.Contains("FLSSJ") && ( currentBuff == "SSJ1" || currentBuff == "SSJ1G4" ) && unlockedForms.Contains("Ikari"))
+            if (Player.shimmerWet)
             {
-                FormStats.unlockAndTransform("FLSSJ");
-            }
-            else if(Player.shimmerWet && !unlockedForms.Contains("SSJR1") && (currentBuff == "SSJB1" || currentBuff == "SSJB1G4"))
-            {
-                FormStats.unlockAndTransform("SSJR1");
+                DragonballPichuGlobalNPC.unlockAndMaybeTransform("SSJ1", "Ikari", "FLSSJ");
+                DragonballPichuGlobalNPC.unlockAndMaybeTransform("SSJB1", "SSJR1");
             }
         }
 
@@ -1550,6 +1564,7 @@ namespace DragonballPichu
 
         public override void SaveData(TagCompound tag)
         {
+            DragonballPichuUISystem modSystem = ModContent.GetInstance<DragonballPichuUISystem>();
             tag["experience"] = experience;
             tag["level"] = level;
             tag["unlockedForms"] = unlockedForms;
@@ -1558,6 +1573,7 @@ namespace DragonballPichu
             tag["spendFormPoints"] = spendFormPoints;
             tag["unlockConditionsKeys"] = formToUnlockCondition.Keys.ToList();
             tag["unlockConditionsValues"] = formToUnlockCondition.Values.ToList();
+            tag["visibleUnlocks"] = modSystem.MyFormsStatsUI.visibleUnlocks;
             List<string> forms = new List<string>() { "FSSJ","SSJ1","SSJ1G2","SSJ1G3","SSJ1G4","SSJ2","SSJ3","SSJRage","SSJ4","SSJ4LB","SSJ5","SSJ5G2","SSJ5G3","SSJ5G4","SSJ6","SSJ7","FLSSJ","Ikari","LSSJ1","LSSJ2","LSSJ3","LSSJ4","LSSJ4LB","LSSJ5","LSSJ6","LSSJ7","SSJG","LSSJB","FSSJB","SSJB1","SSJB1G2","SSJB1G3","SSJB1G4","SSJB2","SSJB3","SSJBE","SSJR1","SSJR1G2","SSJR1G3","SSJR1G4","SSJR2","SSJR3","Divine","DR","Evil","Rampaging","Berserk","PU","Beast","UE","UI","UILB","TUI"
 };
             foreach (string form in forms)
@@ -1631,6 +1647,11 @@ namespace DragonballPichu
                 var names = tag.Get<List<string>>("unlockConditionsKeys");
                 var values = tag.Get<List<bool>>("unlockConditionsValues");
                 formToUnlockCondition = names.Zip(values, (k, v) => new { Key = k, Value = v }).ToDictionary(x => x.Key, x => x.Value);
+            }
+
+            if (tag.ContainsKey("visibleUnlocks"))
+            {
+                loadVisibleUnlocks = tag.Get<List<string>>("visibleUnlocks");
             }
 
             List<string> forms = new List<string>() { "FSSJ","SSJ1","SSJ1G2","SSJ1G3","SSJ1G4","SSJ2","SSJ3","SSJRage","SSJ4","SSJ4LB","SSJ5","SSJ5G2","SSJ5G3","SSJ5G4","SSJ6","SSJ7","FLSSJ","Ikari","LSSJ1","LSSJ2","LSSJ3","LSSJ4","LSSJ4LB","LSSJ5","LSSJ6","LSSJ7","SSJG","LSSJB","FSSJB","SSJB1","SSJB1G2","SSJB1G3","SSJB1G4","SSJB2","SSJB3","SSJBE","SSJR1","SSJR1G2","SSJR1G3","SSJR1G4","SSJR2","SSJR3","Divine","DR","Evil","Rampaging","Berserk","PU","Beast","UE","UI","UILB","TUI"

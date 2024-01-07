@@ -18,6 +18,7 @@ namespace DragonballPichu.Content.Buffs
         public static new readonly string name = "Ikari";
         public static new readonly Boolean isStackable = false;
         public static new readonly List<string> special = new List<string>() { "HP Power", "0.8-1.2" };
+        public static new readonly string UnlockHint = "Your power... it's overflowing!";
 
         public override LocalizedText Description => base.Description;
 

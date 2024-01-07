@@ -18,6 +18,7 @@ namespace DragonballPichu.Content.Buffs
         public static new readonly string name = "SSJ4LB";
         public static new readonly Boolean isStackable = false;
         public static new readonly List<string> special = new List<string>() { "Kaio-Efficient", "1" };
+        public static new readonly string UnlockHint = "An ancient foe, deep beneath the buzzing... should make for a worthy adversary";
 
         public override LocalizedText Description => base.Description;
 

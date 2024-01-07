@@ -18,6 +18,7 @@ namespace DragonballPichu.Content.Buffs
         public static new readonly string name = "Berserk";
         public static new readonly Boolean isStackable = true;
         public static new readonly List<string> special = new List<string>() { "DR", "0.35" };
+        public static new readonly string UnlockHint = "You Monster...";
         public override LocalizedText Description => base.Description;
 
         public override void Update(Player player, ref int buffIndex)

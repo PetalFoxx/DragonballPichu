@@ -18,6 +18,7 @@ namespace DragonballPichu.Content.Buffs
         public static new readonly string name = "PU";
         public static new readonly Boolean isStackable = true;
         public static new readonly List<string> special = new List<string>() { "DR", "0.25" };
+        public static new readonly string UnlockHint = "Summon a magical being and ask for power(Not implemented) / Push your own strength; break your limits!";
 
         public override LocalizedText Description => base.Description;
 

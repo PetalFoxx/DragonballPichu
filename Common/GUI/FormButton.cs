@@ -53,8 +53,16 @@ namespace DragonballPichu.Common.GUI
         {
             if (isVisible())
             {
+                var modPlayer = Main.LocalPlayer.GetModPlayer<DragonballPichuPlayer>();
                 DragonballPichuUISystem modSystem = ModContent.GetInstance<DragonballPichuUISystem>();
-                modSystem.MyFormsStatsUI.formHoverText = name;
+                if(!unlock || modPlayer.unlockedForms.Contains(name))
+                {
+                    modSystem.MyFormsStatsUI.formHoverText = name;
+                }
+                else
+                {
+                    modSystem.MyFormsStatsUI.formHoverText = "???(" + modPlayer.formToUnlockPoints[name]+")";
+                }
             }
            
         }
@@ -76,6 +84,10 @@ namespace DragonballPichu.Common.GUI
                     {
                         modPlayer.setSelectedForm(this.name);
                         modSystem.MyFormsStatsUI.addStatButtons(modPlayer.getSelectedFormID());
+                    }
+                    else
+                    {
+                        Main.NewText(FormTree.nameToUnlockHint[name]);
                     }
                 }
                 else

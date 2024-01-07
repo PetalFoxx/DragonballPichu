@@ -15,9 +15,10 @@ namespace DragonballPichu.Content.Buffs
         public static new readonly float KiDrain = 55;
         public static new readonly float SpeedBonus = 1.3f;
         public static new readonly float DamageBonus = 2.4f;
-        public static new readonly string name = "LSSJ4";
+        public static new readonly string name = "LSSJ5";
         public static new readonly Boolean isStackable = false;
         public static new readonly List<string> special = new List<string>() { "Ki Power", "0.75-1.25" };
+        public static new readonly string UnlockHint = "Defeat the gods with your power; get revenge for your allies!";
         public override LocalizedText Description => base.Description;
 
         public override void Update(Player player, ref int buffIndex)

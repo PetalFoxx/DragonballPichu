@@ -245,7 +245,10 @@ namespace DragonballPichu
             Boolean newEnemy = modPlayer.tryAddNewBossToCompendium(npc);
             DragonballPichuUISystem modSystem = ModContent.GetInstance<DragonballPichuUISystem>();
             if (npc.TypeName.ToLower().Contains("bunny") || npc.TypeName.ToLower().Contains("rabbit")){
-                modPlayer.setUnlockCondition("Evil", true);
+                if(!modSystem.MyFormsStatsUI.visibleUnlocks.Contains("Evil"))
+                    modSystem.MyFormsStatsUI.visibleUnlocks.Add("Evil");
+                if (!modPlayer.unlockedForms.Contains("Evil"))
+                    modPlayer.setUnlockCondition("Evil", true);
             }
             if (npc.townNPC)
             {
@@ -338,69 +341,81 @@ namespace DragonballPichu
 
             if (isBossOrMiniBoss(npc))
             {
-                if(npc.TypeName == "Wall of Flesh")
+                if (!modSystem.MyFormsStatsUI.visibleUnlocks.Contains("FSSJ")){
+                    modSystem.MyFormsStatsUI.visibleUnlocks.Add("FSSJ");
+                }
+                if (npc.TypeName == "Wall of Flesh")
                 {
-                    if(modPlayer.currentBuff == "SSJ1G4")
-                    {
-                        FormStats.unlockAndTransform("SSJ2");
-                    }
-                    else if(modPlayer.currentBuff == "FLSSJ")
-                    {
-                        FormStats.unlockAndTransform("LSSJ1");
-                    }
+                    unlockAndMaybeTransform("SSJ1G4", "SSJ2");
+                    unlockAndMaybeTransform("FLSSJ", "LSSJ1");
                 }
                 if(npc.TypeName == "Retinazer" || npc.TypeName == "Spazmatism" || npc.TypeName == "The Destroyer" || npc.TypeName == "Skeletron Prime" || npc.TypeName == "Mechdusa")
                 {
-                    if (modPlayer.currentBuff == "SSJ2")
-                    {
-                        FormStats.unlockAndTransform("SSJ3");
-                    }
-                    else if (modPlayer.currentBuff == "LSSJ1")
-                    {
-                        FormStats.unlockAndTransform("LSSJ2");
-                    }
+                    unlockAndMaybeTransform("SSJ2", "SSJ3");
+                    unlockAndMaybeTransform("LSSJ1", "LSSJ2");
                 }
                 if(npc.TypeName == "Plantera")
                 {
-                    if (modPlayer.currentBuff == "SSJ3")
-                    {
-                        FormStats.unlockAndTransform("SSJ4");
-                    }
-                    else if (modPlayer.currentBuff == "LSSJ2")
-                    {
-                        FormStats.unlockAndTransform("LSSJ3");
-                    }
+                    unlockAndMaybeTransform("SSJ3", "SSJ4");
+                    unlockAndMaybeTransform("LSSJ2", "LSSJ3");
                 }
                 if(npc.TypeName == "Golem")
                 {
-                    if (modPlayer.currentBuff == "SSJ4")
-                    {
-                        FormStats.unlockAndTransform("SSJ4LB");
-                    }
-                    else if (modPlayer.currentBuff == "LSSJ3")
-                    {
-                        FormStats.unlockAndTransform("LSSJ4");
-                    }
+                    unlockAndMaybeTransform("SSJ4", "SSJ4LB");
+                    unlockAndMaybeTransform("LSSJ3", "LSSJ4");
                 }
                 if(npc.TypeName == "Lunatic Cultist")
                 {
-                    FormStats.unlockAndTransform("SSJG");
+                    unlockAndMaybeTransform("SSJG");
                 }
                 if(npc.TypeName == "Moon Lord" || npc.TypeName == "Moon Lord's Core")
                 {
-                    if (modPlayer.currentBuff == "FSSJB")
-                    {
-                        FormStats.unlockAndTransform("SSJB1");
-                    }
-                    else if (modPlayer.currentBuff == "LSSJ4")
-                    {
-                        FormStats.unlockAndTransform("LSSJ4LB");
-                    }
-                    else if ((modPlayer.currentBuff == "SSJG" || modPlayer.currentBuff == "LSSJ3") && (modPlayer.unlockedForms.Contains("SSJG") && modPlayer.unlockedForms.Contains("LSSJ3")))
-                    {
-                        FormStats.unlockAndTransform("LSSJB");
-                    }
+                    unlockAndMaybeTransform("FSSJB", "SSJB1");
+                    unlockAndMaybeTransform("LSSJ4", "LSSJ4LB");
+                    unlockAndMaybeTransform("LSSJ3", "SSJG", "LSSJB");
                 }
+            }
+        }
+
+        public static void unlockAndMaybeTransform(string neededForm, string newForm)
+        {
+            DragonballPichuPlayer modPlayer = Main.LocalPlayer.GetModPlayer<DragonballPichuPlayer>();
+            DragonballPichuUISystem modSystem = ModContent.GetInstance<DragonballPichuUISystem>();
+            if (modPlayer.currentBuff == neededForm)
+            {
+                FormStats.unlockAndTransform(newForm);
+            }
+            else if (modPlayer.unlockedForms.Contains(neededForm) && !modPlayer.unlockedForms.Contains(newForm))
+            {
+                modSystem.MyFormsStatsUI.unlockForm(newForm);
+            }
+        }
+
+        public static void unlockAndMaybeTransform(string neededForm, string neededForm2, string newForm)
+        {
+            DragonballPichuPlayer modPlayer = Main.LocalPlayer.GetModPlayer<DragonballPichuPlayer>();
+            DragonballPichuUISystem modSystem = ModContent.GetInstance<DragonballPichuUISystem>();
+            if ((modPlayer.currentBuff == neededForm && modPlayer.unlockedForms.Contains(neededForm2)) || (modPlayer.currentBuff == neededForm2 && modPlayer.unlockedForms.Contains(neededForm)))
+            {
+                FormStats.unlockAndTransform(newForm);
+            }
+            else if (modPlayer.unlockedForms.Contains(neededForm) && modPlayer.unlockedForms.Contains(neededForm2) && !modPlayer.unlockedForms.Contains(newForm))
+            {
+                modSystem.MyFormsStatsUI.unlockForm(newForm);
+            }
+        }
+
+        public static void unlockAndMaybeTransform(string newForm)
+        {
+            DragonballPichuPlayer modPlayer = Main.LocalPlayer.GetModPlayer<DragonballPichuPlayer>();
+            DragonballPichuUISystem modSystem = ModContent.GetInstance<DragonballPichuUISystem>();
+            if (modPlayer.currentBuff == "baseForm" || modPlayer.currentBuff == null)
+            {
+                FormStats.unlockAndTransform(newForm);
+            }
+            else if (!modPlayer.unlockedForms.Contains(newForm))
+            {
+                modSystem.MyFormsStatsUI.unlockForm(newForm);
             }
         }
 

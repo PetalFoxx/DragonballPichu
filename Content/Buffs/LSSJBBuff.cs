@@ -18,6 +18,7 @@ namespace DragonballPichu.Content.Buffs
         public static new readonly string name = "LSSJB";
         public static new readonly Boolean isStackable = false;
         public static new readonly List<string> special = new List<string>() { "Ki Power", "0.75-1.25" };
+        public static new readonly string UnlockHint = "The power of a god mixed with legendary strength... Time to show off against the lunar adversary";
 
         public override LocalizedText Description => base.Description;
 

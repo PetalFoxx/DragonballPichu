@@ -18,6 +18,7 @@ namespace DragonballPichu.Content.Buffs
         public static new readonly string name = "SSJB1G3";
         public static new readonly Boolean isStackable = false;
         public static new readonly List<string> special = new List<string>() { "Kaio-Efficient", "1" };
+        public static new readonly string UnlockHint = "Perhaps making your new club even denser will allow you to defeat your greatest foes?";
 
         public override LocalizedText Description => base.Description;
 

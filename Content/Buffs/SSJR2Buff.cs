@@ -18,7 +18,7 @@ namespace DragonballPichu.Content.Buffs
         public static new readonly string name = "SSJR2";
         public static new readonly Boolean isStackable = false;
         public static new readonly List<string> special = new List<string>() { "Kaio-Efficient", "1" };
-
+        public static new readonly string UnlockHint = "You stand before the true ascension of a godly super saiyan, lesser beings";
         public override LocalizedText Description => base.Description;
 
         public override void Update(Player player, ref int buffIndex)

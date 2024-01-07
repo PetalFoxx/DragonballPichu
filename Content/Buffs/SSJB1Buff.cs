@@ -18,6 +18,8 @@ namespace DragonballPichu.Content.Buffs
         public static new readonly string name = "SSJB1";
         public static new readonly Boolean isStackable = false;
         public static new readonly List<string> special = new List<string>() { "Kaio-Efficient", "1" };
+        public static new readonly string UnlockHint = "This is the true power of a god!";
+
 
         public override LocalizedText Description => base.Description;
 

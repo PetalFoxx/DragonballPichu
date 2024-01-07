@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
@@ -18,7 +19,8 @@ namespace DragonballPichu.Content.Buffs
         public static new readonly string name = "TUI";
         public static new readonly Boolean isStackable = false;
         public static new readonly List<string> special = new List<string>() { "Dodge", "2" };
-
+        public static new readonly string UnlockHint = "Not the chaos of consciousness, but the elegant purity of energy operating on impulse alone.";
+        
         public override LocalizedText Description => base.Description;
 
         public override void Update(Player player, ref int buffIndex)

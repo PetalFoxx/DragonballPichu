@@ -299,8 +299,15 @@ namespace DragonballPichu.Common.GUI
 
         public static List<string> forms = new List<string>() { "FSSJ","FSSJB","SSJ1","SSJ1G2","SSJ1G3","SSJ1G4","SSJ2","SSJ3","SSJRage","SSJ4","SSJ4LB","SSJ5","SSJ5G2","SSJ5G3","SSJ5G4","SSJ6","SSJ7","FLSSJ","Ikari","LSSJ1","LSSJ2","LSSJ3","LSSJ4","LSSJ4LB","LSSJ5","LSSJ6","LSSJ7","SSJG","LSSJB","SSJB1","SSJB1G2","SSJB1G3","SSJB1G4","SSJB2","SSJB3","SSJBE","SSJR1","SSJR1G2","SSJR1G3","SSJR1G4","SSJR2","SSJR3","Divine","DR","Evil","Rampaging","Berserk","PU","Beast","UE","UI","UILB","TUI"
         };
-        public static List<string> treeStarterForms = new List<string>() { "FSSJ", "SSJG", "UI", "Ikari", "Evil", "PU", "UE" };
-
+        public static List<string> treeStarterForms = new List<string>() {};
+        //"FSSJ", "SSJG", "UI", "Ikari", "Evil", "PU", "UE" 
+        //FSSJ: when you spawn a boss
+        //SSJG: when getting ssj3/lssj3/berserk
+        //UI: when getting ssjg
+        //Ikari: get 1000 ki max
+        //Evil: when kill bunny
+        //PU: once level 5
+        //UE: when getting ssjg
         public List<string> visibleUnlocks = new List<string>();
 
         public override void OnInitialize()
@@ -559,10 +566,11 @@ namespace DragonballPichu.Common.GUI
         public void unlockForm(string form)
         {
             var modPlayer = Main.LocalPlayer.GetModPlayer<DragonballPichuPlayer>();
+            DragonballPichuUISystem modSystem = ModContent.GetInstance<DragonballPichuUISystem>();
             if (!modPlayer.unlockedForms.Contains(form))
             {
                 Main.NewText("Unlocked " + form);
-                modPlayer.printToLog("Unlocked " + form);
+                modPlayer.printToLog("Unlocked "+form);
                 modPlayer.unlockedForms.Add(form);
             }
             if (!visibleUnlocks.Contains(form))
@@ -576,6 +584,18 @@ namespace DragonballPichu.Common.GUI
                 {
                     visibleUnlocks.Add(arrow.destinationForm);
                 }
+            }
+            if((form == "SSJ3" || form == "LSSJ3" || form == "Berserk") && !modSystem.MyFormsStatsUI.visibleUnlocks.Contains("SSJG"))
+            {
+                modSystem.MyFormsStatsUI.visibleUnlocks.Add("SSJG");
+            }
+            if((form == "SSJG") && !modSystem.MyFormsStatsUI.visibleUnlocks.Contains("UI"))
+            {
+                modSystem.MyFormsStatsUI.visibleUnlocks.Add("UI");
+            }
+            if((form == "SSJG") && !modSystem.MyFormsStatsUI.visibleUnlocks.Contains("UE"))
+            {
+                modSystem.MyFormsStatsUI.visibleUnlocks.Add("UE");
             }
         }
 
@@ -840,6 +860,12 @@ namespace DragonballPichu.Common.GUI
                     unlockForm(form);
                 }
                 modPlayer.unlockLoaded.Clear();
+            }
+
+            if (modPlayer.loadVisibleUnlocks.Count > 0)
+            {
+                visibleUnlocks.AddRange(modPlayer.loadVisibleUnlocks);
+                modPlayer.loadVisibleUnlocks.Clear();
             }
             base.Update(gameTime);
             string newStatsPanelText = "";

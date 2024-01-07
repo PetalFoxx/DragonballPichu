@@ -18,6 +18,7 @@ namespace DragonballPichu.Content.Buffs
         public static new readonly Boolean isStackable = false;
         public static new readonly string name = "Beast";
         public static new readonly List<string> special = new List<string>() { "DR", "0.5" };
+        public static new readonly string UnlockHint = "Quincentennial Experience, Staggering Energy";
         
 
         public override LocalizedText Description => base.Description;

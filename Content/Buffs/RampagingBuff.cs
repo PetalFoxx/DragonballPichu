@@ -18,6 +18,7 @@ namespace DragonballPichu.Content.Buffs
         public static new readonly string name = "Rampaging";
         public static new readonly Boolean isStackable = true;
         public static new readonly List<string> special = new List<string>() { "DR", "0.3" };
+        public static new readonly string UnlockHint = "Push your newfound villainy to new heights; defeat many protectors of peace";
 
         public override LocalizedText Description => base.Description;
 
