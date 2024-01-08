@@ -307,7 +307,8 @@ namespace DragonballPichu
             //{
             //    xpToGain *= 10;
             //}
-
+            xpToGain *= modPlayer.accessoryExperienceMulti;
+            
 
             if (newEnemy)
             {
@@ -338,7 +339,6 @@ namespace DragonballPichu
             {
                 modPlayer.gainExperience(xpToGain * 2f);
             }
-
             if (isBossOrMiniBoss(npc))
             {
                 if (!modSystem.MyFormsStatsUI.visibleUnlocks.Contains("FSSJ")){

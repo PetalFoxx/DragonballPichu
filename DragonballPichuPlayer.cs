@@ -56,6 +56,11 @@ namespace DragonballPichu
 
         public List<NPC> bossesThatHitYou = new List<NPC>();
 
+        public float accessoryKiRegen = 0;
+        public float accessoryChargeKiGainMulti = 1;
+        public float accessoryKiDrainMulti = 1;
+        public float accessoryExperienceMulti = 1;
+        public float accessoryKiMaxMulti = 1;
 
         public Dictionary<string, int> formToUnlockPoints = new Dictionary<string, int>()
         {
@@ -752,10 +757,12 @@ namespace DragonballPichu
 
 
         public float getCurKi() { return curKi; }
-        public void setCurKi(float kiAmt) { curKi = (Math.Clamp(kiAmt, 0, maxKi.getValue())); }
+        public void setCurKi(float kiAmt) { curKi = (Math.Clamp(kiAmt, 0, getMaxKi())); }
         public void increaseKi(float kiAmt) { setCurKi((getCurKi() + kiAmt/20f)); }
         public void decreaseKi(float kiAmt) { setCurKi(getCurKi() - kiAmt/20f); }
+        //public float getMaxKi() {float toReturn = maxKi.getValue() * accessoryKiMaxMulti; accessoryKiMaxMulti = 1; return toReturn; }
         public float getMaxKi() { return maxKi.getValue(); }
+
         public void setMaxKi(float kiAmt) {  maxKi.setValue((Math.Clamp(kiAmt, 0, float.MaxValue))); }
         public void increaseKiMax(float kiAmt) { maxKi.increaseValue(kiAmt); }
         public void decreaseKiMax(float kiAmt) { maxKi.decreaseValue(kiAmt); }
@@ -861,20 +868,21 @@ namespace DragonballPichu
                 maxKiMulti = 1f;
             }
 
-
-
             if (isTransformed)
             {
                 //printAllStacked();
                 float stackedFormsMulti = (stackedBuffs.Count() + 1);
                 stackedFormsMulti *= getFormSpecialStackCost();
-                decreaseKi(formDrain * stackedFormsMulti);
-                maxKi.multiplier = maxKiMulti;
+                decreaseKi(formDrain * stackedFormsMulti * accessoryKiDrainMulti);
+                
+                maxKi.multiplier = maxKiMulti * accessoryKiMaxMulti;
             }
             else
             {
-                maxKi.multiplier = 1f;
+                maxKi.multiplier = accessoryKiMaxMulti;
             }
+            accessoryKiDrainMulti = 1f;
+            accessoryKiMaxMulti = 1f;
 
             if (getCurKi() <= 0)
             {
@@ -893,9 +901,13 @@ namespace DragonballPichu
             float kiGainFrantic = getKiRegenFromFranticRegen();
 
             if (isCharging)
-                increaseKi(getChargeKiGain());
-            increaseKi(kiGain.getValue() + kiGainFrantic);
-
+            {
+                increaseKi(getChargeKiGain() * accessoryChargeKiGainMulti);
+                
+            }
+            accessoryChargeKiGainMulti = 1;
+            increaseKi(kiGain.getValue() + kiGainFrantic + accessoryKiRegen);
+            accessoryKiRegen = 0;
 
             if (ModLoader.TryGetMod("KaiokenMod", out var kaioken))
             {
@@ -1009,9 +1021,20 @@ namespace DragonballPichu
             }
         }
 
+        /*public override void ResetEffects()
+        {
+            accessoryKiRegen = 0;
+            accessoryChargeKiGainMulti = 1;
+            accessoryKiDrainMulti = 1;
+            accessoryExperienceMulti = 1;
+            accessoryKiMaxMulti = 1;
+        }*/
+
+        
+
         public override void UpdateEquips()
         {
-            base.PostUpdate();
+            //base.PostUpdate();
             Player.statDefense += (int)getBaseDefense();
             if (isCharging)
             {
@@ -1037,6 +1060,12 @@ namespace DragonballPichu
                     secondWindCooldown = 3600;
                 }
             }
+
+            //accessoryKiRegen = 0;
+            //accessoryChargeKiGainMulti = 1;
+            //accessoryKiDrainMulti = 1;
+            accessoryExperienceMulti = 1;
+            //accessoryKiMaxMulti = 1;
         }
 
         public override void ProcessTriggers(TriggersSet triggersSet)

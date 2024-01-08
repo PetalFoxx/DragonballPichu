@@ -283,3 +283,42 @@ Buffs: {
 		Description: Mods.DragonballPichu.Buffs.UILBBuff.Description
 	}
 }
+
+Prefixes: {
+	DragonballPichuPrefix: {
+		AdditionalTooltip: Mods.DragonballPichu.Prefixes.DragonballPichuPrefix.AdditionalTooltip
+		DisplayName: If you see this, please tell Pichu!
+	}
+
+	ExperienceGainPrefix: {
+		AdditionalTooltip: +10% increased DBP experience
+		DisplayName: Seasoned
+	}
+
+	KiChargePrefix: {
+		AdditionalTooltip: +5% faster ki charging
+		DisplayName: Overflowing
+	}
+
+	KiDrainPrefix: {
+		AdditionalTooltip: +10% reduced ki drain
+		DisplayName: Cozy
+	}
+
+	KiMaxPrefix: {
+		AdditionalTooltip: +25% increased ki max
+		DisplayName: Grand
+	}
+
+	KiRegenPrefix: {
+		AdditionalTooltip: +10 ki gain / second
+		DisplayName: Balmy
+	}
+
+	PowerTooltip: Mods.DragonballPichu.Prefixes.PowerTooltip
+
+	ExperienceGainPrefixOld: {
+		AdditionalTooltip: Mods.DragonballPichu.Prefixes.ExperienceGainPrefixOld.AdditionalTooltip
+		DisplayName: Experience Gain Prefix Old
+	}
+}
