@@ -322,3 +322,149 @@ Prefixes: {
 		DisplayName: Experience Gain Prefix Old
 	}
 }
+
+Configs: {
+	ClientConfig: {
+		DisplayName: Client Config
+
+		Headers: {
+			Cheats: Cheats(enable in server config)
+			Qol: Quality of Life
+		}
+
+		isChargingToggle: {
+			Label: Charge Ki Method
+			Tooltip: True = Toggle; False = Hold
+		}
+
+		hideKiBarWhenFull: {
+			Label: Ki Bar Visibility
+			Tooltip: True = Hide Full; False = Always Show
+		}
+
+		formPoints: {
+			Label: Form Points
+			Tooltip: WARNING: Set this value to overwrite your current form points with a new value... -1 to not change anything, that is also the default
+		}
+
+		baseLevel: {
+			Label: Base Level
+			Tooltip: WARNING: Set this value to overwrite your current base form level with a new value... -1 to not change anything, that is also the default
+		}
+
+		allFormLevel: {
+			Label: Forms Level
+			Tooltip: WARNING: Set this value to overwrite all of your form's levels with a new value... -1 to not change anything, that is also the default
+		}
+	}
+
+	ServerConfig: {
+		DisplayName: Server Config
+
+		maxKiMulti: {
+			Label: Ki Max
+			Tooltip: Multiplies every player's max ki
+		}
+
+		kiGainMulti: {
+			Label: Ki Gain
+			Tooltip: Multiplies every player's ki gain rate(charging and passive)
+		}
+
+		kiDrainMulti: {
+			Label: Ki Drain
+			Tooltip: Multiplies every player's ki drain rate(forms and passive)
+		}
+
+		expMulti: {
+			Label: Experience
+			Tooltip: Multiplies every player's experience gain
+		}
+
+		formPointsMulti: {
+			Label: Form Points
+			Tooltip: Multiplies every player's form points gain
+		}
+
+		baseAttackMulti: {
+			Label: Base Attack
+			Tooltip: Multiplies every player's base attack stat
+		}
+
+		baseDefenseMulti: {
+			Label: Base Defense
+			Tooltip: Multiplies every player's base defense stat
+		}
+
+		baseSpeedMulti: {
+			Label: Base Speed
+			Tooltip: Multiplies every player's base speed stat
+		}
+
+		formAttackMulti: {
+			Label: Form Attack
+			Tooltip: Multiplies every player's form attack
+		}
+
+		formDefenseMulti: {
+			Label: Form Defense
+			Tooltip: Multiplies every player's form defense
+		}
+
+		formSpeedMulti: {
+			Label: Form Speed
+			Tooltip: Multiplies every player's form speed
+		}
+
+		useRandomSpecials: {
+			Label: Use Random Specials?
+			Tooltip: True = Random specials for forms; False = Set specials for forms
+		}
+
+		formLocking: {
+			Label: Form Locking
+			Tooltip:
+				'''
+				Hardcore: Specific character only(i.e. Super Goku, GT Vegeta, etc)
+				Mediumcore: Hardcore but with Kaio-ken
+				Softcore: Hardcore but each character gets any forms that make sense / are loosely connected(i.e. Potential Unleashed for Goku)
+				Default: No forms locked, but other paths cost extra depending on past decisions
+				Cheater: No extra cost for other paths
+				'''
+		}
+
+		requiredLevelToAdvanceForm: {
+			Label: Level Requirement to Advance Forms
+			Tooltip: Require a level to ascend any form, it simply doesn't let you unlock the form unless you have the level requirement in the previous form(s)
+		}
+
+		disabledForms: {
+			Label: Disabled Forms
+			Tooltip: If you REALLY hate a form, disable it! If it is required to access other forms, I can't really help you there. Maybe unlock the next form, and then disable it? That'd work :)
+		}
+
+		allowClientCheating: {
+			Label: Allow Client Config Cheating
+			Tooltip: WARNING: Enabling this allows clients to use the cheats!
+		}
+
+		Headers: {
+			Ki: Ki Multipliers
+			Resources: Resource Multipliers
+			Base: Base Multipliers
+			Forms: Form Multipliers
+			Progression: Progression
+			Extras: Extras
+		}
+
+		hackerStackEverything: {
+			Label: Hacker Stacker
+			Tooltip: Stack Everything! Just for fun, don't expect it to work well :3 Also your entire ki bar is gone poof >:3
+		}
+
+		lessKiInsteadOfSlowingCharge: {
+			Label: Reduce charging ki gain while moving?
+			Tooltip: True = Divide Ki Gain by velocity; False = Divide speed by 25 but keep all ki
+		}
+	}
+}

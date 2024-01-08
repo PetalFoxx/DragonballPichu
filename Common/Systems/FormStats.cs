@@ -250,7 +250,7 @@ Frantic Ki Regen [ multiplier ]
             this.level = level;
             this.points = level;
             levelInAll = (level / 5);
-            increaseAll(levelInAll);
+            respec();
         }
 
         public Stat getStat(string statName)

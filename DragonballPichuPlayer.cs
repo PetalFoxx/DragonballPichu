@@ -18,6 +18,7 @@ using log4net.Core;
 using Terraria.DataStructures;
 using System.Runtime.InteropServices;
 using static System.Formats.Asn1.AsnWriter;
+using DragonballPichu.Common.Configs;
 
 namespace DragonballPichu
 {
@@ -38,7 +39,7 @@ namespace DragonballPichu
         int level = 0;
         int points = 0;
         int levelInAll = 0;
-        int formPoints = 0;
+        public int formPoints = 0;
         int spendFormPoints = 0;
         Boolean firstTimeOpenMenu = true;
 
@@ -235,6 +236,14 @@ namespace DragonballPichu
             total += nameToStats["SSJB1G3"].getLevel();
             total += nameToStats["SSJB1G4"].getLevel();
             return total;
+        }
+
+        public void setLevelOfAllForms(int level)
+        {
+            foreach (string form in FormTree.forms)
+            {
+                nameToStats[form].setLevel(level);
+            }
         }
 
         public Stat getStat(string statName)
@@ -745,9 +754,10 @@ namespace DragonballPichu
                 }
             }
             speedMulti *= getBaseSpeed();
-            if (isCharging)
+            if (isCharging && !ModContent.GetInstance<ServerConfig>().lessKiInsteadOfSlowingCharge)
             {
                 speedMulti /= 25f;
+
             }
             Player.runAcceleration *= speedMulti;
             Player.maxRunSpeed *= speedMulti;
@@ -902,7 +912,15 @@ namespace DragonballPichu
 
             if (isCharging)
             {
-                increaseKi(getChargeKiGain() * accessoryChargeKiGainMulti);
+                if (ModContent.GetInstance<ServerConfig>().lessKiInsteadOfSlowingCharge)
+                {
+                    increaseKi((getChargeKiGain() * accessoryChargeKiGainMulti)/(1 + Math.Abs(Player.velocity.X) + Math.Abs(Player.velocity.Y )));
+                }
+                else
+                {
+                    increaseKi(getChargeKiGain() * accessoryChargeKiGainMulti);
+                }
+                
                 
             }
             accessoryChargeKiGainMulti = 1;
@@ -1070,8 +1088,19 @@ namespace DragonballPichu
 
         public override void ProcessTriggers(TriggersSet triggersSet)
         {
-            if (KeybindSystem.ChargeKeybind.JustPressed) { isCharging = true; }
-            if (KeybindSystem.ChargeKeybind.JustReleased) { isCharging = false; }
+            if (ModContent.GetInstance<ClientConfig>().isChargingToggle)
+            {
+                if (KeybindSystem.ChargeKeybind.JustPressed)
+                {
+                    isCharging = !isCharging;
+                }
+            }
+            else
+            {
+                if (KeybindSystem.ChargeKeybind.JustPressed) { isCharging = true; }
+                if (KeybindSystem.ChargeKeybind.JustReleased) { isCharging = false; }
+            }
+            
 
             if (KeybindSystem.AltFormKeybind.JustPressed) { isHoldingAlternateKey = true; }
             if (KeybindSystem.AltFormKeybind.JustReleased) { isHoldingAlternateKey = false; }
@@ -1277,7 +1306,7 @@ namespace DragonballPichu
             this.level = level;
             this.points = level;
             levelInAll = (level / 5);
-            increaseAll(levelInAll);
+            respec();
         }
         public int getLevel()
         {
