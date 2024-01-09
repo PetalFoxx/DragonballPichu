@@ -7,6 +7,7 @@ using Terraria.UI;
 using Terraria.GameContent;
 using System.Collections.Generic;
 using Terraria.Localization;
+using DragonballPichu.Common.Configs;
 
 namespace DragonballPichu.Common.GUI
 {
@@ -55,7 +56,7 @@ namespace DragonballPichu.Common.GUI
         {
             // This prevents drawing unless the ki is below 95%
             var modPlayer = Main.LocalPlayer.GetModPlayer<DragonballPichuPlayer>();
-            if (modPlayer.getKiPercentage() >= .95)
+            if (modPlayer.getKiPercentage() >= .95 && ModContent.GetInstance<ClientConfig>().hideKiBarWhenFull)
                 return;
 
             base.Draw(spriteBatch);
@@ -93,7 +94,7 @@ namespace DragonballPichu.Common.GUI
         public override void Update(GameTime gameTime)
         {
             var modPlayer = Main.LocalPlayer.GetModPlayer<DragonballPichuPlayer>();
-            if (modPlayer.getKiPercentage() >= .95)
+            if (modPlayer.getKiPercentage() >= .95 && ModContent.GetInstance<ClientConfig>().hideKiBarWhenFull)
                 return;
 
 

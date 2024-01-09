@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DragonballPichu.Common.Configs;
 using DragonballPichu.Common.GUI;
 using DragonballPichu.Common.Systems;
 using DragonballPichu.Content.Buffs;
@@ -728,14 +729,19 @@ namespace DragonballPichu.Common.GUI
             }
         }
 
-        public int round(float num)
+        public static int round(float num)
         {
             return (int)Math.Round(num);
         }
 
-        public float roundTens(float num)
+        public static float roundTens(float num)
         {
             return (float)((Math.Round(num * 10)) / 10f);
+        }
+
+        public static float roundHundreds(float num)
+        {
+            return (float)((Math.Round(num * 100)) / 100f);
         }
 
         public static float invertFraction(float num)
@@ -882,8 +888,8 @@ namespace DragonballPichu.Common.GUI
                 FormStats stats = modPlayer.nameToStats[selectedForm];
                 //newStatsPanelText = "<- Respec " + selectedForm + ", level " + stats.getLevel() + ": " + stats.getPoints() + " Points! To next: " + round(stats.getExperience()) + "/" + round(stats.expNeededToAdvanceLevel());
                 newStatsPanelText = "Respec " +selectedForm+ "(" + stats.getPoints() + "/" + stats.getLevel() + "), (" + round(stats.getExperience()) + "/" + round(stats.expNeededToAdvanceLevel()) + ")";
-                newFormInfoText = "Drain: " + roundTens((FormTree.nameToKiDrain[selectedForm] / stats.DivideDrain.getValue()) - modPlayer.kiGain.getValue()) + " ki/s\nMultiply Ki: " + stats.MultKi.getValue() + "x\nDamage: " + roundTens(FormTree.nameToDamageBonus[selectedForm] * stats.MultDamage.getValue()) + "x\nDefense: +" + ((int)(FormTree.nameToDefenseBonus[selectedForm] * stats.MultDefense.getValue())) + "\nSpeed: " + roundTens(FormTree.nameToSpeedBonus[selectedForm] * stats.MultSpeed.getValue()) + formSpecialDisplayText();
-            }
+                newFormInfoText = "Drain: " + roundTens(((FormTree.nameToKiDrain[selectedForm]*ModContent.GetInstance<ServerConfig>().kiDrainMulti) / stats.DivideDrain.getValue()) - (modPlayer.kiGain.getValue() * ModContent.GetInstance<ServerConfig>().kiGainMulti)) + " ki/s\nMultiply Ki: " + stats.MultKi.getValue() + "x\nDamage: " + roundTens(1+((FormTree.nameToDamageBonus[selectedForm]-1) * stats.MultDamage.getValue() * ModContent.GetInstance<ServerConfig>().formAttackMulti)) + "x\nDefense: +" + ((int)(FormTree.nameToDefenseBonus[selectedForm] * stats.MultDefense.getValue() * ModContent.GetInstance<ServerConfig>().formDefenseMulti)) + "\nSpeed: " + roundTens(1 + ((FormTree.nameToSpeedBonus[selectedForm] - 1) * stats.MultSpeed.getValue() * ModContent.GetInstance<ServerConfig>().formSpeedMulti)) + formSpecialDisplayText();
+            }                                                                                                                                                                                                                                                                                                                   //(1 + ((DamageBonus-1) * formDamageMastery *  ModContent.GetInstance<ServerConfig>().formAttackMulti))
             else 
             {
                 newStatsPanelText = "Respec " + "Base Form(" +modPlayer.getPoints()+ "/" + modPlayer.getLevel() + "), (" + round(modPlayer.getExperience()) + "/" + round(modPlayer.expNeededToAdvanceLevel())+")";

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DragonballPichu.Common.Configs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,10 +33,10 @@ namespace DragonballPichu.Content.Buffs
             float formDefenseMastery = modPlayer.getStat(name + "FormMultDefense").getValue();
             float formDamageMastery = modPlayer.getStat(name + "FormMultDamage").getValue();
 
-            int defenseToAdd = (int)(DefenseBonus * formDefenseMastery);
+            int defenseToAdd = (int)(DefenseBonus * formDefenseMastery *  ModContent.GetInstance<ServerConfig>().formDefenseMulti);
             player.statDefense += defenseToAdd;
             
-            player.GetDamage(DamageClass.Generic) *= (1 + ((DamageBonus-1) * formDamageMastery));
+            player.GetDamage(DamageClass.Generic) *= (1 + ((DamageBonus-1) * formDamageMastery *  ModContent.GetInstance<ServerConfig>().formAttackMulti));
         }
     }
 }

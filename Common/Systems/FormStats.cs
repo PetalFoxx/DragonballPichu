@@ -1,4 +1,5 @@
-﻿using DragonballPichu.Common.GUI;
+﻿using DragonballPichu.Common.Configs;
+using DragonballPichu.Common.GUI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -139,7 +140,29 @@ Frantic Ki Regen [ multiplier ]
 
         public float expNeededToAdvanceLevel()
         {
-            float expNeeded = ((float)Math.Pow(level+1, 1.5))*100;
+            float expNeeded;
+            //x^e, default, 1.1^x, 1.1^e
+            switch (ModContent.GetInstance<ServerConfig>().levelScaling)
+            {
+                case "x^e":
+                    expNeeded = ((float)Math.Pow(level + 1, Math.E) + 100);
+                    break;
+                case "1.1^x":
+                    expNeeded = ((float)Math.Pow(1.1, level+1) * 100)+1000;
+                    break;
+                case "1.1^e":
+                    expNeeded = ((float)(Math.Pow(1.1, Math.E)*500*level+1));
+                    break;
+                default:
+                    expNeeded = ((float)Math.Pow(level + 1, 1.5)) * 100;
+                    break;
+            }
+
+            //level^1.5 * 100
+            
+            //level^e + 100
+            
+
             return expNeeded;
         }
 

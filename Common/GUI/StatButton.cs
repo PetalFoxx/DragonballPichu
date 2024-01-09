@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DragonballPichu.Common.Configs;
 using DragonballPichu.Common.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -151,6 +152,26 @@ namespace DragonballPichu.Common.GUI
                         return;
                     case "Special": ////////////////////////////
                         toText = text + " " + modifiedStatName;
+                        sideText.SetText(toText);
+                        return;
+                    case "kiGain":
+                        toText = text + " " + modifiedStatName + ": " + FormsStatsUI.roundHundreds(statIncreasePerClick * ModContent.GetInstance<ServerConfig>().kiGainMulti) + "/" + (stat.getValue() * ModContent.GetInstance<ServerConfig>().kiGainMulti);
+                        sideText.SetText(toText);
+                        return;
+                    case "chargeKiGain":
+                        toText = text + " " + modifiedStatName + ": " + FormsStatsUI.roundHundreds(statIncreasePerClick * ModContent.GetInstance<ServerConfig>().kiGainMulti) + "/" + (stat.getValue() * ModContent.GetInstance<ServerConfig>().kiGainMulti);
+                        sideText.SetText(toText);
+                        return;
+                    case "baseAttack":
+                        toText = text + " " + modifiedStatName + ": " + FormsStatsUI.roundHundreds(statIncreasePerClick * ModContent.GetInstance<ServerConfig>().baseAttackMulti) + "/" + FormsStatsUI.roundHundreds(((stat.getValue() - 1) * ModContent.GetInstance<ServerConfig>().baseAttackMulti) + 1);
+                        sideText.SetText(toText);
+                        return;
+                    case "baseDefense":
+                        toText = text + " " + modifiedStatName + ": " + FormsStatsUI.roundHundreds(statIncreasePerClick * ModContent.GetInstance<ServerConfig>().baseDefenseMulti)+ "/" + (stat.getValue() * ModContent.GetInstance<ServerConfig>().baseDefenseMulti);
+                        sideText.SetText(toText);
+                        return;
+                    case "baseSpeed":
+                        toText = text + " " + modifiedStatName + ": " + FormsStatsUI.roundHundreds(statIncreasePerClick * ModContent.GetInstance<ServerConfig>().baseSpeedMulti) + "/" + FormsStatsUI.roundHundreds(((stat.getValue() - 1) * ModContent.GetInstance<ServerConfig>().baseSpeedMulti) + 1);
                         sideText.SetText(toText);
                         return;
                     default:

@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using Terraria.ModLoader;
+using Terraria;
 using Terraria.ModLoader.Config;
 
 namespace DragonballPichu.Common.Configs
@@ -27,19 +29,19 @@ namespace DragonballPichu.Common.Configs
         [Increment(.1f)]
         [Range(0f, 10f)]
         [DefaultValue(1f)]
-        public float maxKiMulti;
+        public float maxKiMulti; //implemented!
         //multiply all ki gaining
         [SliderColor(0, 0, 205)]
         [Increment(.1f)]
         [Range(0f, 10f)]
         [DefaultValue(1f)]
-        public float kiGainMulti;
+        public float kiGainMulti; //implemented!
         //multiply all ki draining
         [SliderColor(0, 0, 205)]
         [Increment(.1f)]
         [Range(0f, 10f)]
         [DefaultValue(1f)]
-        public float kiDrainMulti;
+        public float kiDrainMulti; //implemented!
 
         [Header("Resources")]
 
@@ -48,13 +50,13 @@ namespace DragonballPichu.Common.Configs
         [Increment(.1f)]
         [Range(0f, 10f)]
         [DefaultValue(1f)]
-        public float expMulti;
+        public float expMulti; //implemented!
         //multiply all form points gained
         [SliderColor(138, 43, 226)]
         [Increment(.1f)]
         [Range(0f, 10f)]
         [DefaultValue(1f)]
-        public float formPointsMulti;
+        public float formPointsMulti; //implemented!
 
         [Header("Base")]
 
@@ -63,19 +65,19 @@ namespace DragonballPichu.Common.Configs
         [Increment(.1f)]
         [Range(0f, 10f)]
         [DefaultValue(1f)]
-        public float baseAttackMulti;
+        public float baseAttackMulti; //implemented!
         //multiply the base defense stat
         [SliderColor(197, 179, 88)]
         [Increment(.1f)]
         [Range(0f, 10f)]
         [DefaultValue(1f)]
-        public float baseDefenseMulti;
+        public float baseDefenseMulti; //implemented!
         //multiply the base speed stat
         [SliderColor(197, 179, 88)]
         [Increment(.1f)]
         [Range(0f, 10f)]
         [DefaultValue(1f)]
-        public float baseSpeedMulti;
+        public float baseSpeedMulti; //implemented!
 
         [Header("Forms")]
 
@@ -84,19 +86,19 @@ namespace DragonballPichu.Common.Configs
         [Increment(.1f)]
         [Range(0f, 10f)]
         [DefaultValue(1f)]
-        public float formAttackMulti;
+        public float formAttackMulti; //implemented!
         //multiply form defense addition
         [SliderColor(255, 215, 0)]
         [Increment(.1f)]
         [Range(0f, 10f)]
         [DefaultValue(1f)]
-        public float formDefenseMulti;
+        public float formDefenseMulti; //implemented!
         //multiply form speed increase
         [SliderColor(255, 215, 0)]
         [Increment(.1f)]
         [Range(0f, 10f)]
         [DefaultValue(1f)]
-        public float formSpeedMulti;
+        public float formSpeedMulti; //implemented!
 
 
         [Header("Progression")]
@@ -122,10 +124,16 @@ namespace DragonballPichu.Common.Configs
         [Range(0, 100)]
         [DefaultValue(0)]
         [Slider]
-        public int requiredLevelToAdvanceForm;
+        public int requiredLevelToAdvanceForm; //implemented!
+
+        [DefaultValue("default")]
+        [DrawTicks]
+        [SliderColor(0, 0, 0)]
+        [OptionStrings(new string[] {"1.1^e", "default", "x^e", "1.1^x" })]
+        public string levelScaling; //implemented!
 
         //anything in here you cannot unlock or transform into
-        public List<string> disabledForms;
+        public List<string> disabledForms; //implemented!
 
         
 
@@ -133,17 +141,18 @@ namespace DragonballPichu.Common.Configs
 
         //sets it to use the randomly assigned specials rather than the ones that make sense
         [DefaultValue(false)]
-        public bool useRandomSpecials;
+        public bool useRandomSpecials; //implemented!
 
         [DefaultValue(false)]
-        public bool hackerStackEverything;
+        public bool hackerStackEverything; //implemented!
 
         //allows the client to change things such as amount of form points and base form level
         [DefaultValue(false)]
-        public bool allowClientCheating;
+        public bool allowClientCheating; //implemented!
 
         //changes charging to give less while moving instead of slowing you down
         [DefaultValue(false)]
-        public bool lessKiInsteadOfSlowingCharge; //Implemented!
+        public bool lessKiInsteadOfSlowingCharge; //implemented!
+
     }
 }

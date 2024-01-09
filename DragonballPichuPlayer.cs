@@ -194,6 +194,12 @@ namespace DragonballPichu
         int selectedFormID = -1;//ModContent.BuffType<SSJ1Buff>();
         String selectedForm = "baseForm";
 
+        public HashSet<string> charactersAvailableInHardcore = new HashSet<string>{
+};
+        public HashSet<string> charactersAvailableInSoftcore = new HashSet<string>{
+};
+
+
         public bool formLevelCompare(string form, bool higherOrEqual, int value)
         {
             int formLevel = getFormLevel(form);
@@ -334,7 +340,7 @@ namespace DragonballPichu
         {
             if (DragonballPichuGlobalNPC.formPointsValue.Keys.Contains(npc.TypeName))
             {
-                formPoints += DragonballPichuGlobalNPC.formPointsValue[npc.TypeName];
+                formPoints += DragonballPichuGlobalNPC.getFormPointsValue(npc.TypeName);
             }
             else
             {
@@ -652,7 +658,7 @@ namespace DragonballPichu
         public bool doDodge1()
         {
             float specialDodgeCostTotal = getTotalSpecialDodgeCost();
-            float dodgeCostLiteral = getMaxKi() * .01f;
+            float dodgeCostLiteral = getMaxKi() * .01f * ModContent.GetInstance<ServerConfig>().kiDrainMulti;
             dodgeCostLiteral /= specialDodgeCostTotal;
             float kiPercentage = getKiPercentage();
             Random r = new Random();
@@ -669,7 +675,7 @@ namespace DragonballPichu
         public bool doDodge2()
         {
             float specialDodgeCostTotal = getTotalSpecialDodgeCost();
-            float dodgeCostLiteral = 25;
+            float dodgeCostLiteral = 25 * ModContent.GetInstance<ServerConfig>().kiDrainMulti;
             dodgeCostLiteral /= specialDodgeCostTotal;
             if (getCurKi() > dodgeCostLiteral)
             {
@@ -747,11 +753,14 @@ namespace DragonballPichu
             float speedMulti = 1;
             if(currentBuffID != -1 && isTransformed)
             {
-                speedMulti *= (FormTree.nameToSpeedBonus[currentBuff] * modPlayer.getStat(currentBuff + "FormMultSpeed").getValue());
+                //speedMulti *= (FormTree.nameToSpeedBonus[currentBuff] * modPlayer.getStat(currentBuff + "FormMultSpeed").getValue() * ModContent.GetInstance<ServerConfig>().formSpeedMulti);
+                speedMulti *= (1 + ((FormTree.nameToSpeedBonus[currentBuff] - 1) * modPlayer.getStat(currentBuff + "FormMultSpeed").getValue() * ModContent.GetInstance<ServerConfig>().formSpeedMulti));
                 foreach (var buff in stackedBuffs)
                 {
-                    speedMulti *= (FormTree.nameToSpeedBonus[buff] * modPlayer.getStat(buff + "FormMultSpeed").getValue());
+                    //speedMulti *= (FormTree.nameToSpeedBonus[buff] * modPlayer.getStat(buff + "FormMultSpeed").getValue() * ModContent.GetInstance<ServerConfig>().formSpeedMulti);
+                    speedMulti *= (1 + ((FormTree.nameToSpeedBonus[buff]-1) * modPlayer.getStat(buff+"FormMultSpeed").getValue() * ModContent.GetInstance<ServerConfig>().formSpeedMulti));
                 }
+                //(1 + ((DamageBonus-1) * formDamageMastery *  ModContent.GetInstance<ServerConfig>().formAttackMulti))
             }
             speedMulti *= getBaseSpeed();
             if (isCharging && !ModContent.GetInstance<ServerConfig>().lessKiInsteadOfSlowingCharge)
@@ -759,6 +768,7 @@ namespace DragonballPichu
                 speedMulti /= 25f;
 
             }
+            if(speedMulti < 0) { speedMulti = 0; }
             Player.runAcceleration *= speedMulti;
             Player.maxRunSpeed *= speedMulti;
             base.PostUpdateRunSpeeds();
@@ -788,15 +798,15 @@ namespace DragonballPichu
         public void setChargeKiGain(float kiAmt) { chargeKiGain.setValue((Math.Clamp(kiAmt, 0, float.MaxValue))); }
         public void increaseChargeKiGain(float kiAmt) { chargeKiGain.increaseValue(kiAmt); }
         public void decreaseChargeKiGain(float kiAmt) { chargeKiGain.decreaseValue(kiAmt); }
-        public float getBaseAttack() { return baseAttack.getValue(); }
+        public float getBaseAttack() { return ((baseAttack.getValue() - 1) * ModContent.GetInstance<ServerConfig>().baseAttackMulti) + 1; }
         public void setBaseAttack(float amt) { baseAttack.setValue(amt); }
         public void increaseBaseAttack(float amt) { baseAttack.increaseValue(amt); }
         public void decreaseBaseAttack(float amt) { baseAttack.decreaseValue(amt); }
-        public float getBaseDefense() { return baseDefense.getValue(); }
+        public float getBaseDefense() { return baseDefense.getValue() * ModContent.GetInstance<ServerConfig>().baseDefenseMulti; }
         public void setBaseDefense(float amt) { baseDefense.setValue(amt); }
         public void increaseBaseDefense(float amt) { baseDefense.increaseValue(amt); }
         public void decreaseBaseDefense(float amt) { baseDefense.decreaseValue(amt); }
-        public float getBaseSpeed() { return baseSpeed.getValue(); }
+        public float getBaseSpeed() { return ((baseSpeed.getValue()-1) * ModContent.GetInstance<ServerConfig>().baseSpeedMulti) +1; }
         public void setBaseSpeed(float amt) { baseSpeed.setValue(amt); }
         public void increaseBaseSpeed(float amt) { baseSpeed.increaseValue(amt); }
         public void decreaseBaseSpeed(float amt) { baseSpeed.decreaseValue(amt); }
@@ -883,13 +893,13 @@ namespace DragonballPichu
                 //printAllStacked();
                 float stackedFormsMulti = (stackedBuffs.Count() + 1);
                 stackedFormsMulti *= getFormSpecialStackCost();
-                decreaseKi(formDrain * stackedFormsMulti * accessoryKiDrainMulti);
+                decreaseKi(formDrain * stackedFormsMulti * accessoryKiDrainMulti * ModContent.GetInstance<ServerConfig>().kiDrainMulti );
                 
-                maxKi.multiplier = maxKiMulti * accessoryKiMaxMulti;
+                maxKi.multiplier = maxKiMulti * accessoryKiMaxMulti * ModContent.GetInstance<ServerConfig>().maxKiMulti;
             }
             else
             {
-                maxKi.multiplier = accessoryKiMaxMulti;
+                maxKi.multiplier = accessoryKiMaxMulti * ModContent.GetInstance<ServerConfig>().maxKiMulti;
             }
             accessoryKiDrainMulti = 1f;
             accessoryKiMaxMulti = 1f;
@@ -914,17 +924,17 @@ namespace DragonballPichu
             {
                 if (ModContent.GetInstance<ServerConfig>().lessKiInsteadOfSlowingCharge)
                 {
-                    increaseKi((getChargeKiGain() * accessoryChargeKiGainMulti)/(1 + Math.Abs(Player.velocity.X) + Math.Abs(Player.velocity.Y )));
+                    increaseKi(((getChargeKiGain() * accessoryChargeKiGainMulti)/(1 + Math.Abs(Player.velocity.X) + Math.Abs(Player.velocity.Y ))) * ModContent.GetInstance<ServerConfig>().kiGainMulti);
                 }
                 else
                 {
-                    increaseKi(getChargeKiGain() * accessoryChargeKiGainMulti);
+                    increaseKi(getChargeKiGain() * accessoryChargeKiGainMulti * ModContent.GetInstance<ServerConfig>().kiGainMulti);
                 }
                 
                 
             }
             accessoryChargeKiGainMulti = 1;
-            increaseKi(kiGain.getValue() + kiGainFrantic + accessoryKiRegen);
+            increaseKi((kiGain.getValue() + kiGainFrantic + accessoryKiRegen) * ModContent.GetInstance<ServerConfig>().kiGainMulti);
             accessoryKiRegen = 0;
 
             if (ModLoader.TryGetMod("KaiokenMod", out var kaioken))
@@ -996,15 +1006,44 @@ namespace DragonballPichu
             Player.AddBuff(buffID, 3);
         }
 
+        public bool previousFormsLevelOverConfigRequirement(string form)
+        {
+            if(!FormTree.forms.Contains(form)) { return true; }
+            int levelRequirement = ModContent.GetInstance<ServerConfig>().requiredLevelToAdvanceForm;
+            if(levelRequirement < 1) { return true; }
+            if (level < levelRequirement)
+            {
+                Main.NewText("Grow your natural strength more before you can access " +form);
+                return false;
+            }
+            List<string> previousForms = FormTree.formToPrevious[form];
+            foreach (string prevForm in previousForms)
+            {
+                if (nameToStats[prevForm].getLevel() < levelRequirement)
+                {
+                    Main.NewText("Hone your skill in using " + prevForm + " before you may access " + form);
+                    return false;
+                }
+            }
+            return true;
+        }
+
         public override void PreUpdateBuffs()
         {
             setKiDrain(0);
             base.PreUpdateBuffs();
+            /*if (ModContent.GetInstance<ServerConfig>().disabledForms.Contains(currentBuff) || !previousFormsLevelOverConfigRequirement(currentBuff))
+            {
+                Main.NewText(currentBuff + " was disabled or you can't use it due to level requirements");
+                currentBuff = "baseForm";
+                currentBuffID = -1;
+            }*/
             if (isTransformed && currentBuffID != -1 && FormTree.nameToFormID.Values.Contains(currentBuffID))
             {
                 cleanStacked();
                 
                 //Player.AddBuff(currentBuffID, 2);
+
                 addBuff(currentBuffID);
                 nameToStats[currentBuff].gainExperience(1 / 20f);
                 gainExperience(1 / 20f);
@@ -1013,6 +1052,7 @@ namespace DragonballPichu
                     if (FormTree.nameToFormID.Values.Contains(stackedBuffID))
                     {
                         addBuff(stackedBuffID);
+                        nameToStats[FormTree.IDToFormName(stackedBuffID)].gainExperience(1/20f);
                     }
                     else
                     {
@@ -1157,33 +1197,52 @@ namespace DragonballPichu
                 }
                 else
                 {
-                    if (unlockedForms.Contains(selectedForm))
+                    List<string> disabled = null;
+                    ServerConfig serverConfig = ModContent.GetInstance<ServerConfig>();
+                    if(serverConfig != null)
                     {
-                        //if current buff is taken, selectedform is stackable, and selected form is not the same as current form, put it in the stacked forms
-                        if (currentBuffID!=-1 && FormTree.nameToIsStackable[selectedForm] && currentBuffID != selectedFormID && !stackedBuffs.Contains(selectedForm))
-                        {
-                            stackedBuffs.Add(selectedForm);
-                            stackedBuffIDs.Add(selectedFormID);
-                            cleanStacked();
-                        }
-                        //if current buff is taken, selected form isn't stackable, selected form is not the same as current form, but current form is stackable, move current form to stacked forms, then set selected to current
-                        else if (currentBuffID!=-1 && !FormTree.nameToIsStackable[selectedForm] && currentBuffID != selectedFormID && FormTree.nameToIsStackable[currentBuff] && !stackedBuffs.Contains(currentBuff))
-                        {
-                            
-                            stackedBuffs.Add(currentBuff);
-                            stackedBuffIDs.Add(currentBuffID);
-                            cleanStacked();
-                            currentBuff = selectedForm;
-                            currentBuffID = selectedFormID;
-                        }
-                        else
-                        {
-                            currentBuffID = selectedFormID;
-                            currentBuff = selectedForm;
-                        }
-                        modSystem.MyFormsStatsUI.addStatButtons(modPlayer.getSelectedFormID());
+                       disabled = serverConfig.disabledForms;
                     }
-                    isTransformed = true;
+                    if ((disabled==null || !disabled.Contains(currentBuff)) && previousFormsLevelOverConfigRequirement(currentBuff))
+                    {
+                        if (unlockedForms.Contains(selectedForm))
+                        {
+                            //if current buff is taken, selectedform is stackable, and selected form is not the same as current form, put it in the stacked forms
+                            if (currentBuffID != -1 && FormTree.getIsStackable(selectedForm) && currentBuffID != selectedFormID && !stackedBuffs.Contains(selectedForm))
+                            {
+                                if((disabled == null || !disabled.Contains(selectedForm)) && previousFormsLevelOverConfigRequirement(selectedForm))
+                                {
+                                    stackedBuffs.Add(selectedForm);
+                                    stackedBuffIDs.Add(selectedFormID);
+                                    cleanStacked();
+                                }
+                            }
+                            //if current buff is taken, selected form isn't stackable, selected form is not the same as current form, but current form is stackable, move current form to stacked forms, then set selected to current
+                            else if (currentBuffID != -1 && !FormTree.getIsStackable(selectedForm) && currentBuffID != selectedFormID && FormTree.nameToIsStackable[currentBuff] && !stackedBuffs.Contains(currentBuff))
+                            {
+                                if ((disabled == null || !disabled.Contains(selectedForm)) && previousFormsLevelOverConfigRequirement(selectedForm))
+                                {
+                                    stackedBuffs.Add(currentBuff);
+                                    stackedBuffIDs.Add(currentBuffID);
+                                    cleanStacked();
+                                    currentBuff = selectedForm;
+                                    currentBuffID = selectedFormID;
+                                }
+                                
+                            }
+                            else
+                            {
+                                if ((disabled == null || !disabled.Contains(selectedForm)) && previousFormsLevelOverConfigRequirement(selectedForm))
+                                {
+                                    currentBuffID = selectedFormID;
+                                    currentBuff = selectedForm;
+                                }
+                                    
+                            }
+                            modSystem.MyFormsStatsUI.addStatButtons(modPlayer.getSelectedFormID());
+                        }
+                        isTransformed = true;
+                    }
                 }
                 
             }
@@ -1249,14 +1308,39 @@ namespace DragonballPichu
             List<int> stackedNewIDs = new List<int>();
             foreach (var item in stackedBuffs)
             {
-                if(item != null && !stackedNew.Contains(item) && !(currentBuff.Equals(item)))
+                if (item != null && !stackedNew.Contains(item) && !(currentBuff.Equals(item)) && previousFormsLevelOverConfigRequirement(item))
                 {
+                    //Main.NewText("added " + item);
                     stackedNew.Add(item);
-                } 
+                }
+                else
+                {
+                    if(item == null)
+                    {
+                        Main.NewText(item + " was null");
+                    }
+                    if(stackedNew.Contains(item))
+                    {
+                        Main.NewText(item + " was in stackedNew already");
+                    }
+                    if (currentBuff.Equals(item))
+                    {
+                        Main.NewText(item + " was equal to current buff");
+                    }
+                    if (!previousFormsLevelOverConfigRequirement(item))
+                    {
+                        Main.NewText(item + " had too low level prerequesites");
+                    }
+                    Main.NewText("removed stacked buff " + item);
+                }
             }
             foreach (var item in stackedBuffIDs)
             {
-                if (item != -1 && !stackedNewIDs.Contains(item) && !(currentBuffID.Equals(item)))
+                /*if (item != -1 && !stackedNewIDs.Contains(item) && !(currentBuffID.Equals(item)) && stackedNew.Contains(FormTree.IDToFormName(item)))
+                {
+                    stackedNewIDs.Add(item);
+                }*/
+                if (!stackedNewIDs.Contains(item) && stackedNew.Contains(FormTree.IDToFormName(item)))
                 {
                     stackedNewIDs.Add(item);
                 }
@@ -1267,7 +1351,29 @@ namespace DragonballPichu
 
         public float expNeededToAdvanceLevel()
         {
-            float expNeeded = ((float)Math.Pow(level + 1, 1.5)) * 100;
+            float expNeeded;
+            //x^e, default, 1.1^x, 1.1^e
+            switch (ModContent.GetInstance<ServerConfig>().levelScaling)
+            {
+                case "x^e":
+                    expNeeded = ((float)Math.Pow(level + 1, Math.E) + 100);
+                    break;
+                case "1.1^x":
+                    expNeeded = ((float)Math.Pow(1.1, level + 1) * 100) + 1000;
+                    break;
+                case "1.1^e":
+                    expNeeded = ((float)(Math.Pow(1.1, Math.E) * 500 * level + 1));
+                    break;
+                default:
+                    expNeeded = ((float)Math.Pow(level + 1, 1.5)) * 100;
+                    break;
+            }
+
+            //level^1.5 * 100
+
+            //level^e + 100
+
+
             return expNeeded;
         }
         public void levelUp()
@@ -1632,6 +1738,8 @@ namespace DragonballPichu
             tag["unlockConditionsKeys"] = formToUnlockCondition.Keys.ToList();
             tag["unlockConditionsValues"] = formToUnlockCondition.Values.ToList();
             tag["visibleUnlocks"] = modSystem.MyFormsStatsUI.visibleUnlocks;
+            tag["hardcoreAvailable"] = charactersAvailableInHardcore.ToList<string>();
+            tag["softcoreAvailable"] = charactersAvailableInSoftcore.ToList<string>();
             List<string> forms = new List<string>() { "FSSJ","SSJ1","SSJ1G2","SSJ1G3","SSJ1G4","SSJ2","SSJ3","SSJRage","SSJ4","SSJ4LB","SSJ5","SSJ5G2","SSJ5G3","SSJ5G4","SSJ6","SSJ7","FLSSJ","Ikari","LSSJ1","LSSJ2","LSSJ3","LSSJ4","LSSJ4LB","LSSJ5","LSSJ6","LSSJ7","SSJG","LSSJB","FSSJB","SSJB1","SSJB1G2","SSJB1G3","SSJB1G4","SSJB2","SSJB3","SSJBE","SSJR1","SSJR1G2","SSJR1G3","SSJR1G4","SSJR2","SSJR3","Divine","DR","Evil","Rampaging","Berserk","PU","Beast","UE","UI","UILB","TUI"
 };
             foreach (string form in forms)
@@ -1711,7 +1819,17 @@ namespace DragonballPichu
             {
                 loadVisibleUnlocks = tag.Get<List<string>>("visibleUnlocks");
             }
+            if (tag.ContainsKey("hardcoreAvailable"))
+            {
+                charactersAvailableInHardcore = tag.Get<List<string>>("hardcoreAvailable").ToHashSet<string>();
+            }
+            if (tag.ContainsKey("softcoreAvailable"))
+            {
+                charactersAvailableInSoftcore = tag.Get<List<string>>("softcoreAvailable").ToHashSet<string>();
+            }
 
+            //tag["hardcoreAvailable"] = charactersAvailableInHardcore.ToList<string>();
+            //tag["softcoreAvailable"] = charactersAvailableInSoftcore.ToList<string>();
             List<string> forms = new List<string>() { "FSSJ","SSJ1","SSJ1G2","SSJ1G3","SSJ1G4","SSJ2","SSJ3","SSJRage","SSJ4","SSJ4LB","SSJ5","SSJ5G2","SSJ5G3","SSJ5G4","SSJ6","SSJ7","FLSSJ","Ikari","LSSJ1","LSSJ2","LSSJ3","LSSJ4","LSSJ4LB","LSSJ5","LSSJ6","LSSJ7","SSJG","LSSJB","FSSJB","SSJB1","SSJB1G2","SSJB1G3","SSJB1G4","SSJB2","SSJB3","SSJBE","SSJR1","SSJR1G2","SSJR1G3","SSJR1G4","SSJR2","SSJR3","Divine","DR","Evil","Rampaging","Berserk","PU","Beast","UE","UI","UILB","TUI"
 };
             foreach (string form in forms)

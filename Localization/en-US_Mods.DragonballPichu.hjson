@@ -435,12 +435,12 @@ Configs: {
 
 		requiredLevelToAdvanceForm: {
 			Label: Level Requirement to Advance Forms
-			Tooltip: Require a level to ascend any form, it simply doesn't let you unlock the form unless you have the level requirement in the previous form(s)
+			Tooltip: It requires this level in the previous forms on the tree to use a form, essentially a secondary lock for progression
 		}
 
 		disabledForms: {
 			Label: Disabled Forms
-			Tooltip: If you REALLY hate a form, disable it! If it is required to access other forms, I can't really help you there. Maybe unlock the next form, and then disable it? That'd work :)
+			Tooltip: If you REALLY hate a form, disable it!
 		}
 
 		allowClientCheating: {
@@ -465,6 +465,18 @@ Configs: {
 		lessKiInsteadOfSlowingCharge: {
 			Label: Reduce charging ki gain while moving?
 			Tooltip: True = Divide Ki Gain by velocity; False = Divide speed by 25 but keep all ki
+		}
+
+		levelScaling: {
+			Label: Level Scaling
+			Tooltip:
+				'''
+				Not recommended to change this in the middle of the game for balance purposes. Other options besides default have not been tested very much, use at your own risk!
+				1.1^e: Most expensive at start, cheapest after level 63
+				default: stays around the middle the whole time, very balanced
+				x^e: starts super cheap, but grows mostly linearly, ending up the second most expensive
+				1.1^x: starts out the cheapest by far, and stays that way for a long time, before you eventually reach a massive wall where it becomes the most expensive by a long shot
+				'''
 		}
 	}
 }

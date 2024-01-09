@@ -1,4 +1,5 @@
-﻿using DragonballPichu.Common.GUI;
+﻿using DragonballPichu.Common.Configs;
+using DragonballPichu.Common.GUI;
 using DragonballPichu.Common.Systems;
 using Ionic.Zlib;
 using Steamworks;
@@ -307,15 +308,15 @@ namespace DragonballPichu
             //{
             //    xpToGain *= 10;
             //}
-            xpToGain *= modPlayer.accessoryExperienceMulti;
+            xpToGain *= modPlayer.accessoryExperienceMulti * ModContent.GetInstance<ServerConfig>().expMulti;
             
 
             if (newEnemy)
             {
                 if (isBossOrMiniBoss(npc) && formPointsValue.Keys.Contains(npc.TypeName))
                 {
-                    Main.NewText("Gained " + formPointsValue[npc.TypeName] + " form points for killing " + npc.TypeName);
-                    modPlayer.printToLog("Gained " + formPointsValue[npc.TypeName] + " form points for killing " + npc.TypeName);
+                    Main.NewText("Gained " + getFormPointsValue(npc.TypeName) + " form points for killing " + npc.TypeName);
+                    modPlayer.printToLog("Gained " + getFormPointsValue(npc.TypeName) + " form points for killing " + npc.TypeName);
                 }
                 if (isBossOrMiniBoss(npc) && !formPointsValue.Keys.Contains(npc.TypeName))
                 {
@@ -375,6 +376,11 @@ namespace DragonballPichu
                     unlockAndMaybeTransform("LSSJ3", "SSJG", "LSSJB");
                 }
             }
+        }
+
+        public static int getFormPointsValue(string typeName)
+        {
+            return (int)(formPointsValue[typeName] * ModContent.GetInstance<ServerConfig>().formPointsMulti);
         }
 
         public static void unlockAndMaybeTransform(string neededForm, string newForm)

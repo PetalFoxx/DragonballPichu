@@ -5,6 +5,7 @@ using System.Runtime.Intrinsics.X86;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using DragonballPichu.Common.Configs;
 using DragonballPichu.Content.Buffs;
 using Terraria;
 using Terraria.ModLoader;
@@ -69,6 +70,63 @@ namespace DragonballPichu.Common.Systems
         { "UI" ,       makeFormAdvRev("TUI", "UILB", "baseForm")},
         { "TUI" ,      makeFormAdvRev("UILB", "UILB", "UI")},
         { "UILB" ,     makeFormAdvRev(null,null,"UI")}
+        };
+
+        public static Dictionary<string, List<string>> formToPrevious = new Dictionary<string, List<string>>() {
+            { "baseForm" , new List<string>(){}},
+            { "FSSJ" ,     new List<string>(){}},
+            { "SSJ1" ,     new List<string>(){"FSSJ"}},
+            { "SSJ1G2" ,   new List<string>(){"SSJ1"}},
+            { "SSJ1G3" ,   new List<string>(){"SSJ1G2"}},
+            { "SSJ1G4" ,   new List<string>(){"SSJ1"}},
+            { "SSJ2" ,     new List<string>(){"SSJ1G4"}},
+            { "SSJ3" ,     new List<string>(){"SSJ2"}},
+            { "SSJRage" ,  new List<string>(){"SSJ1G2","SSJ1G3","SSJ2"}},
+            { "SSJ4" ,     new List<string>(){"SSJ3"}},
+            { "SSJ4LB" ,   new List<string>(){"SSJ4"}},
+            { "SSJ5" ,     new List<string>(){"SSJ4LB"}},
+            { "SSJ5G2" ,   new List<string>(){"SSJ5"}},
+            { "SSJ5G3" ,   new List<string>(){"SSJ5G2"}},
+            { "SSJ5G4" ,   new List<string>(){"SSJ5"}},
+            { "SSJ6" ,     new List<string>(){"SSJ5G4"}},
+            { "SSJ7" ,     new List<string>(){"SSJ6"}},
+            { "FLSSJ" ,    new List<string>(){"Ikari"}},
+            { "Ikari" ,    new List<string>(){}},
+            { "LSSJ1" ,    new List<string>(){"FLSSJ"}},
+            { "LSSJ2" ,    new List<string>(){"LSSJ1"}},
+            { "LSSJ3" ,    new List<string>(){"LSSJ2"}},
+            { "LSSJ4" ,    new List<string>(){"LSSJ3"}},
+            { "LSSJ4LB" ,  new List<string>(){"LSSJ4"}},
+            { "LSSJ5" ,    new List<string>(){"LSSJ4LB"}},
+            { "LSSJ6" ,    new List<string>(){"LSSJ5"}},
+            { "LSSJ7" ,    new List<string>(){"LSSJ6"}},
+            { "SSJG" ,     new List<string>(){}},
+            { "LSSJB" ,    new List<string>(){"LSSJ3","SSJG"}},
+            { "FSSJB" ,    new List<string>(){"SSJG"}},
+            { "SSJB1" ,    new List<string>(){"FSSJB"}},
+            { "SSJB1G2" ,  new List<string>(){"SSJB1"}},
+            { "SSJB1G3" ,  new List<string>(){"SSJB1G2"}},
+            { "SSJB1G4" ,  new List<string>(){"SSJB1"}},
+            { "SSJB2" ,    new List<string>(){"SSJB1G4"}},
+            { "SSJB3" ,    new List<string>(){"SSJB2"}},
+            { "SSJBE" ,    new List<string>(){"SSJB1","SSJB1G2", "SSJB1G3"}},
+            { "SSJR1" ,    new List<string>(){"SSJG"}},
+            { "SSJR1G2" ,  new List<string>(){"SSJR1"}},
+            { "SSJR1G3" ,  new List<string>(){"SSJR1G2"}},
+            { "SSJR1G4" ,  new List<string>(){"SSJR1"}},
+            { "SSJR2" ,    new List<string>(){"SSJR1G4"}},
+            { "SSJR3" ,    new List<string>(){"SSJR2"}},
+            { "Divine" ,   new List<string>(){"SSJR1G4"}},
+            { "DR" ,       new List<string>(){"Divine"}},
+            { "Evil" ,     new List<string>(){}},
+            { "Rampaging" ,new List<string>(){"Evil"}},
+            { "Berserk" ,  new List<string>(){"Rampaging"}},
+            { "PU" ,       new List<string>(){}},
+            { "Beast" ,    new List<string>(){"PU"}},
+            { "UE" ,       new List<string>(){}},
+            { "UI" ,       new List<string>(){}},
+            { "TUI" ,      new List<string>(){"UI"}},
+            { "UILB" ,     new List<string>(){"UILB"}}
         };
 
         public static List<string> forms = new List<string>() { "FSSJ","SSJ1","SSJ1G2","SSJ1G3","SSJ1G4","SSJ2","SSJ3","SSJRage","SSJ4","SSJ4LB","SSJ5","SSJ5G2","SSJ5G3","SSJ5G4","SSJ6","SSJ7","FLSSJ","Ikari","LSSJ1","LSSJ2","LSSJ3","LSSJ4","LSSJ4LB","LSSJ5","LSSJ6","LSSJ7","SSJG","LSSJB","FSSJB","SSJB1","SSJB1G2","SSJB1G3","SSJB1G4","SSJB2","SSJB3","SSJBE","SSJR1","SSJR1G2","SSJR1G3","SSJR1G4","SSJR2","SSJR3","Divine","DR","Evil","Rampaging","Berserk","PU","Beast","UE","UI","UILB","TUI"
@@ -704,11 +762,25 @@ namespace DragonballPichu.Common.Systems
 
         public static List<string> getSpecial(string form)
         {
+            if (ModContent.GetInstance<ServerConfig>().useRandomSpecials)
+            {
+                DragonballPichuPlayer modPlayer = Main.LocalPlayer.GetModPlayer<DragonballPichuPlayer>();
+                return modPlayer.nameToStats[form].specialEffectValue;
+            }
             if (nameToSpecial.ContainsKey(form))
             {
                 return nameToSpecial[form];
             }
             return null;
+        }
+
+        public static bool getIsStackable(string form)
+        {
+            if (ModContent.GetInstance<ServerConfig>().hackerStackEverything)
+            {
+                return true;
+            }
+            return nameToIsStackable[form];
         }
 
         public static int formNameToID(string name)

@@ -26,7 +26,7 @@ namespace DragonballPichu.Common.Configs
 
         //makes the ki bar hide when over 95% full
         [DefaultValue(true)]
-        public bool hideKiBarWhenFull;
+        public bool hideKiBarWhenFull; //implemented!
 
         [Header("Cheats")]
 
