@@ -75,20 +75,29 @@ namespace DragonballPichu.Common.GUI
                 DragonballPichuUISystem modSystem = ModContent.GetInstance<DragonballPichuUISystem>();
                 if (unlock)
                 {
-                    if (modPlayer.useFormPoints(name))
-                    {
-                        modSystem.MyFormsStatsUI.unlockForm(name);
-                        //BorderColor = Colors.Green;
-                    }
-                    else if (modPlayer.unlockedForms.Contains(name))
+                    if (modPlayer.unlockedForms.Contains(name))
                     {
                         modPlayer.setSelectedForm(this.name);
                         modSystem.MyFormsStatsUI.addStatButtons(modPlayer.getSelectedFormID());
                     }
+                    else if (FormTree.isFormAvailable(name))
+                    {
+                        if (modPlayer.useFormPoints(name))
+                        {
+                            modSystem.MyFormsStatsUI.unlockForm(name);
+                            //BorderColor = Colors.Green;
+                        }
+                        else
+                        {
+                            Main.NewText(FormTree.nameToUnlockHint[name]);
+                        }
+                    }
                     else
                     {
-                        Main.NewText(FormTree.nameToUnlockHint[name]);
+                        Main.NewText("Can't access " + name + "! You are not on the right character path");
                     }
+
+                    
                 }
                 else
                 {

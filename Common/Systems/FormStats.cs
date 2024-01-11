@@ -192,7 +192,14 @@ Frantic Ki Regen [ multiplier ]
             DragonballPichuUISystem modSystem = ModContent.GetInstance<DragonballPichuUISystem>();
             if (level >= needed && !modPlayer.unlockedForms.Contains(form))
             {
-                modSystem.MyFormsStatsUI.unlockForm(form);
+                if (FormTree.isFormAvailable(form))
+                {
+                    modSystem.MyFormsStatsUI.unlockForm(form);
+                }
+                else
+                {
+                    Main.NewText("Can't access " + form + "! You are not on the right character path");
+                }
             }
         }
 
@@ -211,10 +218,19 @@ Frantic Ki Regen [ multiplier ]
             var modPlayer = Main.LocalPlayer.GetModPlayer<DragonballPichuPlayer>();
             DragonballPichuUISystem modSystem = ModContent.GetInstance<DragonballPichuUISystem>();
             if (modPlayer.unlockedForms.Contains(form)) return;
-            modSystem.MyFormsStatsUI.unlockForm(form);
-            modPlayer.currentBuff = form;
-            modPlayer.currentBuffID = FormTree.formNameToID(modPlayer.currentBuff);
-            modPlayer.isTransformed = true;
+            if (FormTree.isFormAvailable(form))
+            {
+                modSystem.MyFormsStatsUI.unlockForm(form);
+                modPlayer.currentBuff = form;
+                modPlayer.currentBuffID = FormTree.formNameToID(modPlayer.currentBuff);
+                modPlayer.isTransformed = true;
+            }
+            else
+            {
+                Main.NewText("Can't access " + form + "! You are not on the right character path");
+            }
+            
+            
         }
 
         public void increaseLevel()

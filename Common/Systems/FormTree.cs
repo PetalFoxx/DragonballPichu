@@ -878,6 +878,30 @@ namespace DragonballPichu.Common.Systems
             
         }
 
+        public static bool isFormAvailable(string form)
+        {
+            DragonballPichuPlayer modPlayer = Main.LocalPlayer.GetModPlayer<DragonballPichuPlayer>();
+            ClientConfig clientConfig = ModContent.GetInstance<ClientConfig>();
+            ServerConfig serverConfig = ModContent.GetInstance<ServerConfig>();
+            bool toReturn = true;
+
+            if (modPlayer.unlockedForms.Contains(form))
+            {
+                toReturn = false;
+            }
+            else if (serverConfig.formLocking.Contains("core") && !modPlayer.formSetsSystem.get().Contains(form))
+            {
+                toReturn = false;
+            }
+            else if (serverConfig.disabledForms.Contains(form))
+            {
+                toReturn = false;
+            }
+
+
+            return toReturn;
+        }
+
         public static Boolean canAdvance(string form)
         {
             DragonballPichuPlayer modPlayer = Main.LocalPlayer.GetModPlayer<DragonballPichuPlayer>();

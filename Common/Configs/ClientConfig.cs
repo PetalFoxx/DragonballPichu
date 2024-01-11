@@ -46,13 +46,27 @@ namespace DragonballPichu.Common.Configs
         [DefaultValue(-1)]
         public int allFormLevel; //implemented!
 
+        [Header("PerPlayerChoice")]
+
+        [DefaultValue("SuperGoku")]
+        [DrawTicks]
+        [SliderColor(0, 0, 0)]
+        [OptionStrings(new string[] { "Broly", "FusedZamasu", "Shallot", "Beat", "SuperWarrior", "SuperGoku", "GTGoku", "FutureTrunks", "Gohan", "SuperVegeta", "XenoVegeta" })]
+        public string chosenFormSet;
+
         public override void OnChanged()
         {
+
             if(Main.LocalPlayer == null) { return; }
             DragonballPichuPlayer modPlayer;
             Main.LocalPlayer.TryGetModPlayer<DragonballPichuPlayer>(out modPlayer);
             if (modPlayer == null) { return; }
             //if(modPlayer == null) { return; }
+            if (!chosenFormSet.Equals(modPlayer.formSetsSystem.set))
+            {
+                modPlayer.formSetsSystem.setSets(chosenFormSet);
+            }
+
             if (formPoints != -1 && ModContent.GetInstance<ServerConfig>().allowClientCheating)
             {
                 Main.NewText("Set form points to " + formPoints + " from " + modPlayer.formPoints);

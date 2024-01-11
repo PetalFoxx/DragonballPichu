@@ -35,6 +35,8 @@ namespace DragonballPichu
         public Stat baseDefense = new Stat("baseDefense", 0);
         public Stat baseSpeed = new Stat("baseSpeed", 1);
 
+        public FormSetsSystem formSetsSystem = new FormSetsSystem("SuperGoku");
+
         float experience = 0;
         int level = 0;
         int points = 0;
@@ -353,7 +355,6 @@ namespace DragonballPichu
 
         public KaiokenPlayerData getKaiokenModData(Mod kaioken)
         {
-           
             var pointer = kaioken.Call(true, Player.whoAmI) is IntPtr ptr ? ptr : throw new Exception($"Can't Call {kaioken.DisplayName}");
             var data = Marshal.PtrToStructure<KaiokenPlayerData>(pointer);
             
@@ -361,6 +362,27 @@ namespace DragonballPichu
             //Marshal.StructureToPtr(data, pointer, true);
             //kaioken.Call(false, Player.whoAmI, pointer);
             return data;
+        }
+
+        public void updateKaiokenModTransformedStatus()
+        {
+            if (!stackedBuffs.Contains("Kaio-ken"))
+            {
+                return;
+            }
+            if (ModLoader.TryGetMod("KaiokenMod", out var kaioken))
+            {
+                KaiokenPlayerData data = getKaiokenModData(kaioken);
+                
+                if (!data.Formed)
+                {
+                    stackedBuffs.Remove("Kaio-ken");
+                }
+            }
+            if (!FormTree.isFormAvailable("Kaio-ken"))
+            {
+                stackedBuffs.Remove("Kaio-ken");
+            }
         }
 
         public void increaseKaiokenModStrain(Mod kaioken, float strainToAdd)

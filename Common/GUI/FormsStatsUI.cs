@@ -863,7 +863,14 @@ namespace DragonballPichu.Common.GUI
                 }
                 foreach (string form in modPlayer.unlockLoaded)
                 {
-                    unlockForm(form);
+                    if (FormTree.isFormAvailable(form))
+                    {
+                        unlockForm(form);
+                    }
+                    else
+                    {
+                        Main.NewText("Can't access " + form + "! You are not on the right character path");
+                    }
                 }
                 modPlayer.unlockLoaded.Clear();
             }

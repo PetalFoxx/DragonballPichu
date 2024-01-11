@@ -258,39 +258,72 @@ namespace DragonballPichu
                 {
                     if (modPlayer.unlockedForms.Contains("FSSJ") && !modPlayer.unlockedForms.Contains("SSJ1"))
                     {
-                        modSystem.MyFormsStatsUI.unlockForm("SSJ1");
-                        modPlayer.currentBuff = "SSJ1";
-                        modPlayer.currentBuffID = FormTree.formNameToID(modPlayer.currentBuff);
-                        modPlayer.isTransformed = true;
+                        if (FormTree.isFormAvailable("SSJ1"))
+                        {
+                            modSystem.MyFormsStatsUI.unlockForm("SSJ1");
+                            modPlayer.currentBuff = "SSJ1";
+                            modPlayer.currentBuffID = FormTree.formNameToID(modPlayer.currentBuff);
+                            modPlayer.isTransformed = true;
+                        }
+                        else
+                        {
+                            Main.NewText("Can't access " + "SSJ1" + "! You are not on the right character path");
+                        }
+                        
                     }
                     if (modPlayer.unlockedForms.Contains("SSJ4LB") && !modPlayer.unlockedForms.Contains("SSJ5"))
                     {
-                        modSystem.MyFormsStatsUI.unlockForm("SSJ5");
-                        modPlayer.currentBuff = "SSJ5";
-                        modPlayer.currentBuffID = FormTree.formNameToID(modPlayer.currentBuff);
-                        modPlayer.isTransformed = true;
+                        if (FormTree.isFormAvailable("SSJ5"))
+                        {
+                            modSystem.MyFormsStatsUI.unlockForm("SSJ5");
+                            modPlayer.currentBuff = "SSJ5";
+                            modPlayer.currentBuffID = FormTree.formNameToID(modPlayer.currentBuff);
+                            modPlayer.isTransformed = true;
+                        }
+                        else
+                        {
+                            Main.NewText("Can't access " + "SSJ5" + "! You are not on the right character path");
+                        }
+                        
                     }
                     if (modPlayer.unlockedForms.Contains("LSSJ4LB") && !modPlayer.unlockedForms.Contains("LSSJ5"))
                     {
-                        modSystem.MyFormsStatsUI.unlockForm("LSSJ5");
-                        modPlayer.currentBuff = "LSSJ5";
-                        modPlayer.currentBuffID = FormTree.formNameToID(modPlayer.currentBuff);
-                        modPlayer.isTransformed = true;
+                        if (FormTree.isFormAvailable("LSSJ5"))
+                        {
+                            modSystem.MyFormsStatsUI.unlockForm("LSSJ5");
+                            modPlayer.currentBuff = "LSSJ5";
+                            modPlayer.currentBuffID = FormTree.formNameToID(modPlayer.currentBuff);
+                            modPlayer.isTransformed = true;
+                        }
+                        else
+                        {
+                            Main.NewText("Can't access " + "LSSJ5" + "! You are not on the right character path");
+                        }
+                        
                     }
                 }
                 
             }
             if (newEnemy && isBossOrMiniBoss(npc) && !modPlayer.bossesThatHitYou.Contains(npc))
             {
-                if (!modPlayer.unlockedForms.Contains("UI"))
+                if (!modPlayer.unlockedForms.Contains("UI") && (ModContent.GetInstance<ServerConfig>().allowUIInPreHardmode || Main.hardMode))
                 //if(true)
                 {
-                    modPlayer.stackedBuffs.Clear();
-                    modPlayer.stackedBuffIDs.Clear();
-                    modSystem.MyFormsStatsUI.unlockForm("UI");
-                    modPlayer.currentBuff = "UI";
-                    modPlayer.currentBuffID = FormTree.formNameToID(modPlayer.currentBuff);
-                    modPlayer.isTransformed = true;
+                    if (FormTree.isFormAvailable("UI"))
+                    {
+                        modPlayer.stackedBuffs.Clear();
+                        modPlayer.stackedBuffIDs.Clear();
+                        modSystem.MyFormsStatsUI.unlockForm("UI");
+                        modPlayer.currentBuff = "UI";
+                        modPlayer.currentBuffID = FormTree.formNameToID(modPlayer.currentBuff);
+                        modPlayer.isTransformed = true;
+                    }
+                    else
+                    {
+                        Main.NewText("Can't access " + "UI" + "! You are not on the right character path");
+                    }
+
+
                 }
             }
             if (isBossOrMiniBoss(npc) && modPlayer.bossesThatHitYou.Contains(npc))
@@ -393,7 +426,15 @@ namespace DragonballPichu
             }
             else if (modPlayer.unlockedForms.Contains(neededForm) && !modPlayer.unlockedForms.Contains(newForm))
             {
-                modSystem.MyFormsStatsUI.unlockForm(newForm);
+                if (FormTree.isFormAvailable(newForm))
+                {
+                    modSystem.MyFormsStatsUI.unlockForm(newForm);
+                }
+                else
+                {
+                    Main.NewText("Can't access " + newForm + "! You are not on the right character path");
+                }
+                
             }
         }
 
@@ -407,7 +448,14 @@ namespace DragonballPichu
             }
             else if (modPlayer.unlockedForms.Contains(neededForm) && modPlayer.unlockedForms.Contains(neededForm2) && !modPlayer.unlockedForms.Contains(newForm))
             {
-                modSystem.MyFormsStatsUI.unlockForm(newForm);
+                if (FormTree.isFormAvailable(newForm))
+                {
+                    modSystem.MyFormsStatsUI.unlockForm(newForm);
+                }
+                else
+                {
+                    Main.NewText("Can't access " + newForm + "! You are not on the right character path");
+                }
             }
         }
 
@@ -421,7 +469,15 @@ namespace DragonballPichu
             }
             else if (!modPlayer.unlockedForms.Contains(newForm))
             {
-                modSystem.MyFormsStatsUI.unlockForm(newForm);
+                if (FormTree.isFormAvailable(newForm))
+                {
+                    modSystem.MyFormsStatsUI.unlockForm(newForm);
+                }
+                else
+                {
+                    Main.NewText("Can't access " + newForm + "! You are not on the right character path");
+                }
+                
             }
         }
 
@@ -434,12 +490,29 @@ namespace DragonballPichu
             {
                 modPlayer.setUnlockCondition("Rampaging", true);
             }
-            else if((npc.TypeName.Equals("Moon Lord") || npc.TypeName == "Moon Lord's Core") && modPlayer.currentBuff.Equals("SSJG") && !modPlayer.unlockedForms.Contains("FSSJB"))
+            else if((npc.TypeName.Equals("Moon Lord") || npc.TypeName == "Moon Lord's Core") && modPlayer.currentBuff.Equals("SSJG") && (!modPlayer.unlockedForms.Contains("FSSJB") || (modPlayer.formSetsSystem.get().Contains("SSJR1"))))
             {
-                modSystem.MyFormsStatsUI.unlockForm("FSSJB");
-                modPlayer.currentBuff = "FSSJB";
-                modPlayer.currentBuffID = FormTree.formNameToID(modPlayer.currentBuff);
-                modPlayer.isTransformed = true;
+                if (modPlayer.formSetsSystem.get().Contains("SSJR1") && FormTree.isFormAvailable("SSJR1"))
+                {
+                    modSystem.MyFormsStatsUI.unlockForm("SSJR1");
+                    modPlayer.currentBuff = "SSJR1";
+                    modPlayer.currentBuffID = FormTree.formNameToID(modPlayer.currentBuff);
+                    modPlayer.isTransformed = true;
+                }
+                else
+                {
+                    if (FormTree.isFormAvailable("FSSJB"))
+                    {
+                        modSystem.MyFormsStatsUI.unlockForm("FSSJB");
+                        modPlayer.currentBuff = "FSSJB";
+                        modPlayer.currentBuffID = FormTree.formNameToID(modPlayer.currentBuff);
+                        modPlayer.isTransformed = true;
+                    }
+                    else
+                    {
+                        Main.NewText("Can't access " + "FSSJB" + "! You are not on the right character path");
+                    }
+                }
             }
             else if(npc.TypeName.Equals("Lunatic Cultist"))
             {

@@ -330,6 +330,7 @@ Configs: {
 		Headers: {
 			Cheats: Cheats(enable in server config)
 			Qol: Quality of Life
+			PerPlayerChoice: Per Player Choice
 		}
 
 		isChargingToggle: {
@@ -355,6 +356,27 @@ Configs: {
 		allFormLevel: {
 			Label: Forms Level
 			Tooltip: WARNING: Set this value to overwrite all of your form's levels with a new value... -1 to not change anything, that is also the default
+		}
+
+		chosenFormSet: {
+			Label: Chosen Form Path
+			Tooltip:
+				'''
+				Select a form path here, this only matters if the form locking setting in server config is not set to cheater. Not recommended to change in the middle of a playthrough.
+				Every character gets: FSSJ, SSJ Grades, other grades they have.
+				Being in Mediumcore gives all characters Kaio-ken, Softcore gives additional forms where it makes sense.
+					|Broly: LSSJ forms, SSJG/LSSJB
+					|FusedZamasu: SSJG/SSJR, Evil, Kaio-ken
+					|Shallot: SSJ2/3, SSJG/SSJB, Ikari
+					|Beat: SSJ2-4LB, SSJG/SSJB, UI, TUI
+					|SuperWarrior: SSJ2/3, SSJG/SSJB/SSJBE, PU/Beast, Evil, UI/TUI, Kaio-ken
+					|SuperGoku: SSJ2/3, SSJG/SSJB, UI/TUI/UILB, PU, Kaio-ken
+					|GTGoku: SSJ2-4LB, PU, Kaio-ken
+					|FutureTrunks: SSJ2/SSJRage
+					|Gohan: SSJ2-4, PU/Beast
+					|SuperVegeta: SSJ2, SSJG/SSJB/SSJBE, Evil, UE
+					|XenoVegeta: SSJ2-4LB, Evil
+				'''
 		}
 	}
 
@@ -477,6 +499,11 @@ Configs: {
 				x^e: starts super cheap, but grows mostly linearly, ending up the second most expensive
 				1.1^x: starts out the cheapest by far, and stays that way for a long time, before you eventually reach a massive wall where it becomes the most expensive by a long shot
 				'''
+		}
+
+		allowUIInPreHardmode: {
+			Label: Allow UI In Pre Hardmode?
+			Tooltip: False: Locks UI until Hardmode; True: No Hardmode lock
 		}
 	}
 }

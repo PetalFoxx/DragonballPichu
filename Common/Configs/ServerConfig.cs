@@ -118,8 +118,10 @@ namespace DragonballPichu.Common.Configs
         [OptionStrings(new string[] { "Default", "Hardcore", "Mediumcore", "Softcore", "Cheater" })]
         public string formLocking;
 
+
+
         //requires this level in the previous form(s) in order to progress to the next
-        
+
         [Increment(1)]
         [Range(0, 100)]
         [DefaultValue(0)]
@@ -131,6 +133,9 @@ namespace DragonballPichu.Common.Configs
         [SliderColor(0, 0, 0)]
         [OptionStrings(new string[] {"1.1^e", "default", "x^e", "1.1^x" })]
         public string levelScaling; //implemented!
+
+        [DefaultValue(false)]
+        public bool allowUIInPreHardmode; //implemented!
 
         //anything in here you cannot unlock or transform into
         public List<string> disabledForms; //implemented!
