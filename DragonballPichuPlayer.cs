@@ -1466,6 +1466,8 @@ namespace DragonballPichu
             setBaseDefense(0);
             setBaseSpeed(1);
 
+            levelInAll = (level / 5);
+
             increaseAll(levelInAll);
         }
         public void increaseAll(int num)

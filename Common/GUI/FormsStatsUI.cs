@@ -891,7 +891,7 @@ namespace DragonballPichu.Common.GUI
             if (selectedFormID != -1 && modPlayer.nameToStats.Keys.Contains(selectedForm))
             {
                 FormStats stats = modPlayer.nameToStats[selectedForm];
-                String drainStat = "Drain: " + roundTens(((FormTree.nameToKiDrain[selectedForm]*ModContent.GetInstance<ServerConfig>().kiDrainMulti) / stats.DivideDrain.getValue()) - (modPlayer.kiGain.getValue() * ModContent.GetInstance<ServerConfig>().kiGainMulti)) + " ki/s (-" + FormTree.nameToKiDrain[selectedForm] +" ki/s)";
+                String drainStat = "Drain: " + roundTens(((FormTree.nameToKiDrain[selectedForm]*ModContent.GetInstance<ServerConfig>().kiDrainMulti) / stats.DivideDrain.getValue()) - (modPlayer.kiGain.getValue() * ModContent.GetInstance<ServerConfig>().kiGainMulti)) + " ki/s (" + FormTree.nameToKiDrain[selectedForm] +" ki/s)";
                 String multiplyKiStat = "\nMultiply Ki: " + stats.MultKi.getValue() + "x";
                 String damageStat = "\nDamage: " + roundTens(1+((FormTree.nameToDamageBonus[selectedForm]-1) * stats.MultDamage.getValue() * ModContent.GetInstance<ServerConfig>().formAttackMulti)) + "x";
                 String defenseStat = "\nDefense: +" + ((int)(FormTree.nameToDefenseBonus[selectedForm] * stats.MultDefense.getValue() * ModContent.GetInstance<ServerConfig>().formDefenseMulti));
