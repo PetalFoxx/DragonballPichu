@@ -138,7 +138,7 @@ namespace DragonballPichu.Common.Configs
         public bool allowUIInPreHardmode; //implemented!
 
         //anything in here you cannot unlock or transform into
-        public List<string> disabledForms; //implemented!
+        public List<string> disabledForms = new List<string>(); //implemented!
 
         
 

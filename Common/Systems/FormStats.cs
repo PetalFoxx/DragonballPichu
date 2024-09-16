@@ -289,7 +289,7 @@ Frantic Ki Regen [ multiplier ]
             this.level = level;
             this.points = level;
             levelInAll = (level / 5);
-            respec();
+            //respec();
         }
 
         public Stat getStat(string statName)
@@ -326,6 +326,11 @@ Frantic Ki Regen [ multiplier ]
         public int getPoints()
         {
             return points;
+        }
+
+        public void setPoints(int setPoints)
+        {
+            points = setPoints;
         }
 
         public Boolean usePoint()
