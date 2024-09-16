@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -525,9 +526,9 @@ namespace DragonballPichu.Common.GUI
             //addFormStatButtons("SSJ1");
             //modPlayer.setSelectedForm(this.name);
             //modSystem.MyFormsStatsUI.addStatButtons(modPlayer.getSelectedFormID());
-            HideMyUI("choose");
-            HideMyUI("unlock");
-            HideMyUI("stats");
+            ShowMyUI("choose");
+            ShowMyUI("unlock");
+            ShowMyUI("stats");
         }
 
 
@@ -813,19 +814,16 @@ namespace DragonballPichu.Common.GUI
         
             //toReturn = "x\nSpecial(Not Implemented): " + roundTens(stats.Special.getValue());
             return toReturn;
-            }
-
-
+        }
 
         public void ShowMyUI(string name)
         {
             nameToVisible[name] = true;
-            
         }
 
         public void HideMyUI(string name)
         {
-            nameToVisible[name] = false;
+            nameToVisible[name] = true;
         }
 
         public void switchVisibility(string name)
@@ -893,9 +891,18 @@ namespace DragonballPichu.Common.GUI
             if (selectedFormID != -1 && modPlayer.nameToStats.Keys.Contains(selectedForm))
             {
                 FormStats stats = modPlayer.nameToStats[selectedForm];
+                String drainStat = "Drain: " + roundTens(((FormTree.nameToKiDrain[selectedForm]*ModContent.GetInstance<ServerConfig>().kiDrainMulti) / stats.DivideDrain.getValue()) - (modPlayer.kiGain.getValue() * ModContent.GetInstance<ServerConfig>().kiGainMulti)) + " ki/s (-" + FormTree.nameToKiDrain[selectedForm] +" ki/s)";
+                String multiplyKiStat = "\nMultiply Ki: " + stats.MultKi.getValue() + "x";
+                String damageStat = "\nDamage: " + roundTens(1+((FormTree.nameToDamageBonus[selectedForm]-1) * stats.MultDamage.getValue() * ModContent.GetInstance<ServerConfig>().formAttackMulti)) + "x";
+                String defenseStat = "\nDefense: +" + ((int)(FormTree.nameToDefenseBonus[selectedForm] * stats.MultDefense.getValue() * ModContent.GetInstance<ServerConfig>().formDefenseMulti));
+                String speedStat = "\nSpeed: " + roundTens(1 + ((FormTree.nameToSpeedBonus[selectedForm] - 1) * stats.MultSpeed.getValue() * ModContent.GetInstance<ServerConfig>().formSpeedMulti)) + formSpecialDisplayText();
+
+                newFormInfoText = drainStat + multiplyKiStat + damageStat + defenseStat + speedStat;
+            
+
                 //newStatsPanelText = "<- Respec " + selectedForm + ", level " + stats.getLevel() + ": " + stats.getPoints() + " Points! To next: " + round(stats.getExperience()) + "/" + round(stats.expNeededToAdvanceLevel());
                 newStatsPanelText = "Respec " +selectedForm+ "(" + stats.getPoints() + "/" + stats.getLevel() + "), (" + round(stats.getExperience()) + "/" + round(stats.expNeededToAdvanceLevel()) + ")";
-                newFormInfoText = "Drain: " + roundTens(((FormTree.nameToKiDrain[selectedForm]*ModContent.GetInstance<ServerConfig>().kiDrainMulti) / stats.DivideDrain.getValue()) - (modPlayer.kiGain.getValue() * ModContent.GetInstance<ServerConfig>().kiGainMulti)) + " ki/s\nMultiply Ki: " + stats.MultKi.getValue() + "x\nDamage: " + roundTens(1+((FormTree.nameToDamageBonus[selectedForm]-1) * stats.MultDamage.getValue() * ModContent.GetInstance<ServerConfig>().formAttackMulti)) + "x\nDefense: +" + ((int)(FormTree.nameToDefenseBonus[selectedForm] * stats.MultDefense.getValue() * ModContent.GetInstance<ServerConfig>().formDefenseMulti)) + "\nSpeed: " + roundTens(1 + ((FormTree.nameToSpeedBonus[selectedForm] - 1) * stats.MultSpeed.getValue() * ModContent.GetInstance<ServerConfig>().formSpeedMulti)) + formSpecialDisplayText();
+                
             }                                                                                                                                                                                                                                                                                                                   //(1 + ((DamageBonus-1) * formDamageMastery *  ModContent.GetInstance<ServerConfig>().formAttackMulti))
             else 
             {

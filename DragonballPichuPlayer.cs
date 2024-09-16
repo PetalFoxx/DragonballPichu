@@ -1301,17 +1301,20 @@ namespace DragonballPichu
                 }
             }
 
-            if (KeybindSystem.ShowFormMenuKeybind.JustPressed)
-            {
-                ModContent.GetInstance<DragonballPichuUISystem>().MyFormsStatsUI.switchVisibility("choose");
-            }
-            if (KeybindSystem.ShowUnlockMenuKeybind.JustPressed)
-            {
-                ModContent.GetInstance<DragonballPichuUISystem>().MyFormsStatsUI.switchVisibility("unlock");
-            }
+            // if (KeybindSystem.ShowFormMenuKeybind.JustPressed)
+            // {
+            //     ModContent.GetInstance<DragonballPichuUISystem>().switchVisibility();
+            //     //ModContent.GetInstance<DragonballPichuUISystem>().MyFormsStatsUI.switchVisibility("choose");
+            // }
+            // if (KeybindSystem.ShowUnlockMenuKeybind.JustPressed)
+            // {
+            //     ModContent.GetInstance<DragonballPichuUISystem>().switchVisibility();
+            //     //ModContent.GetInstance<DragonballPichuUISystem>().MyFormsStatsUI.switchVisibility("unlock");
+            // }
             if (KeybindSystem.ShowStatsMenuKeybind.JustPressed)
             {
-                ModContent.GetInstance<DragonballPichuUISystem>().MyFormsStatsUI.switchVisibility("stats");
+                ModContent.GetInstance<DragonballPichuUISystem>().switchVisibility();
+                //ModContent.GetInstance<DragonballPichuUISystem>().MyFormsStatsUI.switchVisibility("stats");
                 if (firstTimeOpenMenu)
                 {
                     firstTimeOpenMenu = false;
@@ -1755,6 +1758,7 @@ namespace DragonballPichu
             tag["level"] = level;
             tag["unlockedForms"] = unlockedForms;
             tag["enemyCompendium"] = enemyCompendium;
+            tag["points"] = points;
             tag["formPoints"] = formPoints;
             tag["spendFormPoints"] = spendFormPoints;
             tag["unlockConditionsKeys"] = formToUnlockCondition.Keys.ToList();
@@ -1762,6 +1766,16 @@ namespace DragonballPichu
             tag["visibleUnlocks"] = modSystem.MyFormsStatsUI.visibleUnlocks;
             tag["hardcoreAvailable"] = charactersAvailableInHardcore.ToList<string>();
             tag["softcoreAvailable"] = charactersAvailableInSoftcore.ToList<string>();
+
+            tag["maxKi"] = maxKi.value;
+            tag["kiGain"] = kiGain.value;
+            tag["kiDrain"] = kiDrain.value;
+            tag["chargeKiGain"] = chargeKiGain.value;
+            tag["baseAttack"] = baseAttack.value;
+            tag["baseDefense"] = baseDefense.value;
+            tag["baseSpeed"] = baseSpeed.value;
+
+            tag["curKi"] = curKi;
             List<string> forms = new List<string>() { "FSSJ","SSJ1","SSJ1G2","SSJ1G3","SSJ1G4","SSJ2","SSJ3","SSJRage","SSJ4","SSJ4LB","SSJ5","SSJ5G2","SSJ5G3","SSJ5G4","SSJ6","SSJ7","FLSSJ","Ikari","LSSJ1","LSSJ2","LSSJ3","LSSJ4","LSSJ4LB","LSSJ5","LSSJ6","LSSJ7","SSJG","LSSJB","FSSJB","SSJB1","SSJB1G2","SSJB1G3","SSJB1G4","SSJB2","SSJB3","SSJBE","SSJR1","SSJR1G2","SSJR1G3","SSJR1G4","SSJR2","SSJR3","Divine","DR","Evil","Rampaging","Berserk","PU","Beast","UE","UI","UILB","TUI"
 };
             foreach (string form in forms)
@@ -1772,6 +1786,15 @@ namespace DragonballPichu
                     tag[(form + "experience")] = nameToStats[form].getExperience();
                     tag[(form + "specialname")] = nameToStats[form].specialEffectValue[0];
                     tag[(form + "specialvalue")] = nameToStats[form].specialEffectValue[1];
+
+                    tag[form + "points"] = nameToStats[form].getPoints();
+
+                    tag[(form + "multki")] = nameToStats[form].MultKi.getValue();
+                    tag[(form + "dividedrain")] = nameToStats[form].DivideDrain.getValue();
+                    tag[(form + "multdamage")] = nameToStats[form].MultDamage.getValue();
+                    tag[(form + "multspeed")] = nameToStats[form].MultSpeed.getValue();
+                    tag[(form + "multdefense")] = nameToStats[form].MultDefense.getValue();
+                    tag[(form + "special")] = nameToStats[form].Special.getValue();
 
                 }
 
@@ -1794,10 +1817,25 @@ namespace DragonballPichu
                 stats.Add("baseAttack", baseAttack);
                 stats.Add("baseDefense", baseDefense);
                 stats.Add("baseSpeed", baseSpeed);
-                
-                
+            } 
+            if (tag.ContainsKey("maxKi"))
+                maxKi.setValue(tag.GetFloat("maxKi"));
+            if (tag.ContainsKey("kiGain"))
+                kiGain.setValue(tag.GetFloat("kiGain"));
+            if (tag.ContainsKey("kiDrain"))
+                kiDrain.setValue(tag.GetFloat("kiDrain"));
+            if (tag.ContainsKey("chargeKiGain"))
+                chargeKiGain.setValue(tag.GetFloat("chargeKiGain"));
+            if (tag.ContainsKey("baseAttack"))
+                baseAttack.setValue(tag.GetFloat("baseAttack"));
+            if (tag.ContainsKey("baseDefense"))
+                baseDefense.setValue(tag.GetFloat("baseDefense"));
+            if (tag.ContainsKey("baseSpeed"))
+                baseSpeed.setValue(tag.GetFloat("baseSpeed"));
 
-            }
+            if (tag.ContainsKey("curKi"))
+                curKi = tag.GetFloat("curKi");
+            
             if (nameToStats.Count == 0)
             {
                 FormTree.forms.ForEach(form =>
@@ -1809,9 +1847,14 @@ namespace DragonballPichu
             {
                 experience = tag.GetFloat("experience");
             }
+            if (tag.ContainsKey("points"))
+            {
+                points = tag.GetInt("points");
+            }
             if (tag.ContainsKey("level"))
             {
-                setLevel(tag.GetInt("level"));
+                //setLevel(tag.GetInt("level"));
+                level = tag.GetInt("level");
             }
             if (tag.ContainsKey("unlockedForms"))
             {
@@ -1868,12 +1911,29 @@ namespace DragonballPichu
                     }
                     if (tag.ContainsKey((form + "specialname")))
                     {
-                        nameToStats[form].specialEffectValue[0] = tag.Get<string>((form+"specialname"));
+                        nameToStats[form].specialEffectValue[0] = tag.Get<string>((form +"specialname"));
                     }
                     if (tag.ContainsKey((form + "specialvalue")))
                     {
                         nameToStats[form].specialEffectValue[1] = tag.Get<string>((form + "specialvalue"));
                     }
+
+                    if (tag.ContainsKey((form + "points")))
+                        nameToStats[form].setPoints(tag.Get<int>((form + "points")));
+
+                    if (tag.ContainsKey((form + "multki")))
+                        nameToStats[form].MultKi.setValue(tag.Get<float>((form + "multki")));
+                    if (tag.ContainsKey((form + "dividedrain")))
+                        nameToStats[form].DivideDrain.setValue(tag.Get<float>((form + "dividedrain")));
+                    if (tag.ContainsKey((form + "multdamage")))
+                        nameToStats[form].MultDamage.setValue(tag.Get<float>((form + "multdamage")));
+                    if (tag.ContainsKey((form + "multspeed")))
+                        nameToStats[form].MultSpeed.setValue(tag.Get<float>((form + "multspeed")));
+                    if (tag.ContainsKey((form + "multdefense")))
+                        nameToStats[form].MultDefense.setValue(tag.Get<float>((form + "multdefense")));
+                    if (tag.ContainsKey((form + "special")))
+                        nameToStats[form].MultDefense.setValue(tag.Get<float>((form + "special")));
+                    
                 }
 
             }

@@ -240,173 +240,178 @@ namespace DragonballPichu
 
 
         public override void OnKill(NPC npc)
-        {
+        {   
+
+            for (int i = 0; i < Main.maxPlayers; i++) { 
+                if (!Main.player[i].active) continue;
+                DragonballPichuPlayer modPlayer = Main.player[i].GetModPlayer<DragonballPichuPlayer>();
             
-            DragonballPichuPlayer modPlayer = Main.LocalPlayer.GetModPlayer<DragonballPichuPlayer>();
-            Boolean newEnemy = modPlayer.tryAddNewBossToCompendium(npc);
-            DragonballPichuUISystem modSystem = ModContent.GetInstance<DragonballPichuUISystem>();
-            if (npc.TypeName.ToLower().Contains("bunny") || npc.TypeName.ToLower().Contains("rabbit")){
-                if(!modSystem.MyFormsStatsUI.visibleUnlocks.Contains("Evil"))
-                    modSystem.MyFormsStatsUI.visibleUnlocks.Add("Evil");
-                if (!modPlayer.unlockedForms.Contains("Evil"))
-                    modPlayer.setUnlockCondition("Evil", true);
-            }
-            if (npc.townNPC)
-            {
-                Random r = new Random();
-                if (r.Next(100) < modPlayer.getLevel() * 5)
+                Boolean newEnemy = modPlayer.tryAddNewBossToCompendium(npc);
+                DragonballPichuUISystem modSystem = ModContent.GetInstance<DragonballPichuUISystem>();
+                if (npc.TypeName.ToLower().Contains("bunny") || npc.TypeName.ToLower().Contains("rabbit")){
+                    if (npc.playerInteraction[modPlayer.Entity.whoAmI]){
+                        if(!modSystem.MyFormsStatsUI.visibleUnlocks.Contains("Evil"))
+                            modSystem.MyFormsStatsUI.visibleUnlocks.Add("Evil");
+                        if (!modPlayer.unlockedForms.Contains("Evil"))
+                            modPlayer.setUnlockCondition("Evil", true);
+                    }
+                }
+                if (npc.townNPC)
                 {
-                    if (modPlayer.unlockedForms.Contains("FSSJ") && !modPlayer.unlockedForms.Contains("SSJ1"))
+                    Random r = new Random();
+                    if (r.Next(100) < modPlayer.getLevel() * 5)
                     {
-                        if (FormTree.isFormAvailable("SSJ1"))
+                        if (modPlayer.unlockedForms.Contains("FSSJ") && !modPlayer.unlockedForms.Contains("SSJ1"))
                         {
-                            modSystem.MyFormsStatsUI.unlockForm("SSJ1");
-                            modPlayer.currentBuff = "SSJ1";
+                            if (FormTree.isFormAvailable("SSJ1"))
+                            {
+                                modSystem.MyFormsStatsUI.unlockForm("SSJ1");
+                                modPlayer.currentBuff = "SSJ1";
+                                modPlayer.currentBuffID = FormTree.formNameToID(modPlayer.currentBuff);
+                                modPlayer.isTransformed = true;
+                            }
+                            else
+                            {
+                                Main.NewText("Can't access " + "SSJ1" + "! You are not on the right character path");
+                            }
+                            
+                        }
+                        if (modPlayer.unlockedForms.Contains("SSJ4LB") && !modPlayer.unlockedForms.Contains("SSJ5"))
+                        {
+                            if (FormTree.isFormAvailable("SSJ5"))
+                            {
+                                modSystem.MyFormsStatsUI.unlockForm("SSJ5");
+                                modPlayer.currentBuff = "SSJ5";
+                                modPlayer.currentBuffID = FormTree.formNameToID(modPlayer.currentBuff);
+                                modPlayer.isTransformed = true;
+                            }
+                            else
+                            {
+                                Main.NewText("Can't access " + "SSJ5" + "! You are not on the right character path");
+                            }
+                            
+                        }
+                        if (modPlayer.unlockedForms.Contains("LSSJ4LB") && !modPlayer.unlockedForms.Contains("LSSJ5"))
+                        {
+                            if (FormTree.isFormAvailable("LSSJ5"))
+                            {
+                                modSystem.MyFormsStatsUI.unlockForm("LSSJ5");
+                                modPlayer.currentBuff = "LSSJ5";
+                                modPlayer.currentBuffID = FormTree.formNameToID(modPlayer.currentBuff);
+                                modPlayer.isTransformed = true;
+                            }
+                            else
+                            {
+                                Main.NewText("Can't access " + "LSSJ5" + "! You are not on the right character path");
+                            }
+                            
+                        }
+                    }
+                    
+                }
+                if (newEnemy && isBossOrMiniBoss(npc) && !modPlayer.bossesThatHitYou.Contains(npc))
+                {
+                    if (!modPlayer.unlockedForms.Contains("UI") && (ModContent.GetInstance<ServerConfig>().allowUIInPreHardmode || Main.hardMode))
+                    //if(true)
+                    {
+                        if (FormTree.isFormAvailable("UI"))
+                        {
+                            modPlayer.stackedBuffs.Clear();
+                            modPlayer.stackedBuffIDs.Clear();
+                            modSystem.MyFormsStatsUI.unlockForm("UI");
+                            modPlayer.currentBuff = "UI";
                             modPlayer.currentBuffID = FormTree.formNameToID(modPlayer.currentBuff);
                             modPlayer.isTransformed = true;
                         }
                         else
                         {
-                            Main.NewText("Can't access " + "SSJ1" + "! You are not on the right character path");
+                            Main.NewText("Can't access " + "UI" + "! You are not on the right character path");
                         }
-                        
+
+
                     }
-                    if (modPlayer.unlockedForms.Contains("SSJ4LB") && !modPlayer.unlockedForms.Contains("SSJ5"))
-                    {
-                        if (FormTree.isFormAvailable("SSJ5"))
-                        {
-                            modSystem.MyFormsStatsUI.unlockForm("SSJ5");
-                            modPlayer.currentBuff = "SSJ5";
-                            modPlayer.currentBuffID = FormTree.formNameToID(modPlayer.currentBuff);
-                            modPlayer.isTransformed = true;
-                        }
-                        else
-                        {
-                            Main.NewText("Can't access " + "SSJ5" + "! You are not on the right character path");
-                        }
-                        
-                    }
-                    if (modPlayer.unlockedForms.Contains("LSSJ4LB") && !modPlayer.unlockedForms.Contains("LSSJ5"))
-                    {
-                        if (FormTree.isFormAvailable("LSSJ5"))
-                        {
-                            modSystem.MyFormsStatsUI.unlockForm("LSSJ5");
-                            modPlayer.currentBuff = "LSSJ5";
-                            modPlayer.currentBuffID = FormTree.formNameToID(modPlayer.currentBuff);
-                            modPlayer.isTransformed = true;
-                        }
-                        else
-                        {
-                            Main.NewText("Can't access " + "LSSJ5" + "! You are not on the right character path");
-                        }
-                        
-                    }
+                }
+                if (isBossOrMiniBoss(npc) && modPlayer.bossesThatHitYou.Contains(npc))
+                {
+                    modPlayer.bossesThatHitYou.Remove(npc);
                 }
                 
-            }
-            if (newEnemy && isBossOrMiniBoss(npc) && !modPlayer.bossesThatHitYou.Contains(npc))
-            {
-                if (!modPlayer.unlockedForms.Contains("UI") && (ModContent.GetInstance<ServerConfig>().allowUIInPreHardmode || Main.hardMode))
-                //if(true)
+                base.OnKill(npc);
+                
+
+            
+                
+                float xpToGain = npc.lifeMax / 10f;
+                //if (newEnemy)
+                //{
+                //    xpToGain *= 10;
+                //}
+                xpToGain *= modPlayer.accessoryExperienceMulti * ModContent.GetInstance<ServerConfig>().expMulti;
+
+                if (newEnemy && npc.playerInteraction[modPlayer.Entity.whoAmI])
                 {
-                    if (FormTree.isFormAvailable("UI"))
+                    if (isBossOrMiniBoss(npc) && formPointsValue.Keys.Contains(npc.TypeName))
                     {
-                        modPlayer.stackedBuffs.Clear();
-                        modPlayer.stackedBuffIDs.Clear();
-                        modSystem.MyFormsStatsUI.unlockForm("UI");
-                        modPlayer.currentBuff = "UI";
-                        modPlayer.currentBuffID = FormTree.formNameToID(modPlayer.currentBuff);
-                        modPlayer.isTransformed = true;
+                        Main.NewText("Gained " + getFormPointsValue(npc.TypeName) + " form points for killing " + npc.TypeName);
+                        modPlayer.printToLog("Gained " + getFormPointsValue(npc.TypeName) + " form points for killing " + npc.TypeName);
                     }
-                    else
+                    if (isBossOrMiniBoss(npc) && !formPointsValue.Keys.Contains(npc.TypeName))
                     {
-                        Main.NewText("Can't access " + "UI" + "! You are not on the right character path");
+                        Main.NewText("Couldn't find point value for " + npc.TypeName);
+                        modPlayer.printToLog("Couldn't find point value for " + npc.TypeName);
                     }
+                    //xpToGain *= 10;
+                    modPlayer.gainFormPoints(npc);
+                }
 
-
-                }
-            }
-            if (isBossOrMiniBoss(npc) && modPlayer.bossesThatHitYou.Contains(npc))
-            {
-                modPlayer.bossesThatHitYou.Remove(npc);
-            }
-            
-            base.OnKill(npc);
-            
-
-           
-            
-            float xpToGain = npc.lifeMax / 10f;
-            //if (newEnemy)
-            //{
-            //    xpToGain *= 10;
-            //}
-            xpToGain *= modPlayer.accessoryExperienceMulti * ModContent.GetInstance<ServerConfig>().expMulti;
-            
-
-            if (newEnemy)
-            {
-                if (isBossOrMiniBoss(npc) && formPointsValue.Keys.Contains(npc.TypeName))
+                if (modPlayer.currentBuffID != -1 && modPlayer.isTransformed)
                 {
-                    Main.NewText("Gained " + getFormPointsValue(npc.TypeName) + " form points for killing " + npc.TypeName);
-                    modPlayer.printToLog("Gained " + getFormPointsValue(npc.TypeName) + " form points for killing " + npc.TypeName);
+                    modPlayer.gainExperience(xpToGain);
+                    modPlayer.nameToStats[modPlayer.currentBuff].gainExperience(xpToGain * 2f);
+                    foreach (var buff in modPlayer.stackedBuffs)
+                    {
+                        modPlayer.nameToStats[buff].gainExperience(xpToGain * 2f);
+                    }
                 }
-                if (isBossOrMiniBoss(npc) && !formPointsValue.Keys.Contains(npc.TypeName))
+                else
                 {
-                    Main.NewText("Couldn't find point value for " + npc.TypeName);
-                    modPlayer.printToLog("Couldn't find point value for " + npc.TypeName);
+                    modPlayer.gainExperience(xpToGain * 2f);
                 }
-                //xpToGain *= 10;
-                modPlayer.gainFormPoints(npc);
-            }
-
-            if (modPlayer.currentBuffID != -1 && modPlayer.isTransformed)
-            {
-                modPlayer.gainExperience(xpToGain);
-                modPlayer.nameToStats[modPlayer.currentBuff].gainExperience(xpToGain * 2f);
-                foreach (var buff in modPlayer.stackedBuffs)
+                if (isBossOrMiniBoss(npc))
                 {
-                    modPlayer.nameToStats[buff].gainExperience(xpToGain * 2f);
-                }
-            }
-            else
-            {
-                modPlayer.gainExperience(xpToGain * 2f);
-            }
-            if (isBossOrMiniBoss(npc))
-            {
-                if (!modSystem.MyFormsStatsUI.visibleUnlocks.Contains("FSSJ")){
-                    modSystem.MyFormsStatsUI.visibleUnlocks.Add("FSSJ");
-                }
-                if (npc.TypeName == "Wall of Flesh")
-                {
-                    unlockAndMaybeTransform("SSJ1G4", "SSJ2");
-                    unlockAndMaybeTransform("FLSSJ", "LSSJ1");
-                }
-                if(npc.TypeName == "Retinazer" || npc.TypeName == "Spazmatism" || npc.TypeName == "The Destroyer" || npc.TypeName == "Skeletron Prime" || npc.TypeName == "Mechdusa")
-                {
-                    unlockAndMaybeTransform("SSJ2", "SSJ3");
-                    unlockAndMaybeTransform("LSSJ1", "LSSJ2");
-                }
-                if(npc.TypeName == "Plantera")
-                {
-                    unlockAndMaybeTransform("SSJ3", "SSJ4");
-                    unlockAndMaybeTransform("LSSJ2", "LSSJ3");
-                }
-                if(npc.TypeName == "Golem")
-                {
-                    unlockAndMaybeTransform("SSJ4", "SSJ4LB");
-                    unlockAndMaybeTransform("LSSJ3", "LSSJ4");
-                }
-                if(npc.TypeName == "Lunatic Cultist")
-                {
-                    unlockAndMaybeTransform("SSJG");
-                }
-                if(npc.TypeName == "Moon Lord" || npc.TypeName == "Moon Lord's Core")
-                {
-                    unlockAndMaybeTransform("FSSJB", "SSJB1");
-                    unlockAndMaybeTransform("LSSJ4", "LSSJ4LB");
-                    unlockAndMaybeTransform("LSSJ3", "SSJG", "LSSJB");
+                    if (!modSystem.MyFormsStatsUI.visibleUnlocks.Contains("FSSJ")){
+                        modSystem.MyFormsStatsUI.visibleUnlocks.Add("FSSJ");
+                    }
+                    if (npc.TypeName == "Wall of Flesh")
+                    {
+                        unlockAndMaybeTransform("SSJ1G4", "SSJ2");
+                        unlockAndMaybeTransform("FLSSJ", "LSSJ1");
+                    }
+                    if(npc.TypeName == "Retinazer" || npc.TypeName == "Spazmatism" || npc.TypeName == "The Destroyer" || npc.TypeName == "Skeletron Prime" || npc.TypeName == "Mechdusa")
+                    {
+                        unlockAndMaybeTransform("SSJ2", "SSJ3");
+                        unlockAndMaybeTransform("LSSJ1", "LSSJ2");
+                    }
+                    if(npc.TypeName == "Plantera")
+                    {
+                        unlockAndMaybeTransform("SSJ3", "SSJ4");
+                        unlockAndMaybeTransform("LSSJ2", "LSSJ3");
+                    }
+                    if(npc.TypeName == "Golem")
+                    {
+                        unlockAndMaybeTransform("SSJ4", "SSJ4LB");
+                        unlockAndMaybeTransform("LSSJ3", "LSSJ4");
+                    }
+                    if(npc.TypeName == "Lunatic Cultist")
+                    {
+                        unlockAndMaybeTransform("SSJG");
+                    }
+                    if(npc.TypeName == "Moon Lord" || npc.TypeName == "Moon Lord's Core")
+                    {
+                        unlockAndMaybeTransform("FSSJB", "SSJB1");
+                        unlockAndMaybeTransform("LSSJ4", "LSSJ4LB");
+                        unlockAndMaybeTransform("LSSJ3", "SSJG", "LSSJB");
+                    }
                 }
             }
         }

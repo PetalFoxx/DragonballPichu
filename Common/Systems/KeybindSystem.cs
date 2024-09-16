@@ -10,8 +10,8 @@ namespace DragonballPichu.Common.Systems
         public static ModKeybind TransformKeybind { get; private set; }
         public static ModKeybind RevertFormKeybind { get; private set; }
         public static ModKeybind AltFormKeybind { get; private set; }
-        public static ModKeybind ShowFormMenuKeybind { get; private set; }
-        public static ModKeybind ShowUnlockMenuKeybind { get; private set; }
+        //public static ModKeybind ShowFormMenuKeybind { get; private set; }
+        //public static ModKeybind ShowUnlockMenuKeybind { get; private set; }
         public static ModKeybind ShowStatsMenuKeybind { get; private set; }
         public static ModKeybind AdminGiveFormPoint { get; private set; }
 
@@ -24,9 +24,9 @@ namespace DragonballPichu.Common.Systems
             ChargeKeybind = KeybindLoader.RegisterKeybind(Mod, "Charge", "C");
             RevertFormKeybind = KeybindLoader.RegisterKeybind(Mod, "RevertForm", "V");
             //ShowMenuKeybind = KeybindLoader.RegisterKeybind(Mod, "ShowMenu", "K");
-            ShowFormMenuKeybind = KeybindLoader.RegisterKeybind(Mod, "ShowFormMenu", "K");
-            ShowUnlockMenuKeybind = KeybindLoader.RegisterKeybind(Mod, "ShowUnlockMenu", "K");
-            ShowStatsMenuKeybind = KeybindLoader.RegisterKeybind(Mod, "ShowStatsMenu", "K");
+            //ShowFormMenuKeybind = KeybindLoader.RegisterKeybind(Mod, "ShowFormMenu", "K");
+            //ShowUnlockMenuKeybind = KeybindLoader.RegisterKeybind(Mod, "ShowUnlockMenu", "K");
+            ShowStatsMenuKeybind = KeybindLoader.RegisterKeybind(Mod, "ShowMenu", "K");
             AdminGiveFormPoint = KeybindLoader.RegisterKeybind(Mod, "AdminGiveFormPoint", "L");
         }
         public override void Unload()
@@ -36,8 +36,8 @@ namespace DragonballPichu.Common.Systems
             TransformKeybind = null;
             RevertFormKeybind = null;
             AltFormKeybind = null;
-            ShowFormMenuKeybind = null;
-            ShowUnlockMenuKeybind = null;
+            //ShowFormMenuKeybind = null;
+            //ShowUnlockMenuKeybind = null;
             ShowStatsMenuKeybind = null;
             AdminGiveFormPoint = null;
         }
